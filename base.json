@@ -1,0 +1,271 @@
+[   
+    { "tipo" : "Casa",
+        "localidad" : "Zarate",
+        "uso" : "Vivienda",
+        "habitaciones" : 4,
+        "banios" : 2,
+        "cochera" : true,
+        "monto" : 30000,
+        "expensas" : 5000
+    },    
+    {
+        "tipo" : "Departamento",
+        "localidad" : "Maipu",
+        "uso" : "Vivienda",
+        "habitaciones" : 3,
+        "banios" : 2,
+        "cochera" : false,
+        "monto" : 26000,
+        "expensas" : 3500
+    },    
+    {
+        "tipo" : "Departamento",
+        "localidad" : "Parana",
+        "uso" : "Vivienda",
+        "habitaciones" : 3,
+        "banios" : 2,
+        "cochera" : false,
+        "monto" : 32000,
+        "expensas" : 0
+    },    
+    {
+        "tipo" : "Departamento",
+        "localidad" : "Santa Fe",
+        "uso" : "Vivienda",
+        "habitaciones" : 2,
+        "banios" : 1,
+        "cochera" : false,
+        "monto" : 18000,
+        "expensas" : 2000
+    },    
+    {
+        "tipo" : "Casa",
+        "localidad" : "San Nicolas",
+        "uso" : "Vivienda",
+        "habitaciones" : 2,
+        "banios" : 1,
+        "cochera" : true,
+        "monto" : 22500,
+        "expensas" : 0
+    },    
+    {
+        "tipo" : "Departamento",
+        "localidad" : "Maipu",
+        "uso" : "Vivienda",
+        "habitaciones" : 3,
+        "banios" : 2,
+        "cochera" : true,
+        "monto" : 35000,
+        "expensas" : 7000
+    },    
+    {
+        "tipo" : "Departamento",
+        "localidad" : "Maipu",
+        "uso" : "Vivienda",
+        "habitaciones" : 3,
+        "banios" : 2,
+        "cochera" : false,
+        "monto" : 26000,
+        "expensas" : 3500
+    },    
+    {
+        "tipo" : "Departamento",
+        "localidad" : "Maipu",
+        "uso" : "Vivienda",
+        "habitaciones" : 3,
+        "banios" : 2,
+        "cochera" : false,
+        "monto" : 26000,
+        "expensas" : 3500
+    },    
+    {
+        "tipo" : "Departamento",
+        "localidad" : "Maipu",
+        "uso" : "Vivienda",
+        "habitaciones" : 3,
+        "banios" : 2,
+        "cochera" : false,
+        "monto" : 26000,
+        "expensas" : 3500
+    },    
+    {
+        "tipo" : "Departamento",
+        "localidad" : "Maipu",
+        "uso" : "Vivienda",
+        "habitaciones" : 3,
+        "banios" : 2,
+        "cochera" : false,
+        "monto" : 26000,
+        "expensas" : 3500
+    },    
+    {
+        "tipo" : "Departamento",
+        "localidad" : "Maipu",
+        "uso" : "Vivienda",
+        "habitaciones" : 3,
+        "banios" : 2,
+        "cochera" : false,
+        "monto" : 26000,
+        "expensas" : 3500
+    },    
+    {
+        "tipo" : "Departamento",
+        "localidad" : "Maipu",
+        "uso" : "Vivienda",
+        "habitaciones" : 3,
+        "banios" : 2,
+        "cochera" : false,
+        "monto" : 26000,
+        "expensas" : 3500
+    },    
+    {
+        "tipo" : "Departamento",
+        "localidad" : "Maipu",
+        "uso" : "Vivienda",
+        "habitaciones" : 3,
+        "banios" : 2,
+        "cochera" : false,
+        "monto" : 26000,
+        "expensas" : 3500
+    },    
+    {
+        "tipo" : "Departamento",
+        "localidad" : "Maipu",
+        "uso" : "Vivienda",
+        "habitaciones" : 3,
+        "banios" : 2,
+        "cochera" : false,
+        "monto" : 26000,
+        "expensas" : 3500
+    },    
+    {
+        "tipo" : "Departamento",
+        "localidad" : "Santa Fe",
+        "uso" : "Vivienda",
+        "habitaciones" : 3,
+        "banios" : 1,
+        "cochera" : false,
+        "monto" : 15000,
+        "expensas" : 3500
+    },    
+    {
+        "tipo" : "Casa",
+        "localidad" : "Valle María",
+        "uso" : "Vivienda",
+        "habitaciones" : 5,
+        "banios" : 2,
+        "cochera" : true,
+        "monto" : 50000,
+        "expensas" : 0
+    },    
+    {
+        "tipo" : "Departamento",
+        "localidad" : "Parana",
+        "uso" : "Vivienda",
+        "habitaciones" : 3,
+        "banios" : 2,
+        "cochera" : false,
+        "monto" : 26000,
+        "expensas" : 3500
+    },    
+    {
+        "tipo" : "Departamento",
+        "localidad" : "Maipu",
+        "uso" : "Vivienda",
+        "habitaciones" : 3,
+        "banios" : 2,
+        "cochera" : false,
+        "monto" : 26000,
+        "expensas" : 3500
+    },    
+    {
+        "tipo" : "Casa",
+        "localidad" : "Parana",
+        "uso" : "Vivienda",
+        "habitaciones" : 3,
+        "banios" : 2,
+        "cochera" : false,
+        "monto" : 26000,
+        "expensas" : 3500
+    },    
+    {
+        "tipo" : "Departamento",
+        "localidad" : "Maipu",
+        "uso" : "Vivienda",
+        "habitaciones" : 3,
+        "banios" : 2,
+        "cochera" : false,
+        "monto" : 26000,
+        "expensas" : 3500
+    },    
+    {
+        "tipo" : "Local Comercial",
+        "localidad" : "Parana",
+        "uso" : "Vivienda",
+        "habitaciones" : 3,
+        "banios" : 2,
+        "cochera" : false,
+        "monto" : 26000,
+        "expensas" : 3500
+    },    
+    {
+        "tipo" : "Casa",
+        "localidad" : "Rosario",
+        "uso" : "Vivienda",
+        "habitaciones" : 3,
+        "banios" : 2,
+        "cochera" : false,
+        "monto" : 26000,
+        "expensas" : 0
+    },    
+    {
+        "tipo" : "Casa",
+        "localidad" : "Santa Fe",
+        "uso" : "Vivienda",
+        "habitaciones" : 3,
+        "banios" : 2,
+        "cochera" : false,
+        "monto" : 26000,
+        "expensas" : 0
+    },    
+    {
+        "tipo" : "Departamento",
+        "localidad" : "Rosario",
+        "uso" : "Vivienda",
+        "habitaciones" : 3,
+        "banios" : 2,
+        "cochera" : false,
+        "monto" : 32000,
+        "expensas" : 3500
+    },    
+    {
+        "tipo" : "Departamento",
+        "localidad" : "Victoria",
+        "uso" : "Vivienda",
+        "habitaciones" : 3,
+        "banios" : 2,
+        "cochera" : false,
+        "monto" : 26000,
+        "expensas" : 3500
+    },    
+    {
+        "tipo" : "Departamento",
+        "localidad" : "Parana",
+        "uso" : "Vivienda",
+        "habitaciones" : 3,
+        "banios" : 2,
+        "cochera" : false,
+        "monto" : 26000,
+        "expensas" : 3500
+    },    
+    {
+        "tipo" : "Departamento",
+        "localidad" : "Parana",
+        "uso" : "Vivienda",
+        "habitaciones" : 3,
+        "banios" : 2,
+        "cochera" : false,
+        "monto" : 27600,
+        "expensas" : 3500
+    }
+]

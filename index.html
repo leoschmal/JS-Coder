@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>El Hornerito</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+
+<body class="bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"> <img src="media/img/robin.svg" style="width: 6rem;"alt=""> </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link active" aria-current="page" href="#">Home(de barro)</a>
+                    <a class="nav-link" href="#">Buscá</a>
+                    <a class="nav-link" href="#">Publicá</a>
+                    <a class="nav-link" href="pages/calculadora.html">Calculadora</a>
+                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Premium</a>
+                </div>
+
+            </div>
+            <div>
+                <p id="user">Usuario Desconocido</p>
+            </div>
+        </div>
+    </nav>
+<header>
+    <h1 class="titulo">El Hornerito</h1>
+    <h2 class="subtitulo">Encontra o Publicá tu alquiler</h2>
+    <!--boton para desplegar el login-->
+    <div class="contenedorBotonComenzar">
+    <button class="botonComenzar"  data-bs-toggle="collapse" data-bs-target="#colapsarFormulario"
+        aria-expanded="false" aria-controls="collapseExample">
+        Comenzá a buscar o Publicar
+    </button>
+</header>
+    </div>
+    <div class="collapse" id="colapsarFormulario">
+        <!--Formulario de inicio | identificacion de usuario-->
+        <form id="formulario2" action="submit" class="formulario" style="background-color: white;">
+            <fieldset>
+                <legend>Completá el formulario para comenzar</legend>
+                <div class="contenedor-campos">
+                    <div class="campo">
+                        <label for="nombre">Nombre</label>
+                        <input class="input-text" type="text" placeholder="Ingresá tu nombre" name="nombre" id="nombre">
+                    </div>
+                    <div class="campo">
+                        <label for="apellido">Apellido</label>
+                        <input class="input-text" type="text" placeholder="Ingresá tu apellido" name="apellido"
+                            id="apellido">
+                    </div>
+                    <div class="campo">
+                        <label for="localidad">Localidad</label>
+                        <input class="input-text" type="text" placeholder="Localidad de busqueda o publicacion"
+                            name="localidad" id="localidad">
+                    </div>
+                    <div class="campo">
+                        <label for="email">email</label>
+                        <input class="input-text" type="email" placeholder="Ingresá tu email" name="email" id="email">
+                    </div>
+                    <div class="campo">
+                        <label for="telefono">Teléfono</label>
+                        <input class="input-text" type="tel" placeholder="Ingresá tu teléfono" name="telefono"
+                            id="telefono">
+                    </div>
+                    <div class="campo">
+                        <p>¿Qué deseas hacer?</p>
+                        <div class="flex-radios">
+                            <div class="radios">
+                                <input type="radio" name="tipo" id="publica" value=Publicar>
+                                <label for="publica">Publicar</label>
+                            </div>
+                            <div class="radios">
+                                <input type="radio" name="tipo" id="publica" value=Buscar checked>
+                                <label for="busca">Buscar</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--fin contenedor-campos-->
+                <div class="enviar">
+                    <input class="boton" type="submit" value="Comenzar" name="ingresar" id="ingresar">
+                </div>
+
+            </fieldset>
+        </form>
+        <!--Fin formulario Usuario-->
+    </div>
+
+
+    <!--Formulario de Publicacion -->
+    <form id="formPublicar" action="submit" class="formulario formPubliNo" style="background-color: white;">
+        <fieldset>
+            <legend>Completá el formulario para Publicar</legend>
+            <div class="contenedor-campos">
+                <div class="campo">
+                    <label for="tipoInmueble">Tipo Inmueble</label>
+                    <input list="tipoInmuebles" name="tipoInmueble" id="tipoInmueblePublicar">
+                    <datalist id="tipoInmuebles">
+                        <option value="Departamento">
+                        <option value="Casa">
+                        <option value="Casa Quinta">
+                    </datalist>
+                </div>
+                <div class="campo">
+                    <label for="localidadInmueble">Localidad de Inmueble</label>
+                    <input class="input-text" type="text" placeholder="Localidad" name="localidadInmueble"
+                        id="localidadInmueblePublicar">
+                </div>
+                <div class="campo">
+                    <label for="tipoUso">Tipo de Uso</label>
+                    <input list="tipoUso" name="tipoUso" id="tipoUsosPublicar">
+                    <datalist id="tipoUso">
+                        <option value="Vivienda">
+                        <option value="Local Comercial">
+                        <option value="Temporal">
+                    </datalist>
+                </div>
+                <div class="campo">
+                    <label for="cantHab">Cantidad Habitaciones</label>
+                    <input type="number" name="cantHab" id="cantHabsPublicar">
+                </div>
+                <div class="campo">
+                    <label for="cantBanio">Cantidad Baños</label>
+                    <input type="number" name="cantBanio" id="cantBaniosPublicar">
+
+                </div>
+                <div class="campo">
+                    <p>¿Posee Cochera?</p>
+                    <div class="flex-radios">
+                        <div class="radios">
+                            <input type="radio" name="tipo" id="cocheraPublicar" value=cochera>
+                            <label for="publica">Si</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="campo">
+                    <label for="costoAlq">Monto Alquiler</label>
+                    <input class="input-text" type="number" placeholder="Alquiler en pesos" name="costoAlq"
+                        id="costoAlqPublicar">
+                </div>
+                <div class="campo">
+                    <label for="costoAlq">Monto Expensas</label>
+                    <input class="input-text" type="number" placeholder="Expensas en pesos" name="costoExp"
+                        id="costoExpPublicar">
+                </div>
+            </div>
+            <!--fin contenedor-campos-->
+            <div class="enviar">
+                <input class="boton" type="submit" value="Publicar" name="ingresar" id="ingresar">
+            </div>
+
+        </fieldset>
+    </form>
+    <!--Fin formulario Publicacion-->
+
+
+    <!--Formulario de Búsqueda -->
+    <form id="formBuscar" action="submit" class="formulario formBuscoNo formPubli" style="background-color: white;">
+        <fieldset>
+            <legend>Completá el formulario para Buscar</legend>
+            <div class="contenedor-campos">
+                <div class="campo">
+                    <label for="tipoInmueble">Tipo Inmueble</label>
+                    <input list="tipoInmuebles" name="tipoInmueble" id="tipoInmuebleBuscar">
+                    <datalist id="tipoInmuebles">
+                        <option value="Departamento">
+                        <option value="Casa">
+                        <option value="Casa Quinta">
+                    </datalist>
+                </div>
+                <div class="campo">
+                    <label for="localidadInmueble">Localidad de Inmueble</label>
+                    <input class="input-text" type="text" placeholder="Localidad" name="localidadInmueble"
+                        id="localidadInmuebleBuscar">
+                </div>
+                <div class="campo">
+                    <label for="tipoUso">Tipo de Uso</label>
+                    <input list="tipoUso" name="tipoUso" id="tipoUsosBuscar">
+                    <datalist id="tipoUso">
+                        <option value="Vivienda">
+                        <option value="Local Comercial">
+                        <option value="Temporal">
+                    </datalist>
+                </div>
+                <div class="campo">
+                    <label for="cantHab">Cantidad Habitaciones</label>
+                    <input type="number" name="cantHab" id="cantHabsBuscar">
+                </div>
+                <div class="campo">
+                    <label for="cantBanio">Cantidad Baños</label>
+                    <input type="number" name="cantBanio" id="cantBaniosBuscar">
+
+                </div>
+                <div class="campo">
+                    <p>¿Querés Cochera?</p>
+                    <div class="flex-radios">
+                        <div class="radios">
+                            <input type="radio" name="tipo" id="cocheraBuscar" value=Publicar>
+                            <label for="publica">Si</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="campo">
+                    <label for="costoAlq">Monto Alquiler</label>
+                    <input type="range" min="0" max="100000" list="tickmarks" step="1000" id="alqBuscar">
+                    <datalist id="tickmarks">
+                        <option value="0" label="0">
+                        <option value="10000">
+                        <option value="20000">
+                        <option value="30000">
+                        <option value="40000">
+                        <option value="50000" label="50000">
+                        <option value="60000">
+                        <option value="70000">
+                        <option value="80000">
+                        <option value="90000">
+                        <option value="100000">
+                    </datalist>
+                </div>
+                <div class="campo">
+                    <label for="costoAlq">Monto Expensas</label>
+                    <input type="range" min="0" max="50000" list="escalas" step="1000" id="expBuscar">
+                    <datalist id="escalas">
+                        <option value="0" label="0">
+                        <option value="10000">
+                        <option value="20000">
+                        <option value="30000">
+                        <option value="40000">
+                        <option value="50000" label="50000">
+                        <option value="60000">
+                        <option value="70000">
+                        <option value="80000">
+                        <option value="90000">
+                        <option value="100000">
+                    </datalist>
+                </div>
+            </div>
+            <!--fin contenedor-campos-->
+            <div class="enviar">
+                <input class="boton" type="submit" value="Buscar" name="ingresar" id="ingresar">
+            </div>
+
+        </fieldset>
+    </form>
+    <!--Fin formulario Busqueda-->
+
+
+    <section id="busqueda" class="contenedorbusqueda">
+        <h2>Resultados de Búsqueda</h2>
+    </section>
+
+
+    <footer>
+
+    </footer>
+    <!--Scripts-->
+    <!--Booststrap5-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+    <!--Main Js-->
+    <script src="js/main.js"></script>
+</body>
+
+</html>
