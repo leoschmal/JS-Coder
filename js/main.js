@@ -89,6 +89,10 @@ botonVolverDePublicar.addEventListener('click', funcionVolverDePublicar);
 function funcionVolverDeBusqueda(){
     formBuscador.classList.add("ocultar");
     formInicio.classList.remove("ocultar");
+    let resultBusq = document.getElementById("busqueda");    
+    resultBusq.innerHTML = ` `;
+    var titulo = document.getElementById("tituloBusqueda");    
+    titulo.classList.add("ocultar");
 }
 
 function funcionVolverDePublicar(){
@@ -209,29 +213,36 @@ function validarFormPubli(e){
     //Instancio el objeto con los datos ingresados
     let nuevoInmueble = new Inmueble(tipoInmueble, localidad, tipoUsos, habs, banios, cochera, alq, exp);
     //lo ingreso al array de inmueble
-    arrayDeptos.push(nuevoInmueble);
-    console.log(arrayDeptos);
-    mostrarMensajePubli("El inmueble se publicó correctamente");
+    arrayDeptos.push(nuevoInmueble);    
+    mostrarMensajePubli("El inmueble se publicó correctamente", nuevoInmueble);
     //genero las tarjetas con todos los deptos actualizados, incluso el recien ingresado
     cargoDeptos();
 }
 
 
-function mostrarMensajePubli(mensaje){
+function mostrarMensajePubli(mensaje, inmueble){
     const alerta = document.createElement('P');
     alerta.textContent = mensaje;
     alerta.classList.add('alerta');
     console.log(alerta);
     formPublicador.appendChild(alerta);
     formBuscador.appendChild(alerta);
+    console.log("publicado", inmueble);
     //mensaje dura 5 seg
     setTimeout(() => {
         alerta.remove();
-        formPublicador.remove();
-        //console.log(usuario.tipo);
-
-        
-    }, 2000);     
+        formPublicador.remove();               
+    }, 1000);  
+    let tarjetaPubli = document.getElementById("inmueblePublicado");
+    tarjetaPubli.classList.remove("ocultar");
+    let tarjeta = document.getElementById("publicacion");
+    console.log("contenido tarjeta",tarjeta);
+    let publicacion = document.createElement("div"); 
+    publicacion.classList.add('tarjetaDepto');
+    publicacion.innerHTML = `<h3 class='parrafoTarj'> Tipo: ${inmueble.tipo}</h3>
+                                    <p class='parrafoTarj'>  Localidad: ${inmueble.localidad}</p>
+                                    <b class='parrafoTarj'> $ ${inmueble.monto}</b>`; 
+    tarjeta.appendChild(publicacion); 
 }
 
 /*FORMULARIO PARA BUSCAR*/
@@ -275,20 +286,16 @@ function cargoDeptos(){
 }
 /*----------------------------Resultados Busqueda------------------------------------*/
 function muestroDeptos(objeto, localidad, tipoInmueble){
-    var titulo = document.getElementById("tituloBusqueda");
-    console.log(titulo);
+    var titulo = document.getElementById("tituloBusqueda");    
     titulo.classList.remove("ocultar");
     //array con todos los q sean de localidad parana
     let resultadoBusqueda = [];
     const filtroBusqueda = objeto.filter(busqueda => busqueda.localidad == localidad && busqueda.tipo === tipoInmueble);
     resultadoBusqueda = filtroBusqueda; 
     //busqueda es el id de <section> dentro del cual quiero insertar las tarjetas  
-    let resultBusq = document.getElementById("busqueda");
-    console.log(resultBusq);
+    let resultBusq = document.getElementById("busqueda");    
     resultBusq.innerHTML = ` `;
-    //Habilito el Titulo de la seccion Busqueda
-    
-    
+
     for(elemento of resultadoBusqueda){     
         let contenedor = document.createElement("div"); 
         contenedor.classList.add('tarjetaDeptoBusqueda');          
