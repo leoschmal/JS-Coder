@@ -71,17 +71,30 @@ leerJSon("base.json", function(text){
     cargoDeptos();    
 });
 
-//Evento submit en el formulario
-const formulario1 = document.getElementById("formulario2");
-const formulario2 = document.getElementById("formPublicar");
-const formulario3 = document.getElementById("formBuscar");
+//Eventos en formularios
+const formInicio = document.getElementById("formularioInicio");
+const formPublicador= document.getElementById("formPublicar");
+const formBuscador = document.getElementById("formBuscar");
+//Eventos en botones para volver a form inicio
+const botonVolverDeBusqueda = document.getElementById("volver");
+const botonVolverDePublicar = document.getElementById("volver1");
 
-console.log(formulario2);
-console.log(formulario3);
-formulario1.addEventListener('submit', validarForm);
-formulario2.addEventListener('submit', validarFormPubli);
-formulario3.addEventListener('submit', validarFormBusca);
+formInicio.addEventListener('submit', validarForm);
+formPublicador.addEventListener('submit', validarFormPubli);
+formBuscador.addEventListener('submit', validarFormBusca);
+botonVolverDeBusqueda.addEventListener('click', funcionVolverDeBusqueda);
+botonVolverDePublicar.addEventListener('click', funcionVolverDePublicar);
 
+
+function funcionVolverDeBusqueda(){
+    formBuscador.classList.add("ocultar");
+    formInicio.classList.remove("ocultar");
+}
+
+function funcionVolverDePublicar(){
+    formPublicador.classList.add("ocultar");
+    formInicio.classList.remove("ocultar");
+}
 
 
 function validarForm(e){    
@@ -122,7 +135,7 @@ function mostrarError(mensaje){
     error.textContent = mensaje;
     error.classList.add('error');
     console.log(error);
-    formulario1.appendChild(error);
+    formInicio.appendChild(error);
 
     //mensaje dura 3 seg
     setTimeout(() => {
@@ -134,7 +147,7 @@ function mostrarErrorPubli(mensaje){
     error.textContent = mensaje;
     error.classList.add('error');
     console.log(error);    
-    formulario2.appendChild(error);
+    formPublicador.appendChild(error);
     
     //mensaje dura 3 seg
     setTimeout(() => {
@@ -147,7 +160,7 @@ function mostrarErrorBusqueda(mensaje){
     error.textContent = mensaje;
     error.classList.add('error');
     console.log(error);    
-    formulario3.appendChild(error);
+    formBuscador.appendChild(error);
     
     //mensaje dura 3 seg
     setTimeout(() => {
@@ -158,32 +171,22 @@ function mostrarErrorBusqueda(mensaje){
 function mostrarMensaje(mensaje, usuario){
     const alerta = document.createElement('P');
     alerta.textContent = mensaje;
-    alerta.classList.add('alerta');
-    console.log(alerta);
-    formulario1.appendChild(alerta);
+    alerta.classList.add('alerta');    
+    formInicio.appendChild(alerta);
     //mensaje dura 5 seg
     setTimeout(() => {
         alerta.remove();
-        formulario1.remove();
-        console.log(usuario.tipo);
+        //formInicio.remove();
+        formInicio.classList.add("ocultar");        
         if(usuario.tipo === "Publicador"){
-            formulario2.classList.add("formPubli"); 
+            formPublicador.classList.remove("ocultar"); 
         }
         if (usuario.tipo === "Buscador"){
-            console.log("cargando form buscador...");
-            formulario3.classList.add("formBusco");
+            console.log("mostrando form busqueda");
+            formBuscador.classList.remove("ocultar");
         }
         
     }, 2000);     
-}
-
-
-function borroForm(usuario){
-    usuario = usuario;
-    console.log(usuario.tipo)
-    if (usuario.tipo === "Publicador"){
-        formulario1.remove();
-    }
 }
 
 /*FORMULARIO PARA PUBLICAR*/
@@ -219,12 +222,12 @@ function mostrarMensajePubli(mensaje){
     alerta.textContent = mensaje;
     alerta.classList.add('alerta');
     console.log(alerta);
-    formulario2.appendChild(alerta);
-    formulario3.appendChild(alerta);
+    formPublicador.appendChild(alerta);
+    formBuscador.appendChild(alerta);
     //mensaje dura 5 seg
     setTimeout(() => {
         alerta.remove();
-        formulario2.remove();
+        formPublicador.remove();
         //console.log(usuario.tipo);
 
         
@@ -259,6 +262,7 @@ function validarFormBusca(e){
 
 /*--------------------------------------------------------------------------*/
 function cargoDeptos(){
+    let muestras = document.getElementById("contenedorMuestras");
     for (const inmueble of arrayDeptos) {
             let contenedor = document.createElement("div");
             contenedor.classList.add('tarjetaDepto');
@@ -266,17 +270,24 @@ function cargoDeptos(){
             contenedor.innerHTML = `<h3 class='parrafoTarj'> Tipo: ${inmueble.tipo}</h3>
                                     <p class='parrafoTarj'>  Localidad: ${inmueble.localidad}</p>
                                     <b class='parrafoTarj'> $ ${inmueble.monto}</b>`;
-            document.body.appendChild(contenedor);
+            muestras.appendChild(contenedor);
         }
 }
-
+/*----------------------------Resultados Busqueda------------------------------------*/
 function muestroDeptos(objeto, localidad, tipoInmueble){
+    var titulo = document.getElementById("tituloBusqueda");
+    console.log(titulo);
+    titulo.classList.remove("ocultar");
     //array con todos los q sean de localidad parana
-    const resultadoBusqueda = objeto.filter(busqueda => busqueda.localidad == localidad && busqueda.tipo === tipoInmueble);
-    //para ver en consola si esta filtrando bien
-    console.log(resultadoBusqueda);  
+    let resultadoBusqueda = [];
+    const filtroBusqueda = objeto.filter(busqueda => busqueda.localidad == localidad && busqueda.tipo === tipoInmueble);
+    resultadoBusqueda = filtroBusqueda; 
     //busqueda es el id de <section> dentro del cual quiero insertar las tarjetas  
     let resultBusq = document.getElementById("busqueda");
+    console.log(resultBusq);
+    resultBusq.innerHTML = ` `;
+    //Habilito el Titulo de la seccion Busqueda
+    
     
     for(elemento of resultadoBusqueda){     
         let contenedor = document.createElement("div"); 
@@ -288,6 +299,4 @@ function muestroDeptos(objeto, localidad, tipoInmueble){
     }
 }
 
-function refrescarBusqueda(){
-    
-}
+

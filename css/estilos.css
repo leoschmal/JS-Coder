@@ -160,21 +160,14 @@ section{
     margin-top:5rem;
     margin-bottom:10rem;
 }
-
-/*form publicacion*/
-.formPubliNo{
-    display: none;
-    background-color: aliceblue;
+.tituloSeccion{
+    text-align: center;
 }
 
-.formPubli{
+/*utilidades form */
+.mostrar{
     display: block;
 }
-
-.formBuscoNo{
+.ocultar{
     display: none;
-    background-color: aliceblue;
-}
-.formBusco{
-    display: block;
 }

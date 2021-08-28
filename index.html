@@ -43,11 +43,12 @@
         aria-expanded="false" aria-controls="collapseExample">
         Comenzá a buscar o Publicar
     </button>
+</div>
 </header>
-    </div>
+    
     <div class="collapse" id="colapsarFormulario">
         <!--Formulario de inicio | identificacion de usuario-->
-        <form id="formulario2" action="submit" class="formulario" style="background-color: white;">
+        <form id="formularioInicio" action="submit" class="formulario" style="background-color: white;">
             <fieldset>
                 <legend>Completá el formulario para comenzar</legend>
                 <div class="contenedor-campos">
@@ -100,7 +101,7 @@
 
 
     <!--Formulario de Publicacion -->
-    <form id="formPublicar" action="submit" class="formulario formPubliNo" style="background-color: white;">
+    <form id="formPublicar" action="submit" class="formulario ocultar " style="background-color: white;">
         <fieldset>
             <legend>Completá el formulario para Publicar</legend>
             <div class="contenedor-campos">
@@ -160,6 +161,11 @@
             <div class="enviar">
                 <input class="boton" type="submit" value="Publicar" name="ingresar" id="ingresar">
             </div>
+            <div class="enviar">
+                <div class="boton" name="volver" id="volver1">
+                    <p>Volver</p>
+                </div>
+            </div>
 
         </fieldset>
     </form>
@@ -167,7 +173,7 @@
 
 
     <!--Formulario de Búsqueda -->
-    <form id="formBuscar" action="submit" class="formulario formBuscoNo formPubli" style="background-color: white;">
+    <form id="formBuscar" action="submit" class="formulario ocultar" style="background-color: white;">
         <fieldset>
             <legend>Completá el formulario para Buscar</legend>
             <div class="contenedor-campos">
@@ -251,17 +257,29 @@
             <div class="enviar">
                 <input class="boton" type="submit" value="Buscar" name="ingresar" id="ingresar">
             </div>
+            <div class="enviar">
+                <div class="boton" name="volver" id="volver">
+                    <p>Volver</p>
+                </div>
+            </div>
 
         </fieldset>
     </form>
     <!--Fin formulario Busqueda-->
 
+    <!--Contenedor de Resultados de Busquedas-->
+    <section  class="contenedorbusqueda">
+        <h2 id="tituloBusqueda" class="tituloSeccion ocultar">Resultados de Búsqueda</h2>
+        <div id="busqueda">
+            <!--Aca manipulo el DOM y HTML desde js para meter los result de busqueda-->
+        </div>
+    </section><!--Fin contenedor Busquedas-->
 
-    <section id="busqueda" class="contenedorbusqueda">
-        <h2>Resultados de Búsqueda</h2>
+    <!--Seccion de muestra estandar de inmuebles cargados-->
+    <section id="contenedorMuestras" class="contenedorMuestras">
+        <h2 class="tituloSeccion">Últimos Inmuebles Publicados</h2>
+
     </section>
-
-
     <footer>
 
     </footer>
