@@ -1,6 +1,10 @@
 /* Proyecto final JavaScript
    Buscador de ALquileres "El Hornerito" */
 //Creo las clases USUARIO e INMUEBLE
+$(window).on("load", function() {
+    $(".jm-loadingpage").fadeOut(6000);
+   });
+
 class Usuario {
     constructor(nombreUsuario, apellidoUsuario, localidadUsuario, emailUsuario, telefonoUsuario, tipoUsuario) {
         this.nombre = nombreUsuario;
@@ -16,7 +20,8 @@ class Usuario {
 }
 
 class Inmueble {
-    constructor(tipoInmueble, localidadInmueble, tipoUso, cantHab, cantBanio, cochera, montoAlq, montoExp) {
+    constructor(idInmueble, tipoInmueble, localidadInmueble, tipoUso, cantHab, cantBanio, cochera, montoAlq, montoExp, img1) {
+        this.id = idInmueble;
         this.tipo = tipoInmueble;
         this.localidad = localidadInmueble;
         this.uso = tipoUso;
@@ -25,6 +30,8 @@ class Inmueble {
         this.cochera = cochera;
         this.monto = montoAlq;
         this.expensas = montoExp;
+        this.img1 = img1;
+
     }
 }
 
@@ -35,16 +42,16 @@ let Publicador3 = new Usuario('Caramagna', 'Inmobiliaria','Parana', 'email@email
 let Publicador4 = new Usuario('Alicia Reyes', 'Particular','Parana', 'email@email.com', '123456', 'Publicador');
 
 //instancio algunos objetos inmueble, luego los agrego a un array de objetos
-let Departamento1 = new Inmueble('Casa', 'Parana', 'Vivienda', 2, 1, false, 22000, 4000);
-let Departamento2 = new Inmueble('Departamento', 'Rosario', 'Vivienda', 3, 1, true, 33000, 7000);
-let Departamento3 = new Inmueble('Departamento', 'Parana', 'Vivienda', 1, 1, false, 18000, 3000);
-let Departamento4 = new Inmueble('Local', 'Cerrito', 'Comercial', 2, 1, false, 12000, 0);
-let Departamento5 = new Inmueble('Departamento', 'Villa Urquiza', 'Vivienda', 2, 1, false, 12000, 0);
+let Departamento1 = new Inmueble(01, 'Casa', 'Parana', 'Vivienda', 2, 1, false, 22000, 4000, 'media/img/inmuebles/casa1t.jpg');
+let Departamento2 = new Inmueble(02, 'Departamento', 'Rosario', 'Vivienda', 3, 1, true, 33000, 7000, 'media/img/inmuebles/depto1t.jpg');
+let Departamento3 = new Inmueble(03, 'Departamento', 'Parana', 'Vivienda', 1, 1, false, 18000, 3000, 'media/img/inmuebles/depto2t.jpg');
+let Departamento4 = new Inmueble(04, 'Local', 'Cerrito', 'Comercial', 2, 1, false, 12000, 0, 'media/img/inmuebles/local1t.jpg');
+let Departamento5 = new Inmueble(05, 'Departamento', 'Villa Urquiza', 'Vivienda', 2, 1, false, 12000, 0, 'media/img/inmuebles/depto3t.jpg');
 const arrayDeptos = [Departamento1, Departamento2, Departamento3, Departamento4, Departamento5];
-console.log(arrayDeptos);
+//console.log(arrayDeptos);
 
-const pp = JSON.stringify(arrayDeptos);
-console.log(pp);
+//const pp = JSON.stringify(arrayDeptos);
+//console.log(pp);
 
 /*cargo un json con mas deptos publicados*/
 function leerJSon(archivo, callback) {
@@ -64,10 +71,10 @@ leerJSon("base.json", function(text){
     var arrayDeptos2 = JSON.parse(text);
     
     for (let i = 0; i < arrayDeptos2.length; i++){
-        let desdeJson = new Inmueble(arrayDeptos2[i].tipo, arrayDeptos2[i].localidad, arrayDeptos2[i].uso, arrayDeptos2[i].habitaciones, arrayDeptos2[i].banios, arrayDeptos2[i].cochera, arrayDeptos2[i].monto, arrayDeptos2[i].expensas);
+        let desdeJson = new Inmueble(arrayDeptos2[i].id, arrayDeptos2[i].tipo, arrayDeptos2[i].localidad, arrayDeptos2[i].uso, arrayDeptos2[i].habitaciones, arrayDeptos2[i].banios, arrayDeptos2[i].cochera, arrayDeptos2[i].monto, arrayDeptos2[i].expensas, arrayDeptos2 [i].img1);
         arrayDeptos.push(desdeJson);
     }
-    console.log(arrayDeptos);
+    //console.log(arrayDeptos);
     cargoDeptos();    
 });
 
@@ -280,10 +287,23 @@ function cargoDeptos(){
             //Definimos el innerHTML del elemento con una plantilla de texto
             contenedor.innerHTML = `<h3 class='parrafoTarj'> Tipo: ${inmueble.tipo}</h3>
                                     <p class='parrafoTarj'>  Localidad: ${inmueble.localidad}</p>
-                                    <b class='parrafoTarj'> $ ${inmueble.monto}</b>`;
-            muestras.appendChild(contenedor);
+                                    <img src= ${inmueble.img1} class="imgTarjeta">
+                                    <p><b class='parrafoTarj'> $ ${inmueble.monto}</b></p>
+                                    <button id="btnVer${inmueble.id}" class="btnVer boton">Detalles</button>`;
+            //meto el div creado dentro del contenedor
+            muestras.appendChild(contenedor); 
+            
+            //creo una variable para obtener el id de cada boton
+            let identificador = "btnVer"+ inmueble.id;
+            //console.log(identificador);
+
+            //obtengo el elemento(un boton) por si id
+            let detalles = document.getElementById(identificador);
+            //console.log("detalles", detalles);
+            //lo dejo a la escucha de un click y que ejecute la funcion mostrarDetalles
+            detalles.addEventListener('click', mostrarDetalles);          
         }
-}
+    }
 /*----------------------------Resultados Busqueda------------------------------------*/
 function muestroDeptos(objeto, localidad, tipoInmueble){
     var titulo = document.getElementById("tituloBusqueda");    
@@ -304,6 +324,54 @@ function muestroDeptos(objeto, localidad, tipoInmueble){
                                 <b> $ ${elemento.monto}</b>`;
         resultBusq.appendChild(contenedor);
     }
+    
 }
 
+function mostrarDetalles(e){  
+    //guardo el id del boton
+    let id= e.target.id; 
+    //expresion regular
+    var regex = /(\d+)/g;
+    //al id le dejo solo los nros con la regex
+    let nro = parseInt(id.match(regex));
+    //mis id de inmueble arrancan en 1, por eso el -1
+    let propiedad = arrayDeptos[nro-1]; 
+    //paso el nooleano a Si o No para mostrarlo
+    let cochera = propiedad['cochera'];    
+    if (cochera){
+        estacionamiento = 'Si';
+    }else{
+        estacionamiento = 'No';
+    }
+    //creo el div para mostrar en la tarjeta
+    let tarjetaDetalle = document.createElement("DIV");
+    //tarjetaDetalle.classList.add('tarjetaDeptoBusqueda');
+    tarjetaDetalle.classList.add('overlay');
+
+    //Contenido de la tarjeta 
+    tarjetaDetalle.innerHTML = `<div><p class="parrafoDetalle">${propiedad.localidad}</p>
+    <h3>Tipo:${propiedad.tipo}</h3>  
+    <p class="parrafoDetalle">Tipo de Uso: ${propiedad.uso}</p>    
+    <p class="parrafoDetalle">Cantidad de habitaciones: ${propiedad.habitaciones}</p>
+    <p class="parrafoDetalle">Cantidad de baños: ${propiedad.banios}</p>
+    <p class="parrafoDetalle">Cochera: ${estacionamiento}</p>    
+    <p class="parrafoDetalle">Alquiler Mesual: $ ${propiedad.monto}</p>
+    <p class="parrafoDetalle">Expensas Aprox: $ ${propiedad.expensas}</p></div>
+    <img class="imgDetalle" src=${propiedad.img1}>`;
+    //Lo tiro al body
+    const body = document.querySelector("body");
+    body.appendChild(tarjetaDetalle);
+
+    //btn para cerrar
+    const cerrarTarjeta = document.createElement("P");
+    cerrarTarjeta.textContent = 'X';
+    cerrarTarjeta.classList.add('btnCerrar');
+    tarjetaDetalle.appendChild(cerrarTarjeta);
+
+    //para cerrar la tarjeta
+    cerrarTarjeta.addEventListener('click', function(){
+        tarjetaDetalle.remove();
+    });
+
+}
 

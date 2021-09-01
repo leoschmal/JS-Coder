@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -9,10 +9,14 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>El Hornerito</title>
     <link rel="stylesheet" href="css/estilos.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body class="bg-dark">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="jm-loadingpage">
+        <h1 style="color:black; text-align: center;">Esperá como el carpincho que ya carga....</h1>
+    </div>
+    <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#"> <img src="media/img/robin.svg" style="width: 6rem;"alt=""> </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
@@ -270,7 +274,7 @@
     <!--Contenedor de Resultados de Busquedas-->
     <section  class="contenedorbusqueda">
         <h2 id="tituloBusqueda" class="tituloSeccion ocultar">Resultados de Búsqueda</h2>
-        <div id="busqueda">
+        <div id="busqueda contenedorResultados">
             <!--Aca manipulo el DOM y HTML desde js para meter los result de busqueda-->
         </div>
     </section><!--Fin contenedor Busquedas-->
@@ -283,20 +287,25 @@
     </section>
 
     <!--Seccion de muestra estandar de inmuebles cargados-->
-    <section id="contenedorMuestras" class="contenedorMuestras">
+    <section >
         <h2 class="tituloSeccion">Últimos Inmuebles Publicados</h2>
+        <div id="contenedorMuestras" class="contenedorMuestras">
+
+        </div>
 
     </section>
     <footer>
 
     </footer>
     <!--Scripts-->
+    
     <!--Booststrap5-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
     <!--Main Js-->
     <script src="js/main.js"></script>
+    
 </body>
 
 </html>
