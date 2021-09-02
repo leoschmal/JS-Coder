@@ -20,6 +20,9 @@ header{
     padding-bottom: 1rem;
     margin-bottom: 1rem;;
 }
+p{
+    margin: 0;
+}
 .titulo{
     text-align:center;
     font-size: 10rem;
@@ -103,15 +106,36 @@ header{
      border-radius: .5rem;
      width: 100%;
      text-align: center;
-     border: none;
+     border: 2px solid black;
  }
  .boton:hover{
      cursor: pointer;
+     color: black;
+     background-color: white;
+     border: 2px solid black;
  }
-
+.botonVolver{
+    background-color: white;
+    color: black;
+    padding: 1rem 2rem;
+    margin-top: 3rem;
+    font-size: 2rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: .5rem;
+    width: 100%;
+    text-align: center;
+    border: 2px solid black;
+}
  .enviar .boton{
      width: 100%;
  }
+ .botonVolver:hover{
+    cursor: pointer;
+    color: white;
+    background-color: black;
+}
+
 .flex-radios{
     display: flex;
     justify-content: space-around;
@@ -193,7 +217,7 @@ section{
 }
 
 /*Loading page*/
-.jm-loadingpage {
+.carga {
  position: fixed;
  left: 0px;
  top: 0px;
@@ -205,9 +229,11 @@ section{
 /*Loading page*/
 
 .overlay{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content:space-around;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /*flex-wrap: wrap;*/
+    /*justify-content:space-around;*/
+    justify-items: center;
     align-items: center;
     position: fixed;
     background-color: rgba(0, 0, 0, 0.95);
@@ -216,8 +242,12 @@ section{
     top: 0rem;
     z-index: 999999;
 }
+.detalles{
+    display: block;
+    flex-wrap: wrap;
+}
 .imgDetalle{
-    width: 30%;
+    width: 80%;
     object-fit:contain;
     
 }
@@ -226,6 +256,7 @@ section{
 }
 
 .btnCerrar{
+    display: block;
     width: 5rem;
     height: 5rem;
     background-color: white;
@@ -237,4 +268,9 @@ section{
 }
 .btnCerrar:hover{
     cursor: pointer;
+}
+.contenedorBotones{
+    display: grid;
+    grid-template-columns:3fr 1fr;
+    gap: 1rem;
 }

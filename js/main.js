@@ -1,10 +1,11 @@
 /* Proyecto final JavaScript
    Buscador de ALquileres "El Hornerito" */
-//Creo las clases USUARIO e INMUEBLE
+//Mientras se carga muestro una imagen
 $(window).on("load", function() {
-    $(".jm-loadingpage").fadeOut(6000);
+    $(".carga").fadeOut(6000);
    });
-
+   
+//Creo las clases USUARIO e INMUEBLE
 class Usuario {
     constructor(nombreUsuario, apellidoUsuario, localidadUsuario, emailUsuario, telefonoUsuario, tipoUsuario) {
         this.nombre = nombreUsuario;
@@ -66,7 +67,6 @@ function leerJSon(archivo, callback) {
     rawFile.send(null);
 }
 
-
 leerJSon("base.json", function(text){
     var arrayDeptos2 = JSON.parse(text);
     
@@ -79,23 +79,29 @@ leerJSon("base.json", function(text){
 });
 
 //Eventos en formularios
-const formInicio = document.getElementById("formularioInicio");
-const formPublicador= document.getElementById("formPublicar");
-const formBuscador = document.getElementById("formBuscar");
+//const formInicio = document.getElementById("formularioInicio");
+const formInicio = $('#formularioInicio');
+const formPublicador= $("formPublicar");
+const formBuscador = $("formBuscar");
 //Eventos en botones para volver a form inicio
 const botonVolverDeBusqueda = document.getElementById("volver");
 const botonVolverDePublicar = document.getElementById("volver1");
 
-formInicio.addEventListener('submit', validarForm);
-formPublicador.addEventListener('submit', validarFormPubli);
-formBuscador.addEventListener('submit', validarFormBusca);
+formInicio.on('submit', validarForm);
+formPublicador.on('submit', validarFormPubli);
+formBuscador.on('submit', validarFormBusca);
 botonVolverDeBusqueda.addEventListener('click', funcionVolverDeBusqueda);
 botonVolverDePublicar.addEventListener('click', funcionVolverDePublicar);
 
 
+//Jquery para el toggle del form de identificacion
+$("#botonComenzar").click(() => { 
+    $("#colapsarFormulario").toggle("slow", "linear");
+});
+
 function funcionVolverDeBusqueda(){
-    formBuscador.classList.add("ocultar");
-    formInicio.classList.remove("ocultar");
+    formBuscador.addClass("ocultar");
+    formInicio.removeClass("ocultar");
     let resultBusq = document.getElementById("busqueda");    
     resultBusq.innerHTML = ` `;
     var titulo = document.getElementById("tituloBusqueda");    
@@ -103,10 +109,9 @@ function funcionVolverDeBusqueda(){
 }
 
 function funcionVolverDePublicar(){
-    formPublicador.classList.add("ocultar");
-    formInicio.classList.remove("ocultar");
+    formPublicador.addClass("ocultar");
+    formInicio.removeClass("ocultar");
 }
-
 
 function validarForm(e){    
     e.preventDefault();
@@ -142,14 +147,19 @@ function validarForm(e){
 }
 
 function mostrarError(mensaje){
-    const error = document.createElement('P');
-    error.textContent = mensaje;
-    error.classList.add('error');
-    console.log(error);
-    formInicio.appendChild(error);
+   
+    $('#formularioInicio').append(`<p id="error" class='error'> ${mensaje} </p>`);
+    console.log(mensaje);
+
+    //const error = document.createElement('P');
+    //error.textContent = mensaje;
+    //error.classList.add('error');
+    //formInicio.appendChild(error);
 
     //mensaje dura 3 seg
     setTimeout(() => {
+        //error = document.getElementById("error");
+        error = $(".error");
         error.remove();
     }, 3000);     
 }
@@ -158,7 +168,7 @@ function mostrarErrorPubli(mensaje){
     error.textContent = mensaje;
     error.classList.add('error');
     console.log(error);    
-    formPublicador.appendChild(error);
+    formPublicador.append(error);
     
     //mensaje dura 3 seg
     setTimeout(() => {
@@ -171,35 +181,33 @@ function mostrarErrorBusqueda(mensaje){
     error.textContent = mensaje;
     error.classList.add('error');
     console.log(error);    
-    formBuscador.appendChild(error);
+    formBuscador.append(error);
     
     //mensaje dura 3 seg
     setTimeout(() => {
         error.remove();
     }, 3000);     
 }
-
 function mostrarMensaje(mensaje, usuario){
     const alerta = document.createElement('P');
     alerta.textContent = mensaje;
     alerta.classList.add('alerta');    
-    formInicio.appendChild(alerta);
+    formInicio.append(alerta);
     //mensaje dura 5 seg
     setTimeout(() => {
         alerta.remove();
         //formInicio.remove();
-        formInicio.classList.add("ocultar");        
+        formInicio.addClass("ocultar");        
         if(usuario.tipo === "Publicador"){
-            formPublicador.classList.remove("ocultar"); 
+            formPublicador.removeClass("ocultar"); 
         }
         if (usuario.tipo === "Buscador"){
             console.log("mostrando form busqueda");
-            formBuscador.classList.remove("ocultar");
+            formBuscador.removeClass("ocultar");
         }
         
     }, 2000);     
 }
-
 /*FORMULARIO PARA PUBLICAR*/
 function validarFormPubli(e){
     e.preventDefault();
@@ -217,15 +225,21 @@ function validarFormPubli(e){
         mostrarErrorPubli('Todos los campos son obligatorios');
         return;
     }
+    let foto = document.getElementById("imagen").value;
+    //cambio la ruta por una conocida sino me tira error el servidor
+    foto = 'media/img/inmuebles/depto2t.jpg';
+    //le asigno el id teniendo en cuenta la longitud del arreglo de inmuebles
+    let id = arrayDeptos.length + 1;
     //Instancio el objeto con los datos ingresados
-    let nuevoInmueble = new Inmueble(tipoInmueble, localidad, tipoUsos, habs, banios, cochera, alq, exp);
+    let nuevoInmueble = new Inmueble(id, tipoInmueble, localidad, tipoUsos, habs, banios, cochera, alq, exp, foto);
     //lo ingreso al array de inmueble
     arrayDeptos.push(nuevoInmueble);    
     mostrarMensajePubli("El inmueble se publicó correctamente", nuevoInmueble);
-    //genero las tarjetas con todos los deptos actualizados, incluso el recien ingresado
+    //muestro el depto publicado
+    mostrarPublicado(nuevoInmueble);
+    //recargo las tarjetas con todos los deptos actualizados, incluso el recien ingresado
     cargoDeptos();
 }
-
 
 function mostrarMensajePubli(mensaje, inmueble){
     const alerta = document.createElement('P');
@@ -251,7 +265,6 @@ function mostrarMensajePubli(mensaje, inmueble){
                                     <b class='parrafoTarj'> $ ${inmueble.monto}</b>`; 
     tarjeta.appendChild(publicacion); 
 }
-
 /*FORMULARIO PARA BUSCAR*/
 function validarFormBusca(e){
     e.preventDefault();
@@ -270,17 +283,19 @@ function validarFormBusca(e){
         mostrarErrorBusqueda('Todos los campos son obligatorios');
         return;
     }
-    let busqueda = new Inmueble(tipoInmueble, localidad, tipoUsos, habs, banios, cochera, alq, exp);
+    let id = 0;
+    let img =' ';
+    let busqueda = new Inmueble(id, tipoInmueble, localidad, tipoUsos, habs, banios, cochera, alq, exp, img);
     console.log(busqueda);
     mostrarMensajePubli("buscando Coincidencias");
     muestroDeptos(arrayDeptos, localidad, tipoInmueble);
 
 
 }
-
 /*--------------------------------------------------------------------------*/
 function cargoDeptos(){
     let muestras = document.getElementById("contenedorMuestras");
+    muestras.innerHTML = ` `;
     for (const inmueble of arrayDeptos) {
             let contenedor = document.createElement("div");
             contenedor.classList.add('tarjetaDepto');
@@ -296,7 +311,6 @@ function cargoDeptos(){
             //creo una variable para obtener el id de cada boton
             let identificador = "btnVer"+ inmueble.id;
             //console.log(identificador);
-
             //obtengo el elemento(un boton) por si id
             let detalles = document.getElementById(identificador);
             //console.log("detalles", detalles);
@@ -336,7 +350,7 @@ function mostrarDetalles(e){
     let nro = parseInt(id.match(regex));
     //mis id de inmueble arrancan en 1, por eso el -1
     let propiedad = arrayDeptos[nro-1]; 
-    //paso el nooleano a Si o No para mostrarlo
+    //paso el booleano a Si o No para mostrarlo
     let cochera = propiedad['cochera'];    
     if (cochera){
         estacionamiento = 'Si';
@@ -349,7 +363,7 @@ function mostrarDetalles(e){
     tarjetaDetalle.classList.add('overlay');
 
     //Contenido de la tarjeta 
-    tarjetaDetalle.innerHTML = `<div><p class="parrafoDetalle">${propiedad.localidad}</p>
+    tarjetaDetalle.innerHTML = `<div class="detalles"><p class="parrafoDetalle">${propiedad.localidad}</p>
     <h3>Tipo:${propiedad.tipo}</h3>  
     <p class="parrafoDetalle">Tipo de Uso: ${propiedad.uso}</p>    
     <p class="parrafoDetalle">Cantidad de habitaciones: ${propiedad.habitaciones}</p>
@@ -357,7 +371,7 @@ function mostrarDetalles(e){
     <p class="parrafoDetalle">Cochera: ${estacionamiento}</p>    
     <p class="parrafoDetalle">Alquiler Mesual: $ ${propiedad.monto}</p>
     <p class="parrafoDetalle">Expensas Aprox: $ ${propiedad.expensas}</p></div>
-    <img class="imgDetalle" src=${propiedad.img1}>`;
+    <img class="imgDetalle" src=${propiedad.img1}></div>`;
     //Lo tiro al body
     const body = document.querySelector("body");
     body.appendChild(tarjetaDetalle);
@@ -375,3 +389,42 @@ function mostrarDetalles(e){
 
 }
 
+function mostrarPublicado(inmueble){  
+
+    let cochera = inmueble['cochera'];    
+    if (cochera){
+        estacionamiento = 'Si';
+    }else{
+        estacionamiento = 'No';
+    }
+    //creo el div para mostrar en la tarjeta
+    let tarjetaDetalle = document.createElement("DIV");
+    //tarjetaDetalle.classList.add('tarjetaDeptoBusqueda');
+    tarjetaDetalle.classList.add('overlay');
+
+    //Contenido de la tarjeta 
+    tarjetaDetalle.innerHTML = `<div><p class="parrafoDetalle">${inmueble.localidad}</p>
+    <h3>Tipo:${inmueble.tipo}</h3>  
+    <p class="parrafoDetalle">Tipo de Uso: ${inmueble.uso}</p>    
+    <p class="parrafoDetalle">Cantidad de habitaciones: ${inmueble.habitaciones}</p>
+    <p class="parrafoDetalle">Cantidad de baños: ${inmueble.banios}</p>
+    <p class="parrafoDetalle">Cochera: ${estacionamiento}</p>    
+    <p class="parrafoDetalle">Alquiler Mesual: $ ${inmueble.monto}</p>
+    <p class="parrafoDetalle">Expensas Aprox: $ ${inmueble.expensas}</p></div>
+    <img class="imgDetalle" src=${inmueble.img1}></div>`;
+    //Lo tiro al body
+    const body = document.querySelector("body");
+    body.appendChild(tarjetaDetalle);
+
+    //btn para cerrar
+    const cerrarTarjeta = document.createElement("P");
+    cerrarTarjeta.textContent = 'X';
+    cerrarTarjeta.classList.add('btnCerrar');
+    tarjetaDetalle.appendChild(cerrarTarjeta);
+
+    //para cerrar la tarjeta
+    cerrarTarjeta.addEventListener('click', function(){
+        tarjetaDetalle.remove();
+    });
+
+}
