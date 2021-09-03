@@ -150,16 +150,17 @@ function validarForm(e){
     mostrarMensaje("Datos ingresados correctamente", Usuario1);
 
     // modifico el html con el nombre de usuario en la navbar
-    let user = document.getElementById("user");
-    console.log(user.textContent);
+    let user = document.getElementById("username");
     user.textContent = nombre;
+
+    let avatar = document.getElementById("avatar");
+    avatar.src = 'media/img/carpincho.svg';
 
 }
 
 function mostrarError(mensaje){
-   
-    $('#formularioInicio').append(`<p id="error" class='error'> ${mensaje} </p>`);
-    console.log(mensaje);
+       $('#formularioInicio').append(`<p id="error" class='error'> ${mensaje} </p>`);
+    
 
     //const error = document.createElement('P');
     //error.textContent = mensaje;
@@ -173,28 +174,36 @@ function mostrarError(mensaje){
         error.remove();
     }, 3000);     
 }
+
 function mostrarErrorPubli(mensaje){
-    const error = document.createElement('P');
-    error.textContent = mensaje;
-    error.classList.add('error');
-    console.log(error);    
-    formPublicador.append(error);
+    $('#formPublicar').append(`<p id="error" class='error'> ${mensaje} </p>`);
+    
+
+    //const error = document.createElement('P');
+    //error.textContent = mensaje;
+    //error.classList.add('error');
+    //console.log(error);    
+    //formPublicador.append(error);
     
     //mensaje dura 3 seg
     setTimeout(() => {
+        error = $(".error");
         error.remove();
     }, 3000);     
 }
 
 function mostrarErrorBusqueda(mensaje){
-    const error = document.createElement('P');
-    error.textContent = mensaje;
-    error.classList.add('error');
-    console.log(error);    
-    formBuscador.append(error);
+    $('#formBuscar').append(`<p id="error" class='error'> ${mensaje} </p>`);
+
+    //const error = document.createElement('P');
+    //error.textContent = mensaje;
+    //error.classList.add('error');
+    //console.log(error);    
+    //formBuscador.append(error);
     
     //mensaje dura 3 seg
     setTimeout(() => {
+        error = $(".error");
         error.remove();
     }, 3000);     
 }
@@ -297,7 +306,7 @@ function validarFormBusca(e){
     let img =' ';
     let busqueda = new Inmueble(id, tipoInmueble, localidad, tipoUsos, habs, banios, cochera, alq, exp, img);
     console.log(busqueda);
-    //mostrarMensajePubli("buscando Coincidencias");
+    
     muestroDeptos(arrayDeptos, localidad, tipoInmueble);
 
 

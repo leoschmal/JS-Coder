@@ -176,7 +176,7 @@
         "cochera": false,
         "monto": 15000,
         "expensas": 3500,
-        "img1" : "media/img/inmuebles/depto9t.jpg"
+        "img1" : "media/img/inmuebles/depto10t.jpg"
     },
     {
         "id": 21,
@@ -188,7 +188,7 @@
         "cochera": true,
         "monto": 50000,
         "expensas": 0,
-        "img1" : "media/img/inmuebles/casa6.jpg"
+        "img1" : "media/img/inmuebles/casa9t.jpg"
     },
     {
         "id": 22,
@@ -200,7 +200,7 @@
         "cochera": false,
         "monto": 26000,
         "expensas": 3500,
-        "img1" : "media/img/inmuebles/casa6.jpg"
+        "img1" : "media/img/inmuebles/depto11t.jpg"
     },
     {
         "id": 23,
@@ -212,7 +212,7 @@
         "cochera": false,
         "monto": 26000,
         "expensas": 3500,
-        "img1" : "media/img/inmuebles/casa6.jpg"
+        "img1" : "media/img/inmuebles/depto12t.jpg"
     },
     {
         "id": 24,
@@ -224,7 +224,7 @@
         "cochera": false,
         "monto": 26000,
         "expensas": 3500,
-        "img1" : "media/img/inmuebles/casa6.jpg"
+        "img1" : "media/img/inmuebles/casa10t.jpg"
     },
     {
         "id": 25,
@@ -236,7 +236,7 @@
         "cochera": false,
         "monto": 26000,
         "expensas": 3500,
-        "img1" : "media/img/inmuebles/casa6.jpg"
+        "img1" : "media/img/inmuebles/depto13t.jpg"
     },
     {
         "id": 26,
@@ -248,19 +248,19 @@
         "cochera": false,
         "monto": 26000,
         "expensas": 3500,
-        "img1" : "media/img/inmuebles/casa6.jpg"
+        "img1" : "media/img/inmuebles/local3t.jpg"
     },
     {
         "id": 27,
-        "tipo": "Casa",
+        "tipo": "Local Comercial",
         "localidad": "Rosario",
-        "uso": "Vivienda",
+        "uso": "Comercial",
         "habitaciones": 3,
         "banios": 2,
         "cochera": false,
         "monto": 26000,
         "expensas": 0,
-        "img1" : "media/img/inmuebles/casa6.jpg"
+        "img1" : "media/img/inmuebles/local4t.jpg"
     },
     {
         "id": 28,
@@ -284,7 +284,7 @@
         "cochera": false,
         "monto": 32000,
         "expensas": 3500,
-        "img1" : "media/img/inmuebles/casa6.jpg"
+        "img1" : "media/img/inmuebles/depto14t.jpg"
     },
     {"id": 30,
         "tipo": "Departamento",
@@ -295,7 +295,7 @@
         "cochera": false,
         "monto": 26000,
         "expensas": 3500,
-        "img1" : "media/img/inmuebles/casa6.jpg"
+        "img1" : "media/img/inmuebles/depto15t.jpg"
     },
     {
         "id": 31,
@@ -307,7 +307,7 @@
         "cochera": false,
         "monto": 26000,
         "expensas": 3500,
-        "img1" : "media/img/inmuebles/casa6.jpg"
+        "img1" : "media/img/inmuebles/depto16t.jpg"
     },
     {
         "id": 32,
@@ -319,6 +319,6 @@
         "cochera": false,
         "monto": 27600,
         "expensas": 3500,
-        "img1" : "media/img/inmuebles/casa6.jpg"
+        "img1" : "media/img/inmuebles/depto17t.jpg"
     }
 ]

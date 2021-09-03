@@ -274,3 +274,11 @@ section{
     grid-template-columns:3fr 1fr;
     gap: 1rem;
 }
+.userbox{
+    display:grid;
+    align-items:center;
+    }
+.avatar{
+    width:5rem;
+    padding: 0 auto;
+}
