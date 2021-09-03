@@ -81,8 +81,8 @@ leerJSon("base.json", function(text){
 //Eventos en formularios
 //const formInicio = document.getElementById("formularioInicio");
 const formInicio = $('#formularioInicio');
-const formPublicador= $("formPublicar");
-const formBuscador = $("formBuscar");
+const formPublicador= $("#formPublicar");
+const formBuscador = $("#formBuscar");
 //Eventos en botones para volver a form inicio
 const botonVolverDeBusqueda = document.getElementById("volver");
 const botonVolverDePublicar = document.getElementById("volver1");
