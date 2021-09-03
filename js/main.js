@@ -1,5 +1,7 @@
 /* Proyecto final JavaScript
    Buscador de ALquileres "El Hornerito" */
+
+  // JQUERY
 //Mientras se carga muestro una imagen
 $(window).on("load", function() {
     $(".carga").fadeOut(6000);
@@ -29,14 +31,22 @@ class Inmueble {
         this.habitaciones = cantHab;
         this.banios = cantBanio;
         this.cochera = cochera;
-        this.monto = montoAlq;
-        this.expensas = montoExp;
+        this.monto = formato.format(montoAlq);
+        this.expensas = formato.format(montoExp);
         this.img1 = img1;
 
-    }
-}
+    }    
+};
+//le doy formato a los numeros que representan dinero
+const formato = new Intl.NumberFormat('es-AR', {
+    style: 'currency',
+    currency: 'ARG',
+    minimumFractionDigits: 0,
+});
 
-//instacio algunos objetos
+
+
+//instacio algunos objetos Usuario
 let Publicador1 = new Usuario('Lorenzon', 'Inmobiliaria','Parana', 'email@email.com', '123456', 'Publicador');
 let Publicador2 = new Usuario('Jose Perez', 'Particular','Parana', 'email@email.com', '123456', 'Publicador');
 let Publicador3 = new Usuario('Caramagna', 'Inmobiliaria','Parana', 'email@email.com', '123456', 'Publicador');
@@ -49,10 +59,6 @@ let Departamento3 = new Inmueble(03, 'Departamento', 'Parana', 'Vivienda', 1, 1,
 let Departamento4 = new Inmueble(04, 'Local', 'Cerrito', 'Comercial', 2, 1, false, 12000, 0, 'media/img/inmuebles/local1t.jpg');
 let Departamento5 = new Inmueble(05, 'Departamento', 'Villa Urquiza', 'Vivienda', 2, 1, false, 12000, 0, 'media/img/inmuebles/depto3t.jpg');
 const arrayDeptos = [Departamento1, Departamento2, Departamento3, Departamento4, Departamento5];
-//console.log(arrayDeptos);
-
-//const pp = JSON.stringify(arrayDeptos);
-//console.log(pp);
 
 /*cargo un json con mas deptos publicados*/
 function leerJSon(archivo, callback) {
@@ -74,24 +80,28 @@ leerJSon("base.json", function(text){
         let desdeJson = new Inmueble(arrayDeptos2[i].id, arrayDeptos2[i].tipo, arrayDeptos2[i].localidad, arrayDeptos2[i].uso, arrayDeptos2[i].habitaciones, arrayDeptos2[i].banios, arrayDeptos2[i].cochera, arrayDeptos2[i].monto, arrayDeptos2[i].expensas, arrayDeptos2 [i].img1);
         arrayDeptos.push(desdeJson);
     }
-    //console.log(arrayDeptos);
+    
     cargoDeptos();    
 });
 
-//Eventos en formularios
+
+
+
+//Eventos en formularios(cambie algunos a JQUERY)
 //const formInicio = document.getElementById("formularioInicio");
 const formInicio = $('#formularioInicio');
 const formPublicador= $("#formPublicar");
 const formBuscador = $("#formBuscar");
 //Eventos en botones para volver a form inicio
-const botonVolverDeBusqueda = document.getElementById("volver");
-const botonVolverDePublicar = document.getElementById("volver1");
+//const botonVolverDeBusqueda = document.getElementById("volver");
+const botonVolverDeBusqueda = $("#volver");
+const botonVolverDePublicar = $("#volver1");
 
 formInicio.on('submit', validarForm);
 formPublicador.on('submit', validarFormPubli);
 formBuscador.on('submit', validarFormBusca);
-botonVolverDeBusqueda.addEventListener('click', funcionVolverDeBusqueda);
-botonVolverDePublicar.addEventListener('click', funcionVolverDePublicar);
+botonVolverDeBusqueda.on('click', funcionVolverDeBusqueda);
+botonVolverDePublicar.on('click', funcionVolverDePublicar);
 
 
 //Jquery para el toggle del form de identificacion
@@ -246,8 +256,8 @@ function mostrarMensajePubli(mensaje, inmueble){
     alerta.textContent = mensaje;
     alerta.classList.add('alerta');
     console.log(alerta);
-    formPublicador.appendChild(alerta);
-    formBuscador.appendChild(alerta);
+    formPublicador.append(alerta);
+    formBuscador.append(alerta);
     console.log("publicado", inmueble);
     //mensaje dura 5 seg
     setTimeout(() => {
@@ -287,7 +297,7 @@ function validarFormBusca(e){
     let img =' ';
     let busqueda = new Inmueble(id, tipoInmueble, localidad, tipoUsos, habs, banios, cochera, alq, exp, img);
     console.log(busqueda);
-    mostrarMensajePubli("buscando Coincidencias");
+    //mostrarMensajePubli("buscando Coincidencias");
     muestroDeptos(arrayDeptos, localidad, tipoInmueble);
 
 

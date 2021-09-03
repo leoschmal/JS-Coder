@@ -156,15 +156,15 @@
     },
     {
         "id": 19,
-        "tipo": "Departamento",
-        "localidad": "Maipu",
-        "uso": "Vivienda",
-        "habitaciones": 3,
+        "tipo": "Casa Quinta",
+        "localidad": "Sauce Montrull",
+        "uso": "Temporal",
+        "habitaciones": 4,
         "banios": 2,
-        "cochera": false,
+        "cochera": true,
         "monto": 26000,
-        "expensas": 3500,
-        "img1" : "media/img/inmuebles/casa6.jpg"
+        "expensas": 0,
+        "img1" : "media/img/inmuebles/casa8t.jpg"
     },
     {
         "id": 20,
@@ -176,7 +176,7 @@
         "cochera": false,
         "monto": 15000,
         "expensas": 3500,
-        "img1" : "media/img/inmuebles/casa6.jpg"
+        "img1" : "media/img/inmuebles/depto9t.jpg"
     },
     {
         "id": 21,
