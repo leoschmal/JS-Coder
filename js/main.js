@@ -63,6 +63,7 @@ let Departamento3 = new Inmueble(03, 'Departamento', 'Parana', 'Vivienda', 1, 1,
 let Departamento4 = new Inmueble(04, 'Local', 'Cerrito', 'Comercial', 2, 1, false, 12000, 0, 'media/img/inmuebles/local1t.jpg');
 let Departamento5 = new Inmueble(05, 'Departamento', 'Villa Urquiza', 'Vivienda', 2, 1, false, 12000, 0, 'media/img/inmuebles/depto3t.jpg');
 const arrayDeptos = [Departamento1, Departamento2, Departamento3, Departamento4, Departamento5];
+let localidadesDisponibles=[];
 
 /*cargo un json (base.json en root)con mas deptos publicados*/
 function leerJSon(archivo, callback) {
@@ -96,14 +97,23 @@ leerJSon("base.json", function (text) {
 
     for (let j = 0; j < misDatos.length; j++) {        
         let nn = new Inmueble(misDatos[j].id, misDatos[j].tipo, misDatos[j].localidad, misDatos[j].uso, misDatos[j].habitaciones, misDatos[j].banios, misDatos[j].cochera, misDatos[j].monto, misDatos[j].expensas, misDatos[j].img1);
-        arrayDeptos.push(nn);        
+        arrayDeptos.push(nn);  
+        //cargo las localidades 
+        localidadesDisponibles.push(nn.localidad);     
     }
-        //arrayDeptos.concat(misDatos);
-        console.log(arrayDeptos);
+        //console.log(arrayDeptos);      
+        
+        //elimino localidades repetidas
+        localidadesDisponibles = [...new Set(localidadesDisponibles)];
+        //las cargo como opciones en menu desplegable de busqueda
+        for (i=0; i < localidadesDisponibles.length; i++){
+            $('#localidadInmueble').append(`<option value="${localidadesDisponibles[i]}">`);
+            }
         cargoDeptos();
 });
 
 });
+
 
 
 //Eventos en formularios(cambie algunos a JQUERY)
@@ -122,6 +132,16 @@ formBuscador.on('submit', validarFormBusca);
 botonVolverDeBusqueda.on('click', funcionVolverDeBusqueda);
 botonVolverDePublicar.on('click', funcionVolverDePublicar);
 
+//muestra el valor del change en el form buscar
+$("#alqBuscar").change(function (e) { 
+    let valor = formato.format(e.target.value);
+    $('#rangeAlq').text(`${valor}`)
+});
+
+$("#expBuscar").change(function (e) { 
+    let valor = formato.format(e.target.value);
+    $('#rangeExp').text(`${valor}`)
+});
 
 //Jquery para el toggle del form de identificacion
 $("#botonComenzar").click(() => {

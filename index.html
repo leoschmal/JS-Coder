@@ -184,11 +184,15 @@
                         <option value="Casa Quinta">
                     </datalist>
                 </div>
+
                 <div class="campo">
-                    <label for="localidadInmueble">Localidad de Inmueble</label>
-                    <input class="input-text" type="text" placeholder="Localidad" name="localidadInmueble"
-                        id="localidadInmuebleBuscar">
+                    <label for="localidadInmueble">Localidades Disponibles</label>
+                    <input list="localidadInmueble" name="localidadInmueble" id="localidadInmuebleBuscar">
+                    <datalist id="localidadInmueble">
+
+                    </datalist>
                 </div>
+
                 <div class="campo">
                     <label for="tipoUso">Tipo de Uso</label>
                     <input list="tipoUso" name="tipoUso" id="tipoUsosBuscar">
@@ -232,6 +236,7 @@
                         <option value="90000">
                         <option value="100000">
                     </datalist>
+                    <div id="rangeAlq">Alquiler máximo</div>
                 </div>
                 <div class="campo">
                     <label for="costoAlq">Monto Expensas</label>
@@ -249,6 +254,7 @@
                         <option value="90000">
                         <option value="100000">
                     </datalist>
+                    <div id="rangeExp">Expensas máximo</div>
                 </div>
             </div>
             <!--fin contenedor-campos-->
