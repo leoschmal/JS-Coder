@@ -381,6 +381,10 @@ function cargoDeptos() {
         detalles.addEventListener('click', mostrarDetalles);
     }
 }
+
+function random(min, max) {
+    return Math.floor((Math.random() * (max - min + 1)) + min);
+}
 /*----------------------------Resultados Busqueda------------------------------------*/
 function muestroDeptos(objeto, localidad, tipoInmueble) {
     //traigo el id del titulo de la seccion y lo muestro
@@ -388,22 +392,37 @@ function muestroDeptos(objeto, localidad, tipoInmueble) {
     titulo.classList.remove("ocultar");
     //array para guardar lo filtrado
     let resultadoBusqueda = [];
-
+    
     //Filtro de búsqueda (por ahora dejo solo por localidad por razones de prueba, tengo pocos inmuebles cargados)
     const filtroBusqueda = objeto.filter(busqueda => busqueda.localidad == localidad /*&& busqueda.tipo === tipoInmueble*/);
     resultadoBusqueda = filtroBusqueda;
     //busqueda es el id de <section> dentro del cual quiero insertar las tarjetas  
     let resultBusq = document.getElementById("busqueda");
     //hago esto para resetear la seccion por si tenia busquedas anteriores
+    
     resultBusq.innerHTML = ` `;
     for (elemento of resultadoBusqueda) {
+        let ran1 = random(1,54);
+        let ran2 = random(1,54);
+        let ran3 = random(1,54);
         let contenedor = document.createElement("div");
         contenedor.classList.add('tarjetaDeptoBusqueda');
         contenedor.innerHTML = `<div><h3 class="textoResultados"> Tipo: ${elemento.tipo}</h3>
                                 <p class ="textoResultados">  Localidad: ${elemento.localidad}</p>
-                                <p class="textoResultados">Costo Alquiler: <b class="textoResultados"> $ ${elemento.monto}</b></p></div>
+                                <p class="textoResultados">Costo Alquiler: <b class="textoResultados"> $ ${elemento.monto}</b></p>
+                                <button id="btnVer${elemento.id}" class="btnVer boton">Detalles</button>
+                                </div>
                                 <div>
-                                <img class="imgResultados" src="${elemento.img1}"" alt="inmueble${elemento.id}">
+                                <img class="imgResultados" src="${elemento.img1}" alt="inmueble${elemento.id}">
+                                </div>
+                                <div>
+                                <img class="imgResultados" src="media/img/inmuebles/i${ran1}.jpg" alt="inmueble${elemento.id}">
+                                </div>
+                                <div>
+                                <img class="imgResultados" src="media/img/inmuebles/i${ran2}.jpg" alt="inmueble${elemento.id}">
+                                </div>
+                                <div>
+                                <img class="imgResultados" src="media/img/inmuebles/i${ran3}.jpg" alt="inmueble${elemento.id}">
                                 </div>`;
         resultBusq.appendChild(contenedor);
     }
