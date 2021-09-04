@@ -200,6 +200,11 @@ p{
     display: grid;
     align-content: space-between;
 }
+.ref{
+    border: 1px solid black;
+    border-radius:2px;
+    margin-top: 2rem;
+}
 section{
     margin-top:5rem;
     margin-bottom:10rem;

@@ -412,6 +412,7 @@ function muestroDeptos(objeto, localidad, tipoInmueble) {
                                 <h3 class="textoResultados"> Tipo: ${elemento.tipo}</h3>
                                 <p class ="textoResultados">  Localidad: ${elemento.localidad}</p>
                                 <p class="textoResultados">Costo Alquiler: <b class="textoResultados"> $ ${elemento.monto}</b></p>
+                                <p class="textoResultados ref">NroREF: ${elemento.id}</p>
                                 </div>
                                 <div>
                                 <button id="btnVer${elemento.id}" class="btnVer boton">Detalles</button>
