@@ -276,9 +276,16 @@ section{
 }
 .userbox{
     display:grid;
-    align-items:center;
+    justify-items:center;
     }
 .avatar{
-    width:5rem;
-    padding: 0 auto;
+    width:5rem;   
+    
+}
+.bgAvatar{
+    background-color:beige;
+    border-radius: 50%; 
+}
+.username{
+    font-weight: 700;
 }

@@ -1,24 +1,28 @@
 /* Proyecto final JavaScript
    Buscador de ALquileres "El Hornerito" */
 
-  // JQUERY
+// JQUERY
 //Mientras se carga muestro una imagen
-$(window).on("load", function() {
+$(window).on("load", function () {
     $(".carga").fadeOut(6000);
-   });
-   
+});
+
+//------------cargo usuarios desde Json------------//
+//Declaro la url que uso para levantar los deptos
+
+
+
 //Creo las clases USUARIO e INMUEBLE
 class Usuario {
-    constructor(nombreUsuario, apellidoUsuario, localidadUsuario, emailUsuario, telefonoUsuario, tipoUsuario) {
+    constructor(idUsuario, nombreUsuario, apellidoUsuario, localidadUsuario, emailUsuario, telefonoUsuario, tipoUsuario, publicacionesUsuario) {
+        this.id = idUsuario;
         this.nombre = nombreUsuario;
         this.apellido = apellidoUsuario;
         this.localidad = localidadUsuario;
         this.email = emailUsuario;
         this.telefono = telefonoUsuario;
         this.tipo = tipoUsuario;
-    }
-    agregarInmueble() {
-
+        this.publicaciones = publicacionesUsuario;
     }
 }
 
@@ -34,8 +38,7 @@ class Inmueble {
         this.monto = formato.format(montoAlq);
         this.expensas = formato.format(montoExp);
         this.img1 = img1;
-
-    }    
+    }
 };
 //le doy formato a los numeros que representan dinero
 const formato = new Intl.NumberFormat('es-AR', {
@@ -47,11 +50,12 @@ const formato = new Intl.NumberFormat('es-AR', {
 
 
 //instacio algunos objetos Usuario
-let Publicador1 = new Usuario('Lorenzon', 'Inmobiliaria','Parana', 'email@email.com', '123456', 'Publicador');
-let Publicador2 = new Usuario('Jose Perez', 'Particular','Parana', 'email@email.com', '123456', 'Publicador');
-let Publicador3 = new Usuario('Caramagna', 'Inmobiliaria','Parana', 'email@email.com', '123456', 'Publicador');
-let Publicador4 = new Usuario('Alicia Reyes', 'Particular','Parana', 'email@email.com', '123456', 'Publicador');
-
+let Publicador1 = new Usuario(1, 'Lorenzon', 'Inmobiliaria', 'Parana', 'email@email.com', '123456', 'Publicador', []);
+let Publicador2 = new Usuario(2, 'Jose Perez', 'Particular', 'Parana', 'email@email.com', '123456', 'Publicador', []);
+let Publicador3 = new Usuario(3, 'Caramagna', 'Inmobiliaria', 'Parana', 'email@email.com', '123456', 'Publicador', []);
+let Publicador4 = new Usuario(4, 'Alicia Reyes', 'Particular', 'Parana', 'email@email.com', '123456', 'Publicador', []);
+//declaro la variable global usuario que va a ser a la que le asigno los datos de quien inicie sesion
+let Usuario1 ;
 //instancio algunos objetos inmueble, luego los agrego a un array de objetos
 let Departamento1 = new Inmueble(01, 'Casa', 'Parana', 'Vivienda', 2, 1, false, 22000, 4000, 'media/img/inmuebles/casa1t.jpg');
 let Departamento2 = new Inmueble(02, 'Departamento', 'Rosario', 'Vivienda', 3, 1, true, 33000, 7000, 'media/img/inmuebles/depto1t.jpg');
@@ -60,12 +64,12 @@ let Departamento4 = new Inmueble(04, 'Local', 'Cerrito', 'Comercial', 2, 1, fals
 let Departamento5 = new Inmueble(05, 'Departamento', 'Villa Urquiza', 'Vivienda', 2, 1, false, 12000, 0, 'media/img/inmuebles/depto3t.jpg');
 const arrayDeptos = [Departamento1, Departamento2, Departamento3, Departamento4, Departamento5];
 
-/*cargo un json con mas deptos publicados*/
+/*cargo un json (base.json en root)con mas deptos publicados*/
 function leerJSon(archivo, callback) {
     var rawFile = new XMLHttpRequest();
     rawFile.overrideMimeType("application/json");
     rawFile.open("GET", archivo, true);
-    rawFile.onreadystatechange = function() {
+    rawFile.onreadystatechange = function () {
         if (rawFile.readyState === 4 && rawFile.status == "200") {
             callback(rawFile.responseText);
         }
@@ -73,24 +77,39 @@ function leerJSon(archivo, callback) {
     rawFile.send(null);
 }
 
-leerJSon("base.json", function(text){
+//implemento leer json (leo lo local y lo de la API)
+leerJSon("base.json", function (text) {
     var arrayDeptos2 = JSON.parse(text);
-    
-    for (let i = 0; i < arrayDeptos2.length; i++){
-        let desdeJson = new Inmueble(arrayDeptos2[i].id, arrayDeptos2[i].tipo, arrayDeptos2[i].localidad, arrayDeptos2[i].uso, arrayDeptos2[i].habitaciones, arrayDeptos2[i].banios, arrayDeptos2[i].cochera, arrayDeptos2[i].monto, arrayDeptos2[i].expensas, arrayDeptos2 [i].img1);
+
+    for (let i = 0; i < arrayDeptos2.length; i++) {
+        let desdeJson = new Inmueble(arrayDeptos2[i].id, arrayDeptos2[i].tipo, arrayDeptos2[i].localidad, arrayDeptos2[i].uso, arrayDeptos2[i].habitaciones, arrayDeptos2[i].banios, arrayDeptos2[i].cochera, arrayDeptos2[i].monto, arrayDeptos2[i].expensas, arrayDeptos2[i].img1);
         arrayDeptos.push(desdeJson);
     }
-    
-    cargoDeptos();    
+    //Leo el Json online (API)
+    const URLGET = "https://api.jsonbin.io/v3/b/61326fedc4352e1d076851c0/latest"
+    let misDatos = [];
+    $.get(URLGET, function (respuesta, estado) {
+        if (estado === "success") {
+            misDatos = respuesta.record;
+                       
+            }    
+
+    for (let j = 0; j < misDatos.length; j++) {        
+        let nn = new Inmueble(misDatos[j].id, misDatos[j].tipo, misDatos[j].localidad, misDatos[j].uso, misDatos[j].misDatos, misDatos[j].banios, misDatos[j].cochera, misDatos[j].monto, misDatos[j].expensas, misDatos[j].img1);
+        arrayDeptos.push(nn);        
+    }
+        //arrayDeptos.concat(misDatos);
+        console.log(arrayDeptos);
+        cargoDeptos();
 });
 
-
+});
 
 
 //Eventos en formularios(cambie algunos a JQUERY)
 //const formInicio = document.getElementById("formularioInicio");
 const formInicio = $('#formularioInicio');
-const formPublicador= $("#formPublicar");
+const formPublicador = $("#formPublicar");
 const formBuscador = $("#formBuscar");
 //Eventos en botones para volver a form inicio
 //const botonVolverDeBusqueda = document.getElementById("volver");
@@ -105,25 +124,25 @@ botonVolverDePublicar.on('click', funcionVolverDePublicar);
 
 
 //Jquery para el toggle del form de identificacion
-$("#botonComenzar").click(() => { 
+$("#botonComenzar").click(() => {
     $("#colapsarFormulario").toggle("slow", "linear");
 });
 
-function funcionVolverDeBusqueda(){
+function funcionVolverDeBusqueda() {
     formBuscador.addClass("ocultar");
     formInicio.removeClass("ocultar");
-    let resultBusq = document.getElementById("busqueda");    
+    let resultBusq = document.getElementById("busqueda");
     resultBusq.innerHTML = ` `;
-    var titulo = document.getElementById("tituloBusqueda");    
+    var titulo = document.getElementById("tituloBusqueda");
     titulo.classList.add("ocultar");
 }
 
-function funcionVolverDePublicar(){
+function funcionVolverDePublicar() {
     formPublicador.addClass("ocultar");
     formInicio.removeClass("ocultar");
 }
 
-function validarForm(e){    
+function validarForm(e) {
     e.preventDefault();
     //tomo los datos ingresados en el formulario
     let nombre = document.getElementById("nombre").value;
@@ -132,20 +151,21 @@ function validarForm(e){
     let email = document.getElementById("email").value;
     let telefono = document.getElementById("telefono").value;
     let radioTipo = document.getElementById("publica").checked;
-    let tipo ='';
+    let tipo = '';
+    let id = 1;
     //Me fijo si es usuario publicador o buscador de inmuebles
-    if (radioTipo){
+    if (radioTipo) {
         tipo = 'Publicador';
-    }else{
+    } else {
         tipo = 'Buscador';
     }
 
-    if(nombre ==='' || apellido === '' || localidad === '' ||  email === '' || telefono === ''){
+    if (nombre === '' || apellido === '' || localidad === '' || email === '' || telefono === '') {
         mostrarError('Todos los campos son obligatorios');
         return;
     }
     //con los datos ingresados, instancio el objeto Usuario
-    var Usuario1 = new Usuario(nombre, apellido, localidad, email, telefono, tipo);
+    Usuario1 = new Usuario(id, nombre, apellido, localidad, email, telefono, tipo, []);
     //formulario correcto
     mostrarMensaje("Datos ingresados correctamente", Usuario1);
 
@@ -158,9 +178,9 @@ function validarForm(e){
 
 }
 
-function mostrarError(mensaje){
-       $('#formularioInicio').append(`<p id="error" class='error'> ${mensaje} </p>`);
-    
+function mostrarError(mensaje) {
+    $('#formularioInicio').append(`<p id="error" class='error'> ${mensaje} </p>`);
+
 
     //const error = document.createElement('P');
     //error.textContent = mensaje;
@@ -172,27 +192,27 @@ function mostrarError(mensaje){
         //error = document.getElementById("error");
         error = $(".error");
         error.remove();
-    }, 3000);     
+    }, 3000);
 }
 
-function mostrarErrorPubli(mensaje){
+function mostrarErrorPubli(mensaje) {
     $('#formPublicar').append(`<p id="error" class='error'> ${mensaje} </p>`);
-    
+
 
     //const error = document.createElement('P');
     //error.textContent = mensaje;
     //error.classList.add('error');
     //console.log(error);    
     //formPublicador.append(error);
-    
+
     //mensaje dura 3 seg
     setTimeout(() => {
         error = $(".error");
         error.remove();
-    }, 3000);     
+    }, 3000);
 }
 
-function mostrarErrorBusqueda(mensaje){
+function mostrarErrorBusqueda(mensaje) {
     $('#formBuscar').append(`<p id="error" class='error'> ${mensaje} </p>`);
 
     //const error = document.createElement('P');
@@ -200,35 +220,36 @@ function mostrarErrorBusqueda(mensaje){
     //error.classList.add('error');
     //console.log(error);    
     //formBuscador.append(error);
-    
+
     //mensaje dura 3 seg
     setTimeout(() => {
         error = $(".error");
         error.remove();
-    }, 3000);     
+    }, 3000);
 }
-function mostrarMensaje(mensaje, usuario){
+
+function mostrarMensaje(mensaje, usuario) {
     const alerta = document.createElement('P');
     alerta.textContent = mensaje;
-    alerta.classList.add('alerta');    
+    alerta.classList.add('alerta');
     formInicio.append(alerta);
     //mensaje dura 5 seg
     setTimeout(() => {
         alerta.remove();
         //formInicio.remove();
-        formInicio.addClass("ocultar");        
-        if(usuario.tipo === "Publicador"){
-            formPublicador.removeClass("ocultar"); 
+        formInicio.addClass("ocultar");
+        if (usuario.tipo === "Publicador") {
+            formPublicador.removeClass("ocultar");
         }
-        if (usuario.tipo === "Buscador"){
+        if (usuario.tipo === "Buscador") {
             console.log("mostrando form busqueda");
             formBuscador.removeClass("ocultar");
         }
-        
-    }, 2000);     
+
+    }, 2000);
 }
 /*FORMULARIO PARA PUBLICAR*/
-function validarFormPubli(e){
+function validarFormPubli(e) {
     e.preventDefault();
     console.log("publicando..");
     //tomo los datos ingresados en el formulario
@@ -240,7 +261,7 @@ function validarFormPubli(e){
     let cochera = document.getElementById("cocheraPublicar").checked;
     let alq = document.getElementById("costoAlqPublicar").value;
     let exp = document.getElementById("costoExpPublicar").value;
-    if(tipoInmueble ==='' || localidad === '' || tipoUsos === '' ||  habs === '' || banios === '' || cochera === '' || alq === '' || exp === ''){
+    if (tipoInmueble === '' || localidad === '' || tipoUsos === '' || habs === '' || banios === '' || cochera === '' || alq === '' || exp === '') {
         mostrarErrorPubli('Todos los campos son obligatorios');
         return;
     }
@@ -252,7 +273,7 @@ function validarFormPubli(e){
     //Instancio el objeto con los datos ingresados
     let nuevoInmueble = new Inmueble(id, tipoInmueble, localidad, tipoUsos, habs, banios, cochera, alq, exp, foto);
     //lo ingreso al array de inmueble
-    arrayDeptos.push(nuevoInmueble);    
+    arrayDeptos.push(nuevoInmueble);
     mostrarMensajePubli("El inmueble se publicó correctamente", nuevoInmueble);
     //muestro el depto publicado
     mostrarPublicado(nuevoInmueble);
@@ -260,7 +281,7 @@ function validarFormPubli(e){
     cargoDeptos();
 }
 
-function mostrarMensajePubli(mensaje, inmueble){
+function mostrarMensajePubli(mensaje, inmueble) {
     const alerta = document.createElement('P');
     alerta.textContent = mensaje;
     alerta.classList.add('alerta');
@@ -271,21 +292,21 @@ function mostrarMensajePubli(mensaje, inmueble){
     //mensaje dura 5 seg
     setTimeout(() => {
         alerta.remove();
-        formPublicador.remove();               
-    }, 1000);  
+        formPublicador.remove();
+    }, 1000);
     let tarjetaPubli = document.getElementById("inmueblePublicado");
     tarjetaPubli.classList.remove("ocultar");
     let tarjeta = document.getElementById("publicacion");
-    console.log("contenido tarjeta",tarjeta);
-    let publicacion = document.createElement("div"); 
+    console.log("contenido tarjeta", tarjeta);
+    let publicacion = document.createElement("div");
     publicacion.classList.add('tarjetaDepto');
     publicacion.innerHTML = `<h3 class='parrafoTarj'> Tipo: ${inmueble.tipo}</h3>
                                     <p class='parrafoTarj'>  Localidad: ${inmueble.localidad}</p>
-                                    <b class='parrafoTarj'> $ ${inmueble.monto}</b>`; 
-    tarjeta.appendChild(publicacion); 
+                                    <b class='parrafoTarj'> $ ${inmueble.monto}</b>`;
+    tarjeta.appendChild(publicacion);
 }
 /*FORMULARIO PARA BUSCAR*/
-function validarFormBusca(e){
+function validarFormBusca(e) {
     e.preventDefault();
     console.log("buscando...");
     //tomo los datos ingresados en el formulario
@@ -298,82 +319,82 @@ function validarFormBusca(e){
     let alq = document.getElementById("alqBuscar").value;
     let exp = document.getElementById("expBuscar").value;
 
-    if(tipoInmueble ==='' || localidad === '' || tipoUsos === '' ||  habs === '' || banios === '' || cochera === '' || alq === '' || exp === ''){
+    if (tipoInmueble === '' || localidad === '' || tipoUsos === '' || habs === '' || banios === '' || cochera === '' || alq === '' || exp === '') {
         mostrarErrorBusqueda('Todos los campos son obligatorios');
         return;
     }
     let id = 0;
-    let img =' ';
+    let img = ' ';
     let busqueda = new Inmueble(id, tipoInmueble, localidad, tipoUsos, habs, banios, cochera, alq, exp, img);
     console.log(busqueda);
-    
+
     muestroDeptos(arrayDeptos, localidad, tipoInmueble);
 
 
 }
-/*--------------------------------------------------------------------------*/
-function cargoDeptos(){
+/*----------------------------------Muestra los deptos publicados al final del body-----------------------*/
+function cargoDeptos() {
     let muestras = document.getElementById("contenedorMuestras");
     muestras.innerHTML = ` `;
     for (const inmueble of arrayDeptos) {
-            let contenedor = document.createElement("div");
-            contenedor.classList.add('tarjetaDepto');
-            //Definimos el innerHTML del elemento con una plantilla de texto
-            contenedor.innerHTML = `<h3 class='parrafoTarj'> Tipo: ${inmueble.tipo}</h3>
+        let contenedor = document.createElement("div");
+        contenedor.classList.add('tarjetaDepto');
+        //Definimos el innerHTML del elemento con una plantilla de texto
+        contenedor.innerHTML = `<h3 class='parrafoTarj'> Tipo: ${inmueble.tipo}</h3>
                                     <p class='parrafoTarj'>  Localidad: ${inmueble.localidad}</p>
                                     <img src= ${inmueble.img1} class="imgTarjeta">
                                     <p><b class='parrafoTarj'> $ ${inmueble.monto}</b></p>
                                     <button id="btnVer${inmueble.id}" class="btnVer boton">Detalles</button>`;
-            //meto el div creado dentro del contenedor
-            muestras.appendChild(contenedor); 
-            
-            //creo una variable para obtener el id de cada boton
-            let identificador = "btnVer"+ inmueble.id;
-            //console.log(identificador);
-            //obtengo el elemento(un boton) por si id
-            let detalles = document.getElementById(identificador);
-            //console.log("detalles", detalles);
-            //lo dejo a la escucha de un click y que ejecute la funcion mostrarDetalles
-            detalles.addEventListener('click', mostrarDetalles);          
-        }
+        //meto el div creado dentro del contenedor
+        muestras.appendChild(contenedor);
+
+        //creo una variable para obtener el id de cada boton
+        let identificador = "btnVer" + inmueble.id;
+        //console.log(identificador);
+        //obtengo el elemento(un boton) por si id
+        let detalles = document.getElementById(identificador);
+        //console.log("detalles", detalles);
+        //lo dejo a la escucha de un click y que ejecute la funcion mostrarDetalles
+        detalles.addEventListener('click', mostrarDetalles);
     }
+}
 /*----------------------------Resultados Busqueda------------------------------------*/
-function muestroDeptos(objeto, localidad, tipoInmueble){
-    var titulo = document.getElementById("tituloBusqueda");    
+function muestroDeptos(objeto, localidad, tipoInmueble) {
+    var titulo = document.getElementById("tituloBusqueda");
     titulo.classList.remove("ocultar");
     //array con todos los q sean de localidad parana
     let resultadoBusqueda = [];
     const filtroBusqueda = objeto.filter(busqueda => busqueda.localidad == localidad && busqueda.tipo === tipoInmueble);
-    resultadoBusqueda = filtroBusqueda; 
+    resultadoBusqueda = filtroBusqueda;
     //busqueda es el id de <section> dentro del cual quiero insertar las tarjetas  
-    let resultBusq = document.getElementById("busqueda");    
+    let resultBusq = document.getElementById("busqueda");
     resultBusq.innerHTML = ` `;
 
-    for(elemento of resultadoBusqueda){     
-        let contenedor = document.createElement("div"); 
-        contenedor.classList.add('tarjetaDeptoBusqueda');          
+    for (elemento of resultadoBusqueda) {
+        let contenedor = document.createElement("div");
+        contenedor.classList.add('tarjetaDeptoBusqueda');
         contenedor.innerHTML = `<h3> Tipo: ${elemento.tipo}</h3>
                                 <p>  Localidad: ${elemento.localidad}</p>
                                 <b> $ ${elemento.monto}</b>`;
         resultBusq.appendChild(contenedor);
     }
-    
-}
 
-function mostrarDetalles(e){  
+}
+//--------------modal para mostrar el detalle de los deptos-----------------------------//
+function mostrarDetalles(e) {
     //guardo el id del boton
-    let id= e.target.id; 
+    let id = e.target.id;
     //expresion regular
     var regex = /(\d+)/g;
     //al id le dejo solo los nros con la regex
     let nro = parseInt(id.match(regex));
     //mis id de inmueble arrancan en 1, por eso el -1
-    let propiedad = arrayDeptos[nro-1]; 
+    let propiedad = arrayDeptos[nro - 1];
     //paso el booleano a Si o No para mostrarlo
-    let cochera = propiedad['cochera'];    
-    if (cochera){
+    let cochera = propiedad['cochera'];
+    if (cochera) {
         estacionamiento = 'Si';
-    }else{
+    } else {
         estacionamiento = 'No';
     }
     //creo el div para mostrar en la tarjeta
@@ -402,18 +423,18 @@ function mostrarDetalles(e){
     tarjetaDetalle.appendChild(cerrarTarjeta);
 
     //para cerrar la tarjeta
-    cerrarTarjeta.addEventListener('click', function(){
+    cerrarTarjeta.addEventListener('click', function () {
         tarjetaDetalle.remove();
     });
 
 }
+//-----------------modal que muestra el depto recien publicado---------------//
+function mostrarPublicado(inmueble) {
 
-function mostrarPublicado(inmueble){  
-
-    let cochera = inmueble['cochera'];    
-    if (cochera){
+    let cochera = inmueble['cochera'];
+    if (cochera) {
         estacionamiento = 'Si';
-    }else{
+    } else {
         estacionamiento = 'No';
     }
     //creo el div para mostrar en la tarjeta
@@ -442,7 +463,7 @@ function mostrarPublicado(inmueble){
     tarjetaDetalle.appendChild(cerrarTarjeta);
 
     //para cerrar la tarjeta
-    cerrarTarjeta.addEventListener('click', function(){
+    cerrarTarjeta.addEventListener('click', function () {
         tarjetaDetalle.remove();
     });
 
