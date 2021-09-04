@@ -171,14 +171,27 @@ p{
 .parrafoTarj{
     color: black;
 }
+/*-----------tarjeta deptos buscados--------------------*/
+.contenedorResultados{
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+}
 .tarjetaDeptoBusqueda{
     background-color: aqua;
-    width: 25rem;
-    display: inline-block;
+    width: 80%;
     margin: 1rem;
     padding: 1rem;
     border-radius: 1rem;
     color: black;
+}
+.textoResultados{
+    color: black;
+}
+.imgResultados{
+    width: 50%;
+    height: 15vw;
+    object-fit: cover;
 }
 section{
     margin-top:5rem;
@@ -196,9 +209,7 @@ section{
     display: none;
 }
 
-.contenedorResultados{
-    display: flex;
-}
+
 .contenedorMuestras{
     display: flex;
     flex-direction:row;

@@ -383,22 +383,28 @@ function cargoDeptos() {
 }
 /*----------------------------Resultados Busqueda------------------------------------*/
 function muestroDeptos(objeto, localidad, tipoInmueble) {
+    //traigo el id del titulo de la seccion y lo muestro
     var titulo = document.getElementById("tituloBusqueda");
     titulo.classList.remove("ocultar");
-    //array con todos los q sean de localidad parana
+    //array para guardar lo filtrado
     let resultadoBusqueda = [];
-    const filtroBusqueda = objeto.filter(busqueda => busqueda.localidad == localidad && busqueda.tipo === tipoInmueble);
+
+    //Filtro de búsqueda (por ahora dejo solo por localidad por razones de prueba, tengo pocos inmuebles cargados)
+    const filtroBusqueda = objeto.filter(busqueda => busqueda.localidad == localidad /*&& busqueda.tipo === tipoInmueble*/);
     resultadoBusqueda = filtroBusqueda;
     //busqueda es el id de <section> dentro del cual quiero insertar las tarjetas  
     let resultBusq = document.getElementById("busqueda");
+    //hago esto para resetear la seccion por si tenia busquedas anteriores
     resultBusq.innerHTML = ` `;
-
     for (elemento of resultadoBusqueda) {
         let contenedor = document.createElement("div");
         contenedor.classList.add('tarjetaDeptoBusqueda');
-        contenedor.innerHTML = `<h3> Tipo: ${elemento.tipo}</h3>
-                                <p>  Localidad: ${elemento.localidad}</p>
-                                <b> $ ${elemento.monto}</b>`;
+        contenedor.innerHTML = `<div><h3 class="textoResultados"> Tipo: ${elemento.tipo}</h3>
+                                <p class ="textoResultados">  Localidad: ${elemento.localidad}</p>
+                                <p class="textoResultados">Costo Alquiler: <b class="textoResultados"> $ ${elemento.monto}</b></p></div>
+                                <div>
+                                <img class="imgResultados" src="${elemento.img1}"" alt="inmueble${elemento.id}">
+                                </div>`;
         resultBusq.appendChild(contenedor);
     }
 
