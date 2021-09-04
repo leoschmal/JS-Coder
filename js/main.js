@@ -407,10 +407,15 @@ function muestroDeptos(objeto, localidad, tipoInmueble) {
         let ran3 = random(1,54);
         let contenedor = document.createElement("div");
         contenedor.classList.add('tarjetaDeptoBusqueda');
-        contenedor.innerHTML = `<div><h3 class="textoResultados"> Tipo: ${elemento.tipo}</h3>
+        contenedor.innerHTML = `<div class="moduloDatosTarjeta">
+                                <div>
+                                <h3 class="textoResultados"> Tipo: ${elemento.tipo}</h3>
                                 <p class ="textoResultados">  Localidad: ${elemento.localidad}</p>
                                 <p class="textoResultados">Costo Alquiler: <b class="textoResultados"> $ ${elemento.monto}</b></p>
+                                </div>
+                                <div>
                                 <button id="btnVer${elemento.id}" class="btnVer boton">Detalles</button>
+                                </div>
                                 </div>
                                 <div>
                                 <img class="imgResultados" src="${elemento.img1}" alt="inmueble${elemento.id}">
