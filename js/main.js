@@ -95,7 +95,7 @@ leerJSon("base.json", function (text) {
             }    
 
     for (let j = 0; j < misDatos.length; j++) {        
-        let nn = new Inmueble(misDatos[j].id, misDatos[j].tipo, misDatos[j].localidad, misDatos[j].uso, misDatos[j].misDatos, misDatos[j].banios, misDatos[j].cochera, misDatos[j].monto, misDatos[j].expensas, misDatos[j].img1);
+        let nn = new Inmueble(misDatos[j].id, misDatos[j].tipo, misDatos[j].localidad, misDatos[j].uso, misDatos[j].habitaciones, misDatos[j].banios, misDatos[j].cochera, misDatos[j].monto, misDatos[j].expensas, misDatos[j].img1);
         arrayDeptos.push(nn);        
     }
         //arrayDeptos.concat(misDatos);
@@ -128,6 +128,7 @@ $("#botonComenzar").click(() => {
     $("#colapsarFormulario").toggle("slow", "linear");
 });
 
+//vuelvo atras formulario buscar -> form identificacion
 function funcionVolverDeBusqueda() {
     formBuscador.addClass("ocultar");
     formInicio.removeClass("ocultar");
@@ -142,6 +143,7 @@ function funcionVolverDePublicar() {
     formInicio.removeClass("ocultar");
 }
 
+//valida el form de identificacion
 function validarForm(e) {
     e.preventDefault();
     //tomo los datos ingresados en el formulario
@@ -238,12 +240,12 @@ function mostrarMensaje(mensaje, usuario) {
         alerta.remove();
         //formInicio.remove();
         formInicio.addClass("ocultar");
+        
         if (usuario.tipo === "Publicador") {
             formPublicador.removeClass("ocultar");
         }
         if (usuario.tipo === "Buscador") {
-            console.log("mostrando form busqueda");
-            formBuscador.removeClass("ocultar");
+            formBuscador.removeClass("ocultar");            
         }
 
     }, 2000);
@@ -330,13 +332,14 @@ function validarFormBusca(e) {
 
     muestroDeptos(arrayDeptos, localidad, tipoInmueble);
 
-
 }
-/*----------------------------------Muestra los deptos publicados al final del body-----------------------*/
+/*----------------------------------Muestra los ultimo 10 deptos publicados al final del body-----------------------*/
 function cargoDeptos() {
+    //saco los primeros 10 deptos cargados del total de publicaciones
+    let deptoMuestra = arrayDeptos.slice(0,10);
     let muestras = document.getElementById("contenedorMuestras");
     muestras.innerHTML = ` `;
-    for (const inmueble of arrayDeptos) {
+    for (const inmueble of deptoMuestra) {
         let contenedor = document.createElement("div");
         contenedor.classList.add('tarjetaDepto');
         //Definimos el innerHTML del elemento con una plantilla de texto
