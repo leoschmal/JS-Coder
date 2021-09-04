@@ -412,28 +412,87 @@ function muestroDeptos(objeto, localidad, tipoInmueble) {
                                 <h3 class="textoResultados"> Tipo: ${elemento.tipo}</h3>
                                 <p class ="textoResultados">  Localidad: ${elemento.localidad}</p>
                                 <p class="textoResultados">Costo Alquiler: <b class="textoResultados"> $ ${elemento.monto}</b></p>
-                                <p class="textoResultados ref">NroREF: ${elemento.id}</p>
+                                <p class="textoResultados ref">REF: ${elemento.id}</p>
                                 </div>
                                 <div>
-                                <button id="btnVer${elemento.id}" class="btnVer boton">Detalles</button>
+                                <button id="btnResultado${elemento.id}" class="btnVer boton">Detalles</button>
                                 </div>
                                 </div>
                                 <div>
                                 <img class="imgResultados" src="${elemento.img1}" alt="inmueble${elemento.id}">
                                 </div>
                                 <div>
-                                <img class="imgResultados" src="media/img/inmuebles/i${ran1}.jpg" alt="inmueble${elemento.id}">
+                                <img class="imgResultados" src="media/img/inmuebles/i${ran1}.jpg" alt="inmueble${elemento.id}interior1">
                                 </div>
                                 <div>
-                                <img class="imgResultados" src="media/img/inmuebles/i${ran2}.jpg" alt="inmueble${elemento.id}">
+                                <img class="imgResultados" src="media/img/inmuebles/i${ran2}.jpg" alt="inmueble${elemento.id}interior2">
                                 </div>
                                 <div>
-                                <img class="imgResultados" src="media/img/inmuebles/i${ran3}.jpg" alt="inmueble${elemento.id}">
+                                <img class="imgResultados" src="media/img/inmuebles/i${ran3}.jpg" alt="inmueble${elemento.id}interior3">
                                 </div>`;
         resultBusq.appendChild(contenedor);
+        //creo una variable para obtener el id de cada boton
+        let identificador = "btnResultado" + elemento.id;
+        //console.log(identificador);
+        //obtengo el elemento(un boton) por si id
+        let detalles = document.getElementById(identificador);
+        //console.log("detalles", detalles);
+        //lo dejo a la escucha de un click y que ejecute la funcion mostrarDetallesBusqueda
+        detalles.addEventListener('click', mostrarDetallesBusqueda);
+        
     }
 
 }
+//--------------modal para mostrar los detalles de la busqueda--------------------------//
+function mostrarDetallesBusqueda(e){
+        //guardo el id del boton
+        let id = e.target.id;
+        //expresion regular
+        var regex = /(\d+)/g;
+        //al id le dejo solo los nros con la regex
+        let nro = parseInt(id.match(regex));
+        //mis id de inmueble arrancan en 1, por eso el -1
+        let propiedad = arrayDeptos[nro - 1];
+        //paso el booleano a Si o No para mostrarlo
+        let cochera = propiedad['cochera'];
+        if (cochera) {
+            estacionamiento = 'Si';
+        } else {
+            estacionamiento = 'No';
+        }
+        //creo el div para mostrar en la tarjeta
+        let tarjetaDetalle = document.createElement("DIV");
+        //tarjetaDetalle.classList.add('tarjetaDeptoBusqueda');
+        tarjetaDetalle.classList.add('overlay');
+    
+        //Contenido de la tarjeta 
+        tarjetaDetalle.innerHTML = `<div class="detalles"><p class="parrafoDetalle">${propiedad.localidad}</p>
+        <h3>Tipo:${propiedad.tipo}</h3>  
+        <p class="parrafoDetalle">Tipo de Uso: ${propiedad.uso}</p>    
+        <p class="parrafoDetalle">Cantidad de habitaciones: ${propiedad.habitaciones}</p>
+        <p class="parrafoDetalle">Cantidad de baños: ${propiedad.banios}</p>
+        <p class="parrafoDetalle">Cochera: ${estacionamiento}</p>    
+        <p class="parrafoDetalle">Alquiler Mesual: $ ${propiedad.monto}</p>
+        <p class="parrafoDetalle">Expensas Aprox: $ ${propiedad.expensas}</p></div>
+        <img class="imgDetalle" src=${propiedad.img1}></div>`;
+        //Lo tiro al body
+        const body = document.querySelector("body");
+        body.appendChild(tarjetaDetalle);
+    
+        //btn para cerrar
+        const cerrarTarjeta = document.createElement("P");
+        cerrarTarjeta.textContent = 'X';
+        cerrarTarjeta.classList.add('btnCerrar');
+        tarjetaDetalle.appendChild(cerrarTarjeta);
+    
+        //para cerrar la tarjeta
+        cerrarTarjeta.addEventListener('click', function () {
+            tarjetaDetalle.remove();
+        });
+    
+    }
+
+
 //--------------modal para mostrar el detalle de los deptos-----------------------------//
 function mostrarDetalles(e) {
     //guardo el id del boton
