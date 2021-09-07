@@ -7,8 +7,7 @@ $(window).on("load", function () {
     $(".carga").fadeOut(6000);
 });
 
-//------------cargo usuarios desde Json------------//
-//Declaro la url que uso para levantar los deptos
+
 
 
 
@@ -79,7 +78,7 @@ function leerJSon(archivo, callback) {
     rawFile.send(null);
 }
 
-//implemento leer json (leo lo local y lo de la API)
+//implemento leer json de Deptos(leo lo local y lo de la API)
 leerJSon("base.json", function (text) {
     var arrayDeptos2 = JSON.parse(text);
 
@@ -98,7 +97,13 @@ leerJSon("base.json", function (text) {
 
 
         for (let j = 0; j < misDatos.length; j++) {
-            let nn = new Inmueble(misDatos[j].id, misDatos[j].tipo, misDatos[j].localidad, misDatos[j].uso, misDatos[j].habitaciones, misDatos[j].banios, misDatos[j].cochera, misDatos[j].monto, misDatos[j].expensas, misDatos[j].img1);
+            let monto = arrayDeptos[j].monto.slice(4);
+            console.log('monto cargado desde json',monto);
+            monto = parseInt(monto.replace('.',''));
+            let expensas = arrayDeptos[j].expensas.slice(4);
+            expensas = expensas.replace('.','');
+            let nn = new Inmueble(misDatos[j].id, misDatos[j].tipo, misDatos[j].localidad, misDatos[j].uso, misDatos[j].habitaciones, misDatos[j].banios, misDatos[j].cochera, monto, expensas, misDatos[j].img1);
+            
             arrayDeptos.push(nn);
             //cargo las localidades 
             localidadesDisponibles.push(nn.localidad);
@@ -213,12 +218,13 @@ function validarForm(e) {
     // modifico el html con el nombre de usuario en la navbar
     let user = document.getElementById("username");
     user.textContent = nombre;
-
+    //le agrego el avatar del carpincho
     let avatar = document.getElementById("avatar");
     avatar.src = 'media/img/carpincho.svg';
+    //meto el usuario identificado en el array de usuarios
     arrayUsuarios.push(Usuario1);
-    console.log("agrego usuario", arrayUsuarios);
-    //-----------
+    
+    //-----------guardo el array nuevo en la API
     let jj = JSON.stringify(arrayUsuarios);
     $.ajax({
         url: 'https://api.jsonbin.io/b/6134015a470d3325940285b2',
@@ -307,7 +313,7 @@ function mostrarMensaje(mensaje, usuario) {
 
     }, 2000);
 }
-/*FORMULARIO PARA PUBLICAR*/
+/*-------------------------------------FORMULARIO PARA PUBLICAR-----------------------------------*/
 function validarFormPubli(e) {
     e.preventDefault();
     console.log("publicando..");
@@ -338,6 +344,23 @@ function validarFormPubli(e) {
     mostrarPublicado(nuevoInmueble);
     //recargo las tarjetas con todos los deptos actualizados, incluso el recien ingresado
     cargoDeptos();
+        //-----------guardo el array de Deptos nuevo en la API
+        let arrayDeptosAux = arrayDeptos.slice(32);
+        let jj = JSON.stringify(arrayDeptosAux);
+        $.ajax({
+            url: 'https://api.jsonbin.io/b/61326fedc4352e1d076851c0',
+            contentType: 'application/json',
+            method: 'PUT',
+            //XMasterKey: '$2b$10$JP7lQa.UN5cW6CuENZFXwefu.tNQ4cvGdj4scjZQejqb5n8XIcOXa',        
+            data: jj        
+        }).done(function () {
+            console.log('SUCCESS');
+        }).fail(function (msg) {
+            console.log('FAIL');
+        }).always(function (msg) {
+            console.log('ALWAYS');
+        });
+        //----------
 }
 
 function mostrarMensajePubli(mensaje, inmueble) {
@@ -351,7 +374,7 @@ function mostrarMensajePubli(mensaje, inmueble) {
     //mensaje dura 5 seg
     setTimeout(() => {
         alerta.remove();
-        formPublicador.remove();
+        //formPublicador.remove();
     }, 1000);
     let tarjetaPubli = document.getElementById("inmueblePublicado");
     tarjetaPubli.classList.remove("ocultar");
@@ -363,8 +386,9 @@ function mostrarMensajePubli(mensaje, inmueble) {
                                     <p class='parrafoTarj'>  Localidad: ${inmueble.localidad}</p>
                                     <b class='parrafoTarj'> $ ${inmueble.monto}</b>`;
     tarjeta.appendChild(publicacion);
+    
 }
-/*FORMULARIO PARA BUSCAR*/
+/*---------------------------FORMULARIO PARA BUSCAR--------------------------------------*/
 function validarFormBusca(e) {
     e.preventDefault();
     console.log("buscando...");
