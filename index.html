@@ -20,17 +20,31 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="#"> <img src="media/img/robin.svg" style="width: 6rem;" alt="hornerito"> </a>
             <div class="userbox">
-                <div class="bgAvatar"><img id="avatar" class="avatar" src="media/img/userEmpty.png" alt="desconocido"></div>
-                <div><p id="username" class="username">Usuario</p></div>
+                <div>
+                <div><img id="avatar" class="avatar" src="media/img/userEmpty.png" alt="desconocido">
+                </div>
+            </div>
+                <div>
+                    <p id="username" class="username">Usuario</p>
+                    <div id="colapsarAvatar" class="menuUser ocultar">
+                        <ul>
+                            <li>Publicados</li>
+                            <li>Favoritos</li>
+                            <li>Salir</li>
+                        </ul>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </nav>
+
     <header>
         <h1 class="titulo">El Hornerito</h1>
         <h2 class="subtitulo">Encontra o Publicá tu alquiler</h2>
         <!--boton para desplegar el login-->
         <div class="contenedorBotonComenzar">
-            <button id="botonComenzar" class="botonComenzar" >
+            <button id="botonComenzar" class="botonComenzar">
                 Comenzá a buscar o Publicar
             </button>
         </div>
@@ -147,10 +161,8 @@
                         id="costoExpPublicar">
                 </div>
                 <div class="campo">
-                <label for="imagen">Cargar Foto:</label>
-                <input type="file"
-                    id="imagen" name="foto"
-                    accept="image/png, image/jpeg">
+                    <label for="imagen">Cargar Foto:</label>
+                    <input type="file" id="imagen" name="foto" accept="image/png, image/jpeg">
                 </div>
             </div>
             <!--fin contenedor-campos-->

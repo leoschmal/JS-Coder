@@ -92,9 +92,7 @@ leerJSon("base.json", function (text) {
     $.get(URLGET, function (respuesta, estado) {
         if (estado === "success") {
             misDatos = respuesta.record;
-
         }
-
 
         for (let j = 0; j < misDatos.length; j++) {
             let monto = arrayDeptos[j].monto.slice(4);
@@ -155,7 +153,7 @@ formBuscador.on('submit', validarFormBusca);
 botonVolverDeBusqueda.on('click', funcionVolverDeBusqueda);
 botonVolverDePublicar.on('click', funcionVolverDePublicar);
 
-//muestra el valor del change en el form buscar
+//muestra el valor del range en el form buscar
 $("#alqBuscar").change(function (e) {
     let valor = formato.format(e.target.value);
     $('#rangeAlq').text(`${valor}`)
@@ -169,6 +167,11 @@ $("#expBuscar").change(function (e) {
 //Jquery para el toggle del form de identificacion
 $("#botonComenzar").click(() => {
     $("#colapsarFormulario").toggle("slow", "linear");
+});
+
+//Jquery para el toggle del avatar
+$("#avatar").click(() => {
+    $("#colapsarAvatar").slideToggle("fast", "linear");
 });
 
 //vuelvo atras formulario buscar -> form identificacion

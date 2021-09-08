@@ -23,6 +23,14 @@ header{
 p{
     margin: 0;
 }
+ul{
+    list-style-type: none;
+    
+}
+li{
+    color: white;
+    padding: 0.5rem;
+}
 .titulo{
     text-align:center;
     font-size: 8rem;
@@ -34,6 +42,21 @@ p{
     font-size: 3rem;
 }
 
+.avatar{
+    position: relative;
+    margin-right: 2rem;
+}
+.avatar:hover{
+    cursor: pointer;
+}
+.menuUser{
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: black;
+    position: absolute;
+    right: 10px;
+    
+}
 .contenedorBotonComenzar{
     display: flex;
     justify-content: center;
@@ -308,10 +331,8 @@ section{
     width:5rem;   
     
 }
-.bgAvatar{
-    background-color:beige;
-    border-radius: 50%; 
-}
+
 .username{
     font-weight: 700;
+    margin-right: 2rem;
 }
