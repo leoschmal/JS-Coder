@@ -9,6 +9,7 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>El Hornerito</title>
     <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/login.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
@@ -18,12 +19,13 @@
     </div>
     <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html"> <img src="media/img/robin.svg" style="width: 6rem;" alt="hornerito"> </a>
+            <a class="navbar-brand" href="index.html"> <img src="media/img/robin.svg" style="width: 6rem;"
+                    alt="hornerito"> </a>
             <div class="userbox">
                 <div>
-                <div><img id="avatar" class="avatar" src="media/img/userEmpty.png" alt="desconocido">
+                    <div><img id="avatar" class="avatar" src="media/img/userEmpty.png" alt="desconocido">
+                    </div>
                 </div>
-            </div>
                 <div>
                     <p id="username" class="username">Usuario</p>
                     <div id="colapsarAvatar" class="menuUser ocultar">
@@ -34,7 +36,7 @@
                         </ul>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </nav>
@@ -87,7 +89,7 @@
                                 <label for="publica">Publicar</label>
                             </div>
                             <div class="radios">
-                                <input type="radio" name="tipo" id="publica" value=Buscar checked>
+                                <input type="radio" name="tipo" id="publica2" value=Buscar checked>
                                 <label for="busca">Buscar</label>
                             </div>
                         </div>
@@ -95,7 +97,7 @@
                 </div>
                 <!--fin contenedor-campos-->
                 <div class="enviar">
-                    <input class="boton" type="submit" value="Comenzar" name="ingresar" id="ingresar">
+                    <input class="boton" type="submit" value="Comenzar" name="ingresar" id="ingresar1">
                 </div>
 
             </fieldset>
@@ -168,7 +170,7 @@
             <!--fin contenedor-campos-->
             <div class="contenedorBotones">
                 <div class="enviar">
-                    <input class="boton" type="submit" value="Publicar" name="ingresar" id="ingresar">
+                    <input class="boton" type="submit" value="Publicar" name="ingresar" id="ingresar2">
                 </div>
                 <div class="enviar">
                     <div class="botonVolver" name="volver" id="volver1">
@@ -251,7 +253,7 @@
                     <div id="rangeAlq">Alquiler máximo</div>
                 </div>
                 <div class="campo">
-                    <label for="costoAlq">Monto Expensas</label>
+                    <div id="rangeExp">Expensas máximo</div>
                     <input type="range" min="0" max="50000" list="escalas" step="1000" id="expBuscar">
                     <datalist id="escalas">
                         <option value="0" label="0">
@@ -266,13 +268,14 @@
                         <option value="90000">
                         <option value="100000">
                     </datalist>
-                    <div id="rangeExp">Expensas máximo</div>
+                    <label for="costoAlq">Monto Expensas</label>
+                    
                 </div>
             </div>
             <!--fin contenedor-campos-->
             <div class="contenedorBotones">
                 <div class="enviar">
-                    <input class="boton" type="submit" value="Buscar" name="ingresar" id="ingresar">
+                    <input class="boton" type="submit" value="Buscar" name="ingresar" id="ingresar3">
                 </div>
                 <div class="enviar">
                     <div class="botonVolver" name="volver" id="volver">
@@ -285,6 +288,55 @@
     </form>
     <!--Fin formulario Busqueda-->
 
+    <!--Login Alternativo-->
+    <section>
+        <div id="contenedorLogin" class="contenedorTodo">
+            <div class="cajaTrasera">
+                <div class="cajaTrasera-login">
+                    <h3>¿Ya tenés una cuenta?</h3>
+                    <p>Inicia sesión</p>
+                    <button class="botonVolver2" id="botonIrIniciarSesion">Iniciar Sesión</button>
+                </div>
+                <div class="cajaTrasera-register">
+                    <h3>¿No tenés cuenta?</h3>
+                    <p>Regístrate para que puedas iniciar sesión</p>
+                    <button class="botonVolver2" id="botonIrRegistrarse">Registrate</button>
+                </div>
+
+                <div id="buscarPublicar" class="cajaTrasera-BuscarPublicar">
+                    <h3>¿Qué querés hacer??</h3>
+                    <div>
+                        <button class="boton botonBuscar" id="botonBuscar1">Buscar</button>
+                        <button class="boton botonPublicar" id="botonIrPublicar1">Publicar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!--Formulario de Login y registro-->
+            <div id="contenedorRegistroLogin" class="contenedor__login-register">
+                <!--Login-->
+                <form id="formularioLogin" action="" class="formularioLogin">
+                    <h2>Iniciar Sesión</h2>
+                    <input type="email" placeholder="Correo Electrónico" id="correoLogin">
+                    <input type="password" placeholder="Contraseña" id="passLogin">
+                    <button type="submit" class="boton" id="botonLoguearse">Entrar</button>
+                </form>
+
+                <!--Register-->
+                <form id="formularioRegistro" action="" class="formularioRegistro">
+                    <h2>Regístrarse</h2>
+                    <input type="text" placeholder="Nombre" id="nombreUsuario">
+                    <input type="text" placeholder="Apellido" id="apellidoUsuario">
+                    <input type="email" placeholder="Correo Electronico" id="correoUsuario">
+                    <input type="password" placeholder="Contraseña" id="pass1">
+                    <input type="password" placeholder="Repita Contraseña" id="pass2">
+                    <button type="submit" class="boton" id="botonRegistrarse">Regístrarse</button>
+                </form>
+            </div>
+        </div>
+
+    </section>
+    <!--Fin login alternativo-->
     <!--Contenedor de Resultados de Busquedas-->
     <section class="contenedorbusqueda">
         <h2 id="tituloBusqueda" class="tituloSeccion ocultar">Resultados de Búsqueda</h2>
@@ -320,6 +372,7 @@
     </script>
     <!--Main Js-->
     <script src="js/main.js"></script>
+    <!--<script src="js/script.js"></script>-->
 
 </body>
 

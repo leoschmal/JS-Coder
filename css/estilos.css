@@ -158,7 +158,25 @@ li{
     color: white;
     background-color: black;
 }
+.botonVolver2{
+    background-color: teal;
+    color: black;
+    padding: 1rem 2rem;
+    margin-top: 3rem;
+    font-size: 2rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: .5rem;
+    width: 100%;
+    text-align: center;
+    border: 2px solid black;
+}
 
+ .botonVolver2:hover{
+    cursor: pointer;
+    color: white;
+    background-color: black;
+}
 .flex-radios{
     display: flex;
     justify-content: space-around;
@@ -335,4 +353,8 @@ section{
 .username{
     font-weight: 700;
     margin-right: 2rem;
+}
+
+.cajaTrasera-BuscarPublicar{
+    display: none;
 }
