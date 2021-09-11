@@ -46,59 +46,56 @@ let Usuario1;
 let arrayUsuarios =[];
 let arrayDeptos = [];
 let localidadesDisponibles = [];
-//==========================================================================//
-//Ejecutando funciones
-document.getElementById("botonIrIniciarSesion").addEventListener("click", iniciarSesion);
-document.getElementById("botonIrRegistrarse").addEventListener("click", register);
-window.addEventListener("resize", anchoPage);
-//Declarando variables
 var formularioLogin = document.querySelector(".formularioLogin");
 var formularioRegistro = document.querySelector(".formularioRegistro");
 var contenedor_login_register = document.querySelector(".contenedor__login-register");
 var cajaTrasera_login = document.querySelector(".cajaTrasera-login");
 var cajaTrasera_register = document.querySelector(".cajaTrasera-register");
 var buscarPublicar = document.querySelector("#buscarPublicar");
+//===========================FUNCIONES======================================//
 
 
-//=============================EVENTOS======================================//
-function activoEventos(){
-    const formPublicador = $("#formPublicar");
-    const formBuscador = $("#formBuscar");
-    //Para Registrasrse por primera vez
-    const formRegistro =$('#botonRegistrarse');
-    formRegistro.on('click', registroUsuario);
-    //Para el login
-    const formLogin =$('#botonLoguearse');
-    formLogin.on('click', loginUsuario);
-    //Eventos en botones para volver a form inicio
-    const botonVolverDeBusqueda = $("#volver");
-    const botonVolverDePublicar = $("#volver1");
-    botonVolverDeBusqueda.on('click', funcionVolverDeBusqueda);
-    botonVolverDePublicar.on('click', funcionVolverDePublicar);
+document.getElementById("botonIrIniciarSesion").addEventListener("click", iniciarSesion);
+document.getElementById("botonIrRegistrarse").addEventListener("click", register);
+window.addEventListener("resize", anchoPage);
+const formPublicador = $("#formPublicar");
+const formBuscador = $("#formBuscar");
 
-    const botonBuscar = $("#botonBuscar1");
-    const botonPublicar = $("#botonIrPublicar1");    
-    botonBuscar.on('click',mostrarFormBusqueda);
-    botonPublicar.on('click',mostrarFormPublicar);
+//Para Registrasrse por primera vez
+const formRegistro =$('#botonRegistrarse');
+formRegistro.on('click', registroUsuario);
+//Para el login
+const formLogin =$('#botonLoguearse');
+formLogin.on('click', loginUsuario);
+//Eventos en botones para volver a form inicio
+const botonVolverDeBusqueda = $("#volver");
+const botonVolverDePublicar = $("#volver1");
+botonVolverDeBusqueda.on('click', funcionVolverDeBusqueda);
+botonVolverDePublicar.on('click', funcionVolverDePublicar);
+//botones para publicar o buscar
+const botonBuscar = $("#botonBuscar1");
+const botonPublicar = $("#botonIrPublicar1");    
+botonBuscar.on('click',mostrarFormBusqueda);
+botonPublicar.on('click',mostrarFormPublicar);
 
-    formPublicador.on('submit', validarFormPubli);
-    formBuscador.on('submit', validarFormBusca);
+formPublicador.on('submit', validarFormPubli);
+formBuscador.on('submit', validarFormBusca);
 
-    //muestra el valor del range en el form buscar
-    $("#alqBuscar").change(function (e) {
-        let valor = formato.format(e.target.value);
-        $('#rangeAlq').text(`${valor}`)
-    });
-    $("#expBuscar").change(function (e) {
-        let valor = formato.format(e.target.value);
-        $('#rangeExp').text(`${valor}`)
-    });
-    //Jquery para el toggle del avatar(ver publicados y favoritos)
-    $("#avatar").click(() => {
-        $("#colapsarAvatar").slideToggle("fast", "linear");
-    });
+//muestra el valor del range en el form buscar
+$("#alqBuscar").change(function (e) {
+    let valor = formato.format(e.target.value);
+    $('#rangeAlq').text(`${valor}`)
+});
+$("#expBuscar").change(function (e) {
+    let valor = formato.format(e.target.value);
+    $('#rangeExp').text(`${valor}`)
+});
+//Jquery para el toggle del avatar(ver publicados y favoritos)
+$("#avatar").click(() => {
+    $("#colapsarAvatar").slideToggle("fast", "linear");
+});
 
-};
+
 //vuelvo atras formulario buscar -> form identificacion
 function funcionVolverDeBusqueda() {
     $("#contenedorLogin").show();
@@ -109,7 +106,6 @@ function funcionVolverDePublicar() {
     $("#contenedorLogin").show();
     formPublicador.addClass("ocultar");
 };
-//===========================FUNCIONES======================================//
 function anchoPage(){
 
     if (window.innerWidth > 850){
@@ -184,8 +180,7 @@ function leerJSonPublicaciones() {
     let misDatos = [];
     $.get(URLGET, function (respuesta, estado) {
         if (estado === "success") {
-            misDatos = respuesta.record;
-            console.log('misDatos', misDatos);
+            misDatos = respuesta.record;            
         }
         for (let j = 0; j < misDatos.length; j++) {
             let monto = misDatos[j].monto.slice(4);
@@ -360,10 +355,6 @@ function mostrarError(mensaje) {
 function mostrarMensaje(mensaje) {
     $('#formularioRegistro').append(`<p id="ok" class='alerta'> ${mensaje} </p>`);
     $('#formularioLogin').append(`<p id="ok" class='alerta'> ${mensaje} </p>`);
-    // const alerta = document.createElement('P');
-    // alerta.textContent = mensaje;
-    // alerta.classList.add('alerta');
-    // formInicio.append(alerta);
     //mensaje dura 5 seg
     setTimeout(() => {
         msj = $("#ok");
@@ -373,10 +364,10 @@ function mostrarMensaje(mensaje) {
             cajaTrasera_login.style.display = "none";
             cajaTrasera_register.style.display = "none";
             buscarPublicar.style.display= "block";
-            formInicio.addClass("ocultar");
+            //formInicio.addClass("ocultar");
         }
         if(Usuario1 == undefined){
-            location.reload();
+            location.reload();//recarga la pagina para poder loguearse
         }
     }, 2000);
 };
@@ -444,11 +435,9 @@ function mostrarErrorPubli(mensaje) {
 function mostrarMensajePubli(mensaje, inmueble) {
     const alerta = document.createElement('P');
     alerta.textContent = mensaje;
-    alerta.classList.add('alerta');
-    console.log(alerta);
+    alerta.classList.add('alerta');    
     formPublicador.append(alerta);
-    formBuscador.append(alerta);
-    console.log("publicado", inmueble);
+    formBuscador.append(alerta);    
     //mensaje dura 5 seg
     setTimeout(() => {
         alerta.remove();
@@ -738,7 +727,6 @@ function mostrarPublicado(inmueble) {
 //===========================IMPLEMENTO FUNCIONES===========================//
 cargoPagina();
 anchoPage();
-activoEventos();
 leoJsonUsuarios();
 leerJSonPublicaciones ();
 comenzar();
