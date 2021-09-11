@@ -557,11 +557,10 @@ function muestroDeptos(localidad, tipoInmueble) {
 //----------Muestra los ultimo 10 deptos publicados al final del body-------//
 function cargoDeptos() {
     //saco los primeros 10 deptos cargados del total de publicaciones
-    let aux = arrayDeptos.reverse();
-    let deptoMuestra = aux.slice(0, 10);
+    let aux = arrayDeptos.slice(0,10);
     let muestras = document.getElementById("contenedorMuestras");
     muestras.innerHTML = ` `;
-    for (const inmueble of deptoMuestra) {
+    for (const inmueble of aux) {
         let contenedor = document.createElement("div");
         contenedor.classList.add('tarjetaDepto');
         //Definimos el innerHTML del elemento con una plantilla de texto
