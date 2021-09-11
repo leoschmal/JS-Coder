@@ -59,6 +59,57 @@ var cajaTrasera_login = document.querySelector(".cajaTrasera-login");
 var cajaTrasera_register = document.querySelector(".cajaTrasera-register");
 var buscarPublicar = document.querySelector("#buscarPublicar");
 
+
+//=============================EVENTOS======================================//
+function activoEventos(){
+    const formPublicador = $("#formPublicar");
+    const formBuscador = $("#formBuscar");
+    //Para Registrasrse por primera vez
+    const formRegistro =$('#botonRegistrarse');
+    formRegistro.on('click', registroUsuario);
+    //Para el login
+    const formLogin =$('#botonLoguearse');
+    formLogin.on('click', loginUsuario);
+    //Eventos en botones para volver a form inicio
+    const botonVolverDeBusqueda = $("#volver");
+    const botonVolverDePublicar = $("#volver1");
+    botonVolverDeBusqueda.on('click', funcionVolverDeBusqueda);
+    botonVolverDePublicar.on('click', funcionVolverDePublicar);
+
+    const botonBuscar = $("#botonBuscar1");
+    const botonPublicar = $("#botonIrPublicar1");    
+    botonBuscar.on('click',mostrarFormBusqueda);
+    botonPublicar.on('click',mostrarFormPublicar);
+
+    formPublicador.on('submit', validarFormPubli);
+    formBuscador.on('submit', validarFormBusca);
+
+    //muestra el valor del range en el form buscar
+    $("#alqBuscar").change(function (e) {
+        let valor = formato.format(e.target.value);
+        $('#rangeAlq').text(`${valor}`)
+    });
+    $("#expBuscar").change(function (e) {
+        let valor = formato.format(e.target.value);
+        $('#rangeExp').text(`${valor}`)
+    });
+    //Jquery para el toggle del avatar(ver publicados y favoritos)
+    $("#avatar").click(() => {
+        $("#colapsarAvatar").slideToggle("fast", "linear");
+    });
+
+};
+//vuelvo atras formulario buscar -> form identificacion
+function funcionVolverDeBusqueda() {
+    $("#contenedorLogin").show();
+    formBuscador.addClass("ocultar");
+};
+//vuelvo atras formulario publicar -> form identificacion
+function funcionVolverDePublicar() {
+    $("#contenedorLogin").show();
+    formPublicador.addClass("ocultar");
+};
+//===========================FUNCIONES======================================//
 function anchoPage(){
 
     if (window.innerWidth > 850){
@@ -72,7 +123,7 @@ function anchoPage(){
         contenedor_login_register.style.left = "0px";
         formularioRegistro.style.display = "none";   
     }
-}
+};
 function iniciarSesion(){
     if (window.innerWidth > 850){
         formularioLogin.style.display = "block";
@@ -87,7 +138,7 @@ function iniciarSesion(){
         cajaTrasera_register.style.display = "block";
         cajaTrasera_login.style.display = "none";
     }
-}
+};
 function register(){
     if (window.innerWidth > 850){
         formularioRegistro.style.display = "block";
@@ -104,64 +155,12 @@ function register(){
         cajaTrasera_login.style.opacity = "1";
     }
 }
-//=============================EVENTOS======================================//
-//------------Eventos en formularios(cambie algunos a JQUERY)---------------//
-const formInicio = $('#formularioInicio');
-const formPublicador = $("#formPublicar");
-const formBuscador = $("#formBuscar");
-
-//Para Registrasrse por primera vez
-const formRegistro =$('#botonRegistrarse');
-formRegistro.on('click', registroUsuario);
-//Para el login
-const formLogin =$('#botonLoguearse');
-formLogin.on('click', loginUsuario);
-
-//Eventos en botones para volver a form inicio
-const botonVolverDeBusqueda = $("#volver");
-const botonVolverDePublicar = $("#volver1");
-
-const botonBuscar = $("#botonBuscar1");
-const botonPublicar = $("#botonIrPublicar1");
-
-formInicio.on('submit', validarForm);
-formPublicador.on('submit', validarFormPubli);
-formBuscador.on('submit', validarFormBusca);
-botonVolverDeBusqueda.on('click', funcionVolverDeBusqueda);
-botonVolverDePublicar.on('click', funcionVolverDePublicar);
-
-botonBuscar.on('click',mostrarFormBusqueda);
-botonPublicar.on('click',mostrarFormPublicar);
-
-//muestra el valor del range en el form buscar
-$("#alqBuscar").change(function (e) {
-    let valor = formato.format(e.target.value);
-    $('#rangeAlq').text(`${valor}`)
+function comenzar(){
+    //Jquery para el toggle del form de identificacion
+    $("#botonComenzar").click(() => {    
+    $("#contenedorLogin").toggle("slow", "linear");
 });
-$("#expBuscar").change(function (e) {
-    let valor = formato.format(e.target.value);
-    $('#rangeExp').text(`${valor}`)
-});
-//Jquery para el toggle del form de identificacion
-$("#botonComenzar").click(() => {
-    $("#colapsarFormulario").toggle("slow", "linear");
-    //$("#contenedorLogin").toggle("slow", "linear");
-});
-//Jquery para el toggle del avatar(ver publicados y favoritos)
-$("#avatar").click(() => {
-    $("#colapsarAvatar").slideToggle("fast", "linear");
-});
-//vuelvo atras formulario buscar -> form identificacion
-function funcionVolverDeBusqueda() {
-    $("#contenedorLogin").show();
-    formBuscador.addClass("ocultar");
-}
-//vuelvo atras formulario publicar -> form identificacion
-function funcionVolverDePublicar() {
-    $("#contenedorLogin").show();
-    formPublicador.addClass("ocultar");
-}
-//===========================FUNCIONES======================================//
+};
 //Leo el Json online de Usuarios (API)
 function leoJsonUsuarios() {    
     let URLGET_USERS = "https://api.jsonbin.io/b/6134015a470d3325940285b2/latest";
@@ -289,64 +288,64 @@ function loginUsuario(e){
         }
     }
 
-}
+};
 //------------------------------VALIDACIONES--------------------------------//
 //valida el form de identificacion
-function validarForm(e) {
-    e.preventDefault();
-    //tomo los datos ingresados en el formulario
-    let nombre = document.getElementById("nombre").value;
-    let apellido = document.getElementById("apellido").value;
-    let localidad = document.getElementById("localidad").value;
-    let email = document.getElementById("email").value;
-    let telefono = document.getElementById("telefono").value;
-    let radioTipo = document.getElementById("publica").checked;
-    let tipo = '';
+// function validarForm(e) {
+//     e.preventDefault();
+//     //tomo los datos ingresados en el formulario
+//     let nombre = document.getElementById("nombre").value;
+//     let apellido = document.getElementById("apellido").value;
+//     let localidad = document.getElementById("localidad").value;
+//     let email = document.getElementById("email").value;
+//     let telefono = document.getElementById("telefono").value;
+//     let radioTipo = document.getElementById("publica").checked;
+//     let tipo = '';
     
-    //Me fijo si es usuario publicador o buscador de inmuebles
-    if (radioTipo) {
-        tipo = 'Publicador';
-    } else {
-        tipo = 'Buscador';
-    }
+//     //Me fijo si es usuario publicador o buscador de inmuebles
+//     if (radioTipo) {
+//         tipo = 'Publicador';
+//     } else {
+//         tipo = 'Buscador';
+//     }
 
-    if (nombre === '' || apellido === '' || localidad === '' || email === '' || telefono === '') {
-        mostrarError('Todos los campos son obligatorios');
-        return;
-    }
-    //con los datos ingresados, instancio el objeto Usuario
-    let nuevoId = arrayUsuarios.length + 1;
-    Usuario1 = new Usuario(nuevoId, nombre, apellido, localidad, email, telefono, tipo, [], []);
-    //formulario correcto
-    mostrarMensaje("Datos ingresados correctamente", Usuario1);
+//     if (nombre === '' || apellido === '' || localidad === '' || email === '' || telefono === '') {
+//         mostrarError('Todos los campos son obligatorios');
+//         return;
+//     }
+//     //con los datos ingresados, instancio el objeto Usuario
+//     let nuevoId = arrayUsuarios.length + 1;
+//     Usuario1 = new Usuario(nuevoId, nombre, apellido, localidad, email, telefono, tipo, [], []);
+//     //formulario correcto
+//     mostrarMensaje("Datos ingresados correctamente", Usuario1);
 
-    // modifico el html con el nombre de usuario en la navbar
-    let user = document.getElementById("username");
-    user.textContent = nombre;
-    //le agrego el avatar del carpincho
-    let avatar = document.getElementById("avatar");
-    avatar.src = 'media/img/carpincho.svg';
-    //meto el usuario identificado en el array de usuarios
-    arrayUsuarios.push(Usuario1);
+//     // modifico el html con el nombre de usuario en la navbar
+//     let user = document.getElementById("username");
+//     user.textContent = nombre;
+//     //le agrego el avatar del carpincho
+//     let avatar = document.getElementById("avatar");
+//     avatar.src = 'media/img/carpincho.svg';
+//     //meto el usuario identificado en el array de usuarios
+//     arrayUsuarios.push(Usuario1);
     
-    //-----------guardo el array nuevo en la API
-    let jj = JSON.stringify(arrayUsuarios);
-    $.ajax({
-        url: 'https://api.jsonbin.io/b/6134015a470d3325940285b2',
-        contentType: 'application/json',
-        method: 'PUT',
-        //XMasterKey: '$2b$10$JP7lQa.UN5cW6CuENZFXwefu.tNQ4cvGdj4scjZQejqb5n8XIcOXa',        
-        data: jj        
-    }).done(function () {
-        console.log('SUCCESS');
-    }).fail(function (msg) {
-        console.log('FAIL');
-    }).always(function (msg) {
-        console.log('ALWAYS');
-    });
-    //----------
+//     //-----------guardo el array nuevo en la API
+//     let jj = JSON.stringify(arrayUsuarios);
+//     $.ajax({
+//         url: 'https://api.jsonbin.io/b/6134015a470d3325940285b2',
+//         contentType: 'application/json',
+//         method: 'PUT',
+//         //XMasterKey: '$2b$10$JP7lQa.UN5cW6CuENZFXwefu.tNQ4cvGdj4scjZQejqb5n8XIcOXa',        
+//         data: jj        
+//     }).done(function () {
+//         console.log('SUCCESS');
+//     }).fail(function (msg) {
+//         console.log('FAIL');
+//     }).always(function (msg) {
+//         console.log('ALWAYS');
+//     });
+//     //----------
 
-}
+// }
 //----------Mensajes de Error y Validación correcta en forms----------------//
 function mostrarError(mensaje) {
     $('#formularioInicio').append(`<p id="error" class='error'> ${mensaje} </p>`);
@@ -357,38 +356,7 @@ function mostrarError(mensaje) {
         error = $(".error");
         error.remove();
     }, 3000);
-}
-function mostrarErrorPubli(mensaje) {
-    $('#formPublicar').append(`<p id="error" class='error'> ${mensaje} </p>`);
-
-
-    //const error = document.createElement('P');
-    //error.textContent = mensaje;
-    //error.classList.add('error');
-    //console.log(error);    
-    //formPublicador.append(error);
-
-    //mensaje dura 3 seg
-    setTimeout(() => {
-        error = $(".error");
-        error.remove();
-    }, 3000);
-}
-function mostrarErrorBusqueda(mensaje) {
-    $('#formBuscar').append(`<p id="error" class='error'> ${mensaje} </p>`);
-
-    //const error = document.createElement('P');
-    //error.textContent = mensaje;
-    //error.classList.add('error');
-    //console.log(error);    
-    //formBuscador.append(error);
-
-    //mensaje dura 3 seg
-    setTimeout(() => {
-        error = $(".error");
-        error.remove();
-    }, 3000);
-}
+};
 function mostrarMensaje(mensaje) {
     $('#formularioRegistro').append(`<p id="ok" class='alerta'> ${mensaje} </p>`);
     $('#formularioLogin').append(`<p id="ok" class='alerta'> ${mensaje} </p>`);
@@ -411,11 +379,14 @@ function mostrarMensaje(mensaje) {
             location.reload();
         }
     }, 2000);
-}
+};
 //------------------------FORMULARIO PARA PUBLICAR--------------------------//
+function mostrarFormPublicar(){
+    $("#contenedorLogin").hide();
+    formPublicador.removeClass("ocultar");
+};
 function validarFormPubli(e) {
-    e.preventDefault();
-    console.log("publicando..");
+    e.preventDefault();    
     //tomo los datos ingresados en el formulario
     let tipoInmueble = document.getElementById("tipoInmueblePublicar").value;
     let localidad = document.getElementById("localidadInmueblePublicar").value;
@@ -454,14 +425,22 @@ function validarFormPubli(e) {
             //XMasterKey: '$2b$10$JP7lQa.UN5cW6CuENZFXwefu.tNQ4cvGdj4scjZQejqb5n8XIcOXa',        
             data: jj        
         }).done(function () {
-            console.log('SUCCESS');
+            console.log('SUCCESS');//veo por consola si actualizo bien
         }).fail(function (msg) {
             console.log('FAIL');
         }).always(function (msg) {
             console.log('ALWAYS');
         });
         //----------
-}
+};
+function mostrarErrorPubli(mensaje) {
+    $('#formPublicar').append(`<p id="error" class='error'> ${mensaje} </p>`);
+    //mensaje dura 3 seg
+    setTimeout(() => {
+        error = $(".error");
+        error.remove();
+    }, 3000);
+};
 function mostrarMensajePubli(mensaje, inmueble) {
     const alerta = document.createElement('P');
     alerta.textContent = mensaje;
@@ -486,16 +465,12 @@ function mostrarMensajePubli(mensaje, inmueble) {
                                     <b class='parrafoTarj'> $ ${inmueble.monto}</b>`;
     tarjeta.appendChild(publicacion);
     
-}
+};
 //------------------------FORMULARIO PARA BUSCAR----------------------------//
 function mostrarFormBusqueda(){
     $("#contenedorLogin").hide();
     formBuscador.removeClass("ocultar");
-}
-function mostrarFormPublicar(){
-    $("#contenedorLogin").hide();
-    formPublicador.removeClass("ocultar");
-}
+};
 function validarFormBusca(e) {
     e.preventDefault();    
     //tomo los datos ingresados en el formulario
@@ -516,7 +491,15 @@ function validarFormBusca(e) {
     //let img = ' ';
     //let busqueda = new Inmueble(id, tipoInmueble, localidad, tipoUsos, habs, banios, cochera, alq, exp, img);
     muestroDeptos(localidad, tipoInmueble);
-}
+};
+function mostrarErrorBusqueda(mensaje) {
+    $('#formBuscar').append(`<p id="error" class='error'> ${mensaje} </p>`);
+    //mensaje dura 3 seg
+    setTimeout(() => {
+        error = $(".error");
+        error.remove();
+    }, 3000);
+};
 //--------------------------FUNCIONES PARA UTILIDADES-----------------------//
 function random(min, max) {
     return Math.floor((Math.random() * (max - min + 1)) + min);
@@ -753,8 +736,9 @@ function mostrarPublicado(inmueble) {
 
 }
 //===========================IMPLEMENTO FUNCIONES===========================//
-//implemento leer json de Deptos(leo lo local y lo de la API)
 cargoPagina();
 anchoPage();
+activoEventos();
 leoJsonUsuarios();
-leerJSonPublicaciones ()
+leerJSonPublicaciones ();
+comenzar();

@@ -47,65 +47,59 @@
         <!--boton para desplegar el login-->
         <div class="contenedorBotonComenzar">
             <button id="botonComenzar" class="botonComenzar">
-                Comenzá a buscar o Publicar
+                Comenzár
             </button>
         </div>
     </header>
-
-    <div class="collapse" id="colapsarFormulario">
-        <!--Formulario de inicio | identificacion de usuario-->
-        <form id="formularioInicio" action="submit" class="formulario" style="background-color: white;">
-            <fieldset>
-                <legend>Completá el formulario para comenzar</legend>
-                <div class="contenedor-campos">
-                    <div class="campo">
-                        <label for="nombre">Nombre</label>
-                        <input class="input-text" type="text" placeholder="Ingresá tu nombre" name="nombre" id="nombre">
-                    </div>
-                    <div class="campo">
-                        <label for="apellido">Apellido</label>
-                        <input class="input-text" type="text" placeholder="Ingresá tu apellido" name="apellido"
-                            id="apellido">
-                    </div>
-                    <div class="campo">
-                        <label for="localidad">Localidad</label>
-                        <input class="input-text" type="text" placeholder="Localidad de busqueda o publicacion"
-                            name="localidad" id="localidad">
-                    </div>
-                    <div class="campo">
-                        <label for="email">email</label>
-                        <input class="input-text" type="email" placeholder="Ingresá tu email" name="email" id="email">
-                    </div>
-                    <div class="campo">
-                        <label for="telefono">Teléfono</label>
-                        <input class="input-text" type="tel" placeholder="Ingresá tu teléfono" name="telefono"
-                            id="telefono">
-                    </div>
-                    <div class="campo">
-                        <p>¿Qué deseas hacer?</p>
-                        <div class="flex-radios">
-                            <div class="radios">
-                                <input type="radio" name="tipo" id="publica" value=Publicar>
-                                <label for="publica">Publicar</label>
-                            </div>
-                            <div class="radios">
-                                <input type="radio" name="tipo" id="publica2" value=Buscar checked>
-                                <label for="busca">Buscar</label>
-                            </div>
-                        </div>
-                    </div>
+    <!--Login & Registro-->
+    <section>
+        <div id="contenedorLogin" class="contenedorTodo ocultar">
+            <div class="cajaTrasera">
+                <div class="cajaTrasera-login">
+                    <h3>¿Ya tenés una cuenta?</h3>
+                    <p>Inicia sesión</p>
+                    <button class="botonVolver2" id="botonIrIniciarSesion">Iniciar Sesión</button>
                 </div>
-                <!--fin contenedor-campos-->
-                <div class="enviar">
-                    <input class="boton" type="submit" value="Comenzar" name="ingresar" id="ingresar1">
+                <div class="cajaTrasera-register">
+                    <h3>¿No tenés cuenta?</h3>
+                    <p>Regístrate para que puedas iniciar sesión</p>
+                    <button class="botonVolver2" id="botonIrRegistrarse">Registrate</button>
                 </div>
 
-            </fieldset>
-        </form>
-        <!--Fin formulario Usuario-->
-    </div>
+                <div id="buscarPublicar" class="cajaTrasera-BuscarPublicar">
+                    <h3>¿Qué querés hacer??</h3>
+                    <div>
+                        <button class="boton botonBuscar" id="botonBuscar1">Buscar</button>
+                        <button class="boton botonPublicar" id="botonIrPublicar1">Publicar</button>
+                    </div>
+                </div>
+            </div>
 
+            <!--Formulario de Login y registro-->
+            <div id="contenedorRegistroLogin" class="contenedor__login-register">
+                <!--Login-->
+                <form id="formularioLogin" action="" class="formularioLogin">
+                    <h2>Iniciar Sesión</h2>
+                    <input type="email" placeholder="Correo Electrónico" id="correoLogin">
+                    <input type="password" placeholder="Contraseña" id="passLogin">
+                    <button type="submit" class="boton" id="botonLoguearse">Entrar</button>
+                </form>
 
+                <!--Register-->
+                <form id="formularioRegistro" action="" class="formularioRegistro">
+                    <h2>Regístrarse</h2>
+                    <input type="text" placeholder="Nombre" id="nombreUsuario">
+                    <input type="text" placeholder="Apellido" id="apellidoUsuario">
+                    <input type="email" placeholder="Correo Electronico" id="correoUsuario">
+                    <input type="password" placeholder="Contraseña" id="pass1">
+                    <input type="password" placeholder="Repita Contraseña" id="pass2">
+                    <button type="submit" class="boton" id="botonRegistrarse">Regístrarse</button>
+                </form>
+            </div>
+        </div>
+
+    </section>
+    <!--Fin login & Registro-->
     <!--Formulario de Publicacion -->
     <form id="formPublicar" action="submit" class="formulario ocultar " style="background-color: white;">
         <fieldset>
@@ -136,11 +130,11 @@
                 </div>
                 <div class="campo">
                     <label for="cantHab">Cantidad Habitaciones</label>
-                    <input type="number" name="cantHab" id="cantHabsPublicar">
+                    <input type="number" min="0" name="cantHab" id="cantHabsPublicar">
                 </div>
                 <div class="campo">
                     <label for="cantBanio">Cantidad Baños</label>
-                    <input type="number" name="cantBanio" id="cantBaniosPublicar">
+                    <input type="number" min="0" name="cantBanio" id="cantBaniosPublicar">
 
                 </div>
                 <div class="campo">
@@ -218,12 +212,11 @@
                 </div>
                 <div class="campo">
                     <label for="cantHab">Cantidad Habitaciones</label>
-                    <input type="number" name="cantHab" id="cantHabsBuscar">
+                    <input type="number" min="0" name="cantHab" id="cantHabsBuscar">
                 </div>
                 <div class="campo">
                     <label for="cantBanio">Cantidad Baños</label>
-                    <input type="number" name="cantBanio" id="cantBaniosBuscar">
-
+                    <input type="number" min="0" name="cantBanio" id="cantBaniosBuscar">
                 </div>
                 <div class="campo">
                     <p>¿Querés Cochera?</p>
@@ -235,7 +228,7 @@
                     </div>
                 </div>
                 <div class="campo">
-                    <label for="costoAlq">Monto Alquiler</label>
+                    <div id="rangeAlq">Alquiler máximo</div>                    
                     <input type="range" min="0" max="100000" list="tickmarks" step="1000" id="alqBuscar">
                     <datalist id="tickmarks">
                         <option value="0" label="0">
@@ -250,7 +243,7 @@
                         <option value="90000">
                         <option value="100000">
                     </datalist>
-                    <div id="rangeAlq">Alquiler máximo</div>
+                    <label for="costoAlq">Monto Alquiler</label>
                 </div>
                 <div class="campo">
                     <div id="rangeExp">Expensas máximo</div>
@@ -269,7 +262,7 @@
                         <option value="100000">
                     </datalist>
                     <label for="costoAlq">Monto Expensas</label>
-                    
+
                 </div>
             </div>
             <!--fin contenedor-campos-->
@@ -283,60 +276,9 @@
                     </div>
                 </div>
             </div>
-
         </fieldset>
     </form>
     <!--Fin formulario Busqueda-->
-
-    <!--Login Alternativo-->
-    <section>
-        <div id="contenedorLogin" class="contenedorTodo">
-            <div class="cajaTrasera">
-                <div class="cajaTrasera-login">
-                    <h3>¿Ya tenés una cuenta?</h3>
-                    <p>Inicia sesión</p>
-                    <button class="botonVolver2" id="botonIrIniciarSesion">Iniciar Sesión</button>
-                </div>
-                <div class="cajaTrasera-register">
-                    <h3>¿No tenés cuenta?</h3>
-                    <p>Regístrate para que puedas iniciar sesión</p>
-                    <button class="botonVolver2" id="botonIrRegistrarse">Registrate</button>
-                </div>
-
-                <div id="buscarPublicar" class="cajaTrasera-BuscarPublicar">
-                    <h3>¿Qué querés hacer??</h3>
-                    <div>
-                        <button class="boton botonBuscar" id="botonBuscar1">Buscar</button>
-                        <button class="boton botonPublicar" id="botonIrPublicar1">Publicar</button>
-                    </div>
-                </div>
-            </div>
-
-            <!--Formulario de Login y registro-->
-            <div id="contenedorRegistroLogin" class="contenedor__login-register">
-                <!--Login-->
-                <form id="formularioLogin" action="" class="formularioLogin">
-                    <h2>Iniciar Sesión</h2>
-                    <input type="email" placeholder="Correo Electrónico" id="correoLogin">
-                    <input type="password" placeholder="Contraseña" id="passLogin">
-                    <button type="submit" class="boton" id="botonLoguearse">Entrar</button>
-                </form>
-
-                <!--Register-->
-                <form id="formularioRegistro" action="" class="formularioRegistro">
-                    <h2>Regístrarse</h2>
-                    <input type="text" placeholder="Nombre" id="nombreUsuario">
-                    <input type="text" placeholder="Apellido" id="apellidoUsuario">
-                    <input type="email" placeholder="Correo Electronico" id="correoUsuario">
-                    <input type="password" placeholder="Contraseña" id="pass1">
-                    <input type="password" placeholder="Repita Contraseña" id="pass2">
-                    <button type="submit" class="boton" id="botonRegistrarse">Regístrarse</button>
-                </form>
-            </div>
-        </div>
-
-    </section>
-    <!--Fin login alternativo-->
     <!--Contenedor de Resultados de Busquedas-->
     <section class="contenedorbusqueda">
         <h2 id="tituloBusqueda" class="tituloSeccion ocultar">Resultados de Búsqueda</h2>
