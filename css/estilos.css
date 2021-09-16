@@ -13,6 +13,7 @@
     font-size: 16px; /* 1 rem = 10px*/
   }
 h1, h2, h3, b{
+    font-family: 'Montserrat', sans-serif;
     color: white;
 }
 header{
@@ -358,3 +359,170 @@ section{
 .cajaTrasera-BuscarPublicar{
     display: none;
 }
+
+/*Estilos login*/
+.contenedorTodo{
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    position: relative;
+    
+}
+.contenedorBuscarPublicar{
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    position: relative;
+    background-color: teal;
+    padding: 3rem;
+       
+}
+.botones{
+    display: flex;
+    gap: 2rem;
+}
+
+.cajaTrasera{
+    width: 100%;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    background-color: teal;
+
+}
+
+.cajaTrasera div{
+    margin: 100px 40px;
+    color: white;
+    transition: all 500ms;
+}
+
+
+.cajaTrasera div p,
+.cajaTrasera button{
+    margin-top: 30px;
+}
+
+.cajaTrasera div h3{
+    font-weight: 400;
+    font-size: 26px;
+}
+
+.cajaTrasera div p{
+    font-size: 16px;
+    font-weight: 300;
+}
+
+
+
+/*Formularios*/
+
+.contenedor__login-register{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 380px;
+    position: relative;
+    top: -185px;
+    left: 10px;
+
+    /*La transicion va despues del codigo JS*/
+    transition: left 500ms cubic-bezier(0.175, 0.885, 0.320, 1.275);
+}
+
+.contenedor__login-register form{
+    width: 100%;
+    padding: 80px 20px;
+    background: white;
+    position: absolute;
+    border-radius: 20px;
+}
+
+.contenedor__login-register form h2{
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #000;
+}
+
+.contenedor__login-register form input{
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    border: none;
+    background: #F2F2F2;
+    font-size: 16px;
+    outline: none;
+}
+
+.formulario__login{
+    opacity: 1;
+    display: block;
+}
+.formularioRegistro{
+    display: none;
+}
+
+@media screen and (max-width: 850px){
+
+    main{
+        margin-top: 50px;
+    }
+
+    .cajaTrasera{
+        max-width: 350px;
+        height: 300px;
+        flex-direction: column;
+        margin: auto;
+    }
+
+    .cajaTrasera div{
+        margin: 0px;
+        position: absolute;
+    }
+
+
+    /*Formularios*/
+
+    .contenedor__login-register{
+        top: -1rem;
+        left: -0.5rem;
+        margin: auto;
+    }
+
+    .contenedor__login-register form{
+        position: relative;
+    }
+}
+
+/*efecto writing*/
+.wrapper {    
+    /*Centrando*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .typing-demo {
+    width: 32ch;
+    animation: typing 3s steps(32), blink .9s step-end infinite alternate;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 3px solid;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2rem;
+  }
+ 
+  @keyframes typing {
+    from {
+      width: 0
+    }
+  }
+      
+  @keyframes blink {
+    50% {
+      border-color: transparent
+    }
+  }

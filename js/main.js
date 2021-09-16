@@ -46,15 +46,16 @@ let Usuario1;
 let arrayUsuarios =[];
 let arrayDeptos = [];
 let localidadesDisponibles = [];
+let favoritos = [];
+let publicados = [];
+
 var formularioLogin = document.querySelector(".formularioLogin");
 var formularioRegistro = document.querySelector(".formularioRegistro");
 var contenedor_login_register = document.querySelector(".contenedor__login-register");
 var cajaTrasera_login = document.querySelector(".cajaTrasera-login");
 var cajaTrasera_register = document.querySelector(".cajaTrasera-register");
 var buscarPublicar = document.querySelector("#buscarPublicar");
-//===========================FUNCIONES======================================//
-
-
+//===========================EVENTOS======================================//
 document.getElementById("botonIrIniciarSesion").addEventListener("click", iniciarSesion);
 document.getElementById("botonIrRegistrarse").addEventListener("click", register);
 window.addEventListener("resize", anchoPage);
@@ -95,7 +96,7 @@ $("#avatar").click(() => {
     $("#colapsarAvatar").slideToggle("fast", "linear");
 });
 
-
+//===========================FUNCIONES======================================//
 //vuelvo atras formulario buscar -> form identificacion
 function funcionVolverDeBusqueda() {
     $("#contenedorLogin").show();
@@ -152,9 +153,10 @@ function register(){
     }
 }
 function comenzar(){
-    //Jquery para el toggle del form de identificacion
     $("#botonComenzar").click(() => {    
-    $("#contenedorLogin").toggle("slow", "linear");
+    $("#contenedorLogin").fadeIn();
+    $("header").slideToggle("slow", "linear")
+    $("#tituloNavbar").show();
 });
 };
 //Leo el Json online de Usuarios (API)
@@ -240,7 +242,7 @@ function registroUsuario(e){
     //meto el usuario identificado en el array de usuarios
     arrayUsuarios.push(Usuario1);
     let jj = JSON.stringify(arrayUsuarios);
-    console.log('arrayUsuariosString', jj);
+    //console.log('arrayUsuariosString', jj);
     $.ajax({
         url: 'https://api.jsonbin.io/b/6134015a470d3325940285b2',
         contentType: 'application/json',
@@ -265,9 +267,11 @@ function loginUsuario(e){
     for(let i=0; i<arrayUsuarios.length; i++){
         if(arrayUsuarios[i].email.includes(email) && arrayUsuarios[i].pass.includes(pass)){  
             //si hay coincidencia, se lo paso al usuario de la sesion          
-            Usuario1 = arrayUsuarios[i];   
-            console.log(Usuario1);
-            //Usuario1.favoritos.push = 1;
+            Usuario1 = arrayUsuarios[i];
+            favoritos = Usuario1.favoritos;
+            publicaciones = Usuario1.publicaciones;
+            $("#misFavoritos").text('Favoritos ['+ favoritos.length + ']');     
+            $("#misPublicados").text('Publicados [' + publicaciones.length + ']');                        
             
             // modifico el html con el nombre de usuario en la navbar
             let user = document.getElementById("username");
@@ -296,13 +300,6 @@ function loginUsuario(e){
 //     let telefono = document.getElementById("telefono").value;
 //     let radioTipo = document.getElementById("publica").checked;
 //     let tipo = '';
-    
-//     //Me fijo si es usuario publicador o buscador de inmuebles
-//     if (radioTipo) {
-//         tipo = 'Publicador';
-//     } else {
-//         tipo = 'Buscador';
-//     }
 
 //     if (nombre === '' || apellido === '' || localidad === '' || email === '' || telefono === '') {
 //         mostrarError('Todos los campos son obligatorios');
@@ -359,12 +356,11 @@ function mostrarMensaje(mensaje) {
     setTimeout(() => {
         msj = $("#ok");
         msj.remove();
-        if(Usuario1 != undefined){
-            contenedor_login_register.style.display = "none";
-            cajaTrasera_login.style.display = "none";
-            cajaTrasera_register.style.display = "none";
-            buscarPublicar.style.display= "block";
-            //formInicio.addClass("ocultar");
+        if(Usuario1 != undefined){            
+            $(".cajaTrasera").hide();
+            $(".contenedorRegistroLogin").hide();
+            $("#formularioLogin").hide();
+            $("#buscarPublicar").show();            
         }
         if(Usuario1 == undefined){
             location.reload();//recarga la pagina para poder loguearse
@@ -399,6 +395,8 @@ function validarFormPubli(e) {
     //Instancio el objeto con los datos ingresados
     let nuevoInmueble = new Inmueble(id, tipoInmueble, localidad, tipoUsos, habs, banios, cochera, alq, exp, foto);
     let fecha = Date.now();
+    //Cargo el inmueble publicado en el usuario correspondiente
+    Usuario1.publicaciones.push(id);
     let fechaPublicacion = new Date(fecha);
     //lo ingreso al array de inmueble
     arrayDeptos.push(nuevoInmueble);
@@ -422,7 +420,22 @@ function validarFormPubli(e) {
         }).always(function (msg) {
             console.log('ALWAYS');
         });
-        //----------
+        //----------actualizo al usuario
+        let kk = JSON.stringify(arrayUsuarios);        
+        $.ajax({
+            url: 'https://api.jsonbin.io/b/6134015a470d3325940285b2',
+            contentType: 'application/json',
+            method: 'PUT',
+            //XMasterKey: '$2b$10$JP7lQa.UN5cW6CuENZFXwefu.tNQ4cvGdj4scjZQejqb5n8XIcOXa',        
+            data: kk        
+        }).done(function () {
+            console.log('SUCCESS');//verifico por consola si escribio bien los datos
+        }).fail(function (msg) {
+            console.log('FAIL');
+        }).always(function (msg) {
+            console.log('ALWAYS');
+        });
+        $("#formPublicar")[0].reset(); 
 };
 function mostrarErrorPubli(mensaje) {
     $('#formPublicar').append(`<p id="error" class='error'> ${mensaje} </p>`);
@@ -480,6 +493,7 @@ function validarFormBusca(e) {
     //let img = ' ';
     //let busqueda = new Inmueble(id, tipoInmueble, localidad, tipoUsos, habs, banios, cochera, alq, exp, img);
     muestroDeptos(localidad, tipoInmueble);
+    $("#formBuscar")[0].reset();
 };
 function mostrarErrorBusqueda(mensaje) {
     $('#formBuscar').append(`<p id="error" class='error'> ${mensaje} </p>`);
@@ -550,11 +564,12 @@ function muestroDeptos(localidad, tipoInmueble) {
         //console.log("detalles", detalles);
         //lo dejo a la escucha de un click y que ejecute la funcion mostrarDetallesBusqueda
         detalles.addEventListener('click', mostrarDetallesBusqueda);
+        
 
     }
 
 }
-//----------Muestra los ultimo 10 deptos publicados al final del body-------//
+//----------Muestra 10 deptos al final del body-----------------------------//
 function cargoDeptos() {
     //saco los primeros 10 deptos cargados del total de publicaciones
     let aux = arrayDeptos.slice(0,10);
@@ -617,7 +632,8 @@ function mostrarDetallesBusqueda(e) {
         <p class="parrafoDetalle">Cantidad de baños: ${propiedad.banios}</p>
         <p class="parrafoDetalle">Cochera: ${estacionamiento}</p>    
         <p class="parrafoDetalle">Alquiler Mesual: $ ${propiedad.monto}</p>
-        <p class="parrafoDetalle">Expensas Aprox: $ ${propiedad.expensas}</p></div>
+        <p class="parrafoDetalle">Expensas Aprox: $ ${propiedad.expensas}</p>
+        <button id="btnFav" class="parrafoDetalle boton"> Agregar a Favoritos</button></div>
         <img class="imgDetalle" src=${propiedad.img1}></div>`;
     //Lo tiro al body
     const body = document.querySelector("body");
@@ -633,6 +649,37 @@ function mostrarDetallesBusqueda(e) {
     cerrarTarjeta.addEventListener('click', function () {
         tarjetaDetalle.remove();
     });
+    //para agregar a favoritos
+    let agregarDepto = document.getElementById("btnFav");
+    if (Usuario1.favoritos.includes(propiedad.id)){
+        $("#btnFav").text('En Favoritos');;};
+
+    agregarDepto.addEventListener('click', function(){
+        if (!Usuario1.favoritos.includes(propiedad.id)){
+        Usuario1.favoritos.push(propiedad.id);
+        $("#btnFav").text('En Favoritos');
+         
+        let jj = JSON.stringify(arrayUsuarios);
+        
+        $.ajax({
+            url: 'https://api.jsonbin.io/b/6134015a470d3325940285b2',
+            contentType: 'application/json',
+            method: 'PUT',
+            //XMasterKey: '$2b$10$JP7lQa.UN5cW6CuENZFXwefu.tNQ4cvGdj4scjZQejqb5n8XIcOXa',        
+            data: jj        
+        }).done(function () {
+            console.log('SUCCESS');//verifico por consola si escribio bien los datos
+        }).fail(function (msg) {
+            console.log('FAIL');
+        }).always(function (msg) {
+            console.log('ALWAYS');
+        });       
+        }else{
+            $("#btnFav").text('En Favoritos');
+        }
+        $("#misFavoritos").text('Favoritos ['+ favoritos.length + ']');  
+    })
+    
 
 }
 //--------------modal para mostrar el detalle de los deptos-----------------//
@@ -723,6 +770,7 @@ function mostrarPublicado(inmueble) {
     });
 
 }
+
 //===========================IMPLEMENTO FUNCIONES===========================//
 cargoPagina();
 anchoPage();

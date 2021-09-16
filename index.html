@@ -5,45 +5,60 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <!--Fuente-->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;700;900&display=swap"
+        rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>El Hornerito</title>
     <link rel="stylesheet" href="css/estilos.css">
-    <link rel="stylesheet" href="css/login.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
-
+<!--BODY-->
 <body class="bg-dark">
     <div class="carga">
         <h1 style="color:black; text-align: center;">Esperá como el carpincho que ya carga....</h1>
     </div>
+    <!--NAVBAR-->
     <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
+            <!--LOGO NAVBAR-->
             <a class="navbar-brand" href="index.html"> <img src="media/img/robin.svg" style="width: 6rem;"
                     alt="hornerito"> </a>
+            <!--TITULO NAVBAR-->
+            <div id="tituloNavbar" class="ocultar">
+                <h2 style="color: black; font-weight: bold;">
+                    El Hornerito
+                </h2>
+            </div>
+            <!--AVATAR NAVBAR-->
             <div class="userbox">
                 <div>
                     <div><img id="avatar" class="avatar" src="media/img/userEmpty.png" alt="desconocido">
                     </div>
                 </div>
+                <!--DESPLEGABLE USUARIO NAVBAR-->
                 <div>
                     <p id="username" class="username">Usuario</p>
                     <div id="colapsarAvatar" class="menuUser ocultar">
                         <ul>
-                            <li>Publicados</li>
-                            <li>Favoritos</li>
-                            <li>Salir</li>
+                            <li id="misPublicados">Publicados</li>
+                            <li id="misFavoritos">Favoritos</li>
+                            <li id="logout">Salir</li>
                         </ul>
                     </div>
                 </div>
-
             </div>
         </div>
     </nav>
 
     <header>
         <h1 class="titulo">El Hornerito</h1>
-        <h2 class="subtitulo">Encontra o Publicá tu alquiler</h2>
+        <div class="wrapper">
+            <h2 class="subtitulo typing-demo">Encontra o Publicá tu alquiler</h2>
+        </div>
         <!--boton para desplegar el login-->
         <div class="contenedorBotonComenzar">
             <button id="botonComenzar" class="botonComenzar">
@@ -62,19 +77,18 @@
                 </div>
                 <div class="cajaTrasera-register">
                     <h3>¿No tenés cuenta?</h3>
-                    <p>Regístrate para que puedas iniciar sesión</p>
+                    <p>Regístrate para iniciar sesión</p>
                     <button class="botonVolver2" id="botonIrRegistrarse">Registrate</button>
-                </div>
-
-                <div id="buscarPublicar" class="cajaTrasera-BuscarPublicar">
-                    <h3>¿Qué querés hacer??</h3>
-                    <div>
-                        <button class="boton botonBuscar" id="botonBuscar1">Buscar</button>
-                        <button class="boton botonPublicar" id="botonIrPublicar1">Publicar</button>
-                    </div>
-                </div>
+                </div>                
             </div>
 
+            <div id="buscarPublicar" class="contenedorBuscarPublicar ocultar">
+                <h3>¿Qué querés hacer?</h3>
+                <div class="botones">
+                    <button class="boton botonBuscar" id="botonBuscar1">Buscar</button>
+                    <button class="boton botonPublicar" id="botonIrPublicar1">Publicar</button>
+                </div>
+            </div>
             <!--Formulario de Login y registro-->
             <div id="contenedorRegistroLogin" class="contenedor__login-register">
                 <!--Login-->
@@ -228,7 +242,7 @@
                     </div>
                 </div>
                 <div class="campo">
-                    <div id="rangeAlq">Alquiler máximo</div>                    
+                    <div id="rangeAlq">Alquiler máximo</div>
                     <input type="range" min="0" max="100000" list="tickmarks" step="1000" id="alqBuscar">
                     <datalist id="tickmarks">
                         <option value="0" label="0">
