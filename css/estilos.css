@@ -526,3 +526,15 @@ section{
       border-color: transparent
     }
   }
+
+  .menu{
+      cursor: pointer;
+      text-decoration: none;
+  }
+  .menu:hover{
+      background-color: azure;
+      color:black;
+  }
+  a{
+      text-decoration: none;
+  }
