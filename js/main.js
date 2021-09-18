@@ -168,7 +168,7 @@ function comenzar() {
         $("#tituloNavbar").show();
     });
 };
-//Leo el Json online de Usuarios (API)
+//Leo el Json online de Usuarios (API)--------------------------------------//
 function leoJsonUsuarios() {
     let URLGET_USERS = "https://api.jsonbin.io/b/6134015a470d3325940285b2/latest";
     let misUsuarios = [];
@@ -428,16 +428,6 @@ function mostrarMensajePubli(mensaje, inmueble) {
         alerta.remove();
         //formPublicador.remove();
     }, 1000);
-    let tarjetaPubli = document.getElementById("inmueblePublicado");
-    tarjetaPubli.classList.remove("ocultar");
-    let tarjeta = document.getElementById("publicacion");
-    console.log("contenido tarjeta", tarjeta);
-    let publicacion = document.createElement("div");
-    publicacion.classList.add('tarjetaDepto');
-    publicacion.innerHTML = `<h3 class='parrafoTarj'> Tipo: ${inmueble.tipo}</h3>
-                                    <p class='parrafoTarj'>  Localidad: ${inmueble.localidad}</p>
-                                    <b class='parrafoTarj'> $ ${inmueble.monto}</b>`;
-    tarjeta.appendChild(publicacion);
 
 };
 //------------------------FORMULARIO PARA BUSCAR----------------------------//
@@ -445,7 +435,6 @@ function mostrarFormBusqueda() {
     $("#contenedorLogin").hide();
     formBuscador.removeClass("ocultar");
 };
-
 function validarFormBusca(e) {
     e.preventDefault();
     //tomo los datos ingresados en el formulario
@@ -668,7 +657,9 @@ function mostrarDetallesFavorito(e) {
     let nro = parseInt(id.match(regex));
     console.log('id despues de regex', nro);
     //mis id de inmueble arrancan en 1, por eso el -1
-    let propiedad = arrayDeptos[nro - 1];
+    //let propiedad = arrayDeptos[nro - 1];
+    let aux = arrayDeptos.filter(ee => ee.id == nro);   
+    let propiedad = aux[0];
     console.log(propiedad);
     //paso el booleano a Si o No para mostrarlo
     let cochera = propiedad['cochera'];
@@ -744,6 +735,120 @@ function mostrarDetallesFavorito(e) {
 
 
 };
+//--------------modal para mostrar los detalles del Publicado----------------//
+function mostrarDetallesPublicado(e) {
+    //guardo el id del boton
+    let id = e.target.id;
+    console.log('id cliqueado', id);
+    //expresion regular
+    var regex = /(\d+)/g;
+    //al id le dejo solo los nros con la regex
+    let nro = parseInt(id.match(regex));
+    console.log('id despues de regex', nro);
+
+    //busco y defino la propiedad segun el id
+    let aux = arrayDeptos.filter(ee => ee.id == nro);   
+    let propiedad = aux[0];
+    console.log('propiedad', propiedad);
+    console.log('propiedad id', propiedad.id);
+    
+    //paso el booleano a Si o No para mostrarlo
+    let cochera = propiedad['cochera'];
+    if (cochera) {
+        estacionamiento = 'Si';
+    } else {
+        estacionamiento = 'No';
+    }
+    //creo el div para mostrar en la tarjeta
+    let tarjetaDetalle = document.createElement("DIV");
+    //tarjetaDetalle.classList.add('tarjetaDeptoBusqueda');
+    tarjetaDetalle.classList.add('overlay');
+
+    //Contenido de la tarjeta 
+    tarjetaDetalle.innerHTML = `<div class="detalles">
+    <h3 class="parrafoDetalle">Inmueble Publicado</h3>
+    <p class="parrafoDetalle">${propiedad.localidad}</p>
+        <h3>Tipo:${propiedad.tipo}</h3>  
+        <p class="parrafoDetalle">Tipo de Uso: ${propiedad.uso}</p>    
+        <p class="parrafoDetalle">Cantidad de habitaciones: ${propiedad.habitaciones}</p>
+        <p class="parrafoDetalle">Cantidad de baños: ${propiedad.banios}</p>
+        <p class="parrafoDetalle">Cochera: ${estacionamiento}</p>    
+        <p class="parrafoDetalle">Alquiler Mesual: $ ${propiedad.monto}</p>
+        <p class="parrafoDetalle">Expensas Aprox: $ ${propiedad.expensas}</p>
+        <button id="btnPub" class="parrafoDetalle boton"> Eliminar</button></div>
+        <img class="imgDetalle" src=${propiedad.img1}></div>`;
+    //Lo tiro al body
+    const body = document.querySelector("body");
+    body.appendChild(tarjetaDetalle);
+
+    //btn para cerrar
+    const cerrarTarjeta = document.createElement("P");
+    cerrarTarjeta.textContent = 'X';
+    cerrarTarjeta.classList.add('btnCerrar');
+    tarjetaDetalle.appendChild(cerrarTarjeta);
+
+    //para cerrar la tarjeta
+    cerrarTarjeta.addEventListener('click', function () {
+        tarjetaDetalle.remove();
+    });
+    //para eliminar el depto Publicado
+    let eliminoDepto = document.getElementById("btnPub");
+    if (Usuario1.publicaciones.includes(propiedad.id)) {        
+        $("#btnPub").text('Eliminar');
+    };
+
+    eliminoDepto.addEventListener('click', function () {
+        if (Usuario1.publicaciones.includes(propiedad.id)) {
+            console.log('hice click en id(propiedad.id): ',propiedad.id );
+            Usuario1.publicaciones.splice(propiedad.id, 1);
+            console.log('eliminando del usuario el id del publicado, no deberia estar en el array el nro: ', propiedad.id);
+            
+            let aux2 = arrayDeptos.filter(ee => ee.id != nro);   
+            arrayDeptos = aux2;                     
+            //y en el array de Usuarios para actualizar el json
+            arrayUsuarios[Usuario1.id].publicaciones = arrayUsuarios[Usuario1.id].publicaciones.filter(publicaciones => publicaciones != propiedad.id);            
+            $("#btnFav").text('Eliminado');
+
+            //actualizo el array de publicados del usuario
+            let jj = JSON.stringify(arrayUsuarios);
+            $.ajax({
+                url: 'https://api.jsonbin.io/b/6134015a470d3325940285b2',
+                contentType: 'application/json',
+                method: 'PUT',
+                //XMasterKey: '$2b$10$JP7lQa.UN5cW6CuENZFXwefu.tNQ4cvGdj4scjZQejqb5n8XIcOXa',        
+                data: jj
+            }).done(function () {
+                console.log('SUCCESS'); //verifico por consola si escribio bien los datos
+            }).fail(function (msg) {
+                console.log('FAIL');
+            }).always(function (msg) {
+                console.log('ALWAYS');
+            });
+            //actualizo los deptos (elimino el eliminado)
+            let kk = JSON.stringify(arrayDeptos);
+            $.ajax({
+                url: 'https://api.jsonbin.io/b/61390c2a4a82881d6c4b6329',
+                contentType: 'application/json',
+                method: 'PUT',
+                //XMasterKey: '$2b$10$JP7lQa.UN5cW6CuENZFXwefu.tNQ4cvGdj4scjZQejqb5n8XIcOXa',        
+                data: kk
+            }).done(function () {
+                console.log('SUCCESS'); //veo por consola si actualizo bien
+            }).fail(function (msg) {
+                console.log('FAIL');
+            }).always(function (msg) {
+                console.log('ALWAYS');
+            });
+        } else {
+            $("#btnFav").text('Eliminado');
+        }
+        $("#misPublicados").text('Publicados [' + Usuario1.publicaciones.length + ']');
+        misPublicados();
+    })
+
+
+};
+
 //--------------modal para mostrar el detalle de los deptos-----------------//
 function mostrarDetalles(e) {
     //guardo el id del boton
@@ -807,7 +912,8 @@ function mostrarPublicado(inmueble) {
     tarjetaDetalle.classList.add('overlay');
 
     //Contenido de la tarjeta 
-    tarjetaDetalle.innerHTML = `<div><p class="parrafoDetalle">${inmueble.localidad}</p>
+    tarjetaDetalle.innerHTML = `<div><h3 class="parrafoDetalle">ACABAS DE PUBLICAR</h3>
+    <p class="parrafoDetalle">${inmueble.localidad}</p>
     <h3>Tipo:${inmueble.tipo}</h3>  
     <p class="parrafoDetalle">Tipo de Uso: ${inmueble.uso}</p>    
     <p class="parrafoDetalle">Cantidad de habitaciones: ${inmueble.habitaciones}</p>
@@ -843,9 +949,13 @@ function misPublicados() {
     //hago esto para resetear la seccion por si tenia busquedas anteriores
     resultBusq.innerHTML = ` `;
 
-
     //array para guardar lo filtrado    
     let misDeptosId = Usuario1.publicaciones;
+    
+    if (misDeptosId.length == 0) {
+        resultBusq.innerHTML = `<div class="contenedorBuscarPublicar"><p class="parrafoDetalle">No tenes Inmuebles Publicados</p>
+        </div>`;
+    }
 
     //busqueda es el id de <section> dentro del cual quiero insertar las tarjetas  
 
@@ -888,7 +998,7 @@ function misPublicados() {
             let detalles = document.getElementById(identificador);
 
             //lo dejo a la escucha de un click y que ejecute la funcion mostrarDetallesBusqueda
-            detalles.addEventListener('click', mostrarDetallesBusqueda);
+            detalles.addEventListener('click', mostrarDetallesPublicado);
 
 
         } //cierra if
