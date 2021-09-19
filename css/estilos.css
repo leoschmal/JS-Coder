@@ -1,3 +1,13 @@
+:root {
+    --fuenteHeading: 'Montserrat', sans-serif;
+    --fuenteParrafos: 'Open Sans', sans-serif;
+
+    --primario: #008080;
+    --gris: #e1e1e1;
+    --blanco: #fff;
+    --negro: #000;
+    --secundario: #deb887;
+}
 /* Reseteo de margins y Paddings*/
 * {
     margin: 0px;
@@ -19,8 +29,9 @@ h1, h2, h3, b{
 header{
     background-color:teal;
     padding-bottom: 1rem;
-    margin-bottom: 1rem;;
-}
+    margin-bottom: 1rem;
+    }
+
 p{
     margin: 0;
 }
@@ -29,17 +40,17 @@ ul{
     
 }
 li{
-    color: white;
+    color:var(--blanco);
     padding: 0.5rem;
 }
 .titulo{
     text-align:center;
     font-size: 8rem;
-    color: white;
+    color: var(--blanco);
 }
 .subtitulo{
     text-align: center;
-    color: white;
+    color: var(--blanco);
     font-size: 3rem;
 }
 
@@ -53,7 +64,7 @@ li{
 .menuUser{
     margin-top: 1rem;
     padding: 1rem;
-    background-color: black;
+    background-color: var(--negro);
     position: absolute;
     right: 10px;
     
@@ -73,17 +84,17 @@ li{
     font-size:2rem;
     font-weight: bold;
     text-transform: uppercase;
-    background-color:burlywood;
+    background-color:var(--secundario);    
     border-radius: 1rem;
     border: none;
 }
 .botonComenzar:hover{
-    background-color: black;
-    color:white;
+    background-color: var(--negro);
+    color:var(--blanco);
 }
  /*formulario inicio*/
  .formulario{
-     background-color: grey;
+     background-color: var(--gris);
      width: min(60rem, 100%);/*agarra el mas chico*/
      margin: 0 auto;
      padding: 2rem;
@@ -120,8 +131,8 @@ li{
      border-radius: 1.5rem;
  }
  .boton{
-     background-color: black;
-     color: white;
+     background-color: var(--negro);
+     color: var(--blanco);
      padding: 1rem 2rem;
      margin-top: 3rem;
      font-size: 2rem;
@@ -130,17 +141,17 @@ li{
      border-radius: .5rem;
      width: 100%;
      text-align: center;
-     border: 2px solid black;
+     border: 2px solid var(--negro);
  }
  .boton:hover{
      cursor: pointer;
      color: black;
-     background-color: white;
-     border: 2px solid black;
+     background-color: var(--blanco);
+     border: 2px solid var(--negro);
  }
 .botonVolver{
-    background-color: white;
-    color: black;
+    background-color: var(--blanco);
+    color: var(--negro);
     padding: 1rem 2rem;
     margin-top: 3rem;
     font-size: 2rem;
@@ -149,19 +160,19 @@ li{
     border-radius: .5rem;
     width: 100%;
     text-align: center;
-    border: 2px solid black;
+    border: 2px solid var(--negro);
 }
  .enviar .boton{
      width: 100%;
  }
  .botonVolver:hover{
     cursor: pointer;
-    color: white;
-    background-color: black;
+    color: var(--blanco);
+    background-color: var(--negro);
 }
 .botonVolver2{
     background-color: teal;
-    color: black;
+    color: var(--negro);
     padding: 1rem 2rem;
     margin-top: 3rem;
     font-size: 2rem;
@@ -170,13 +181,13 @@ li{
     border-radius: .5rem;
     width: 100%;
     text-align: center;
-    border: 2px solid black;
+    border: 2px solid var(--negro);
 }
 
  .botonVolver2:hover{
     cursor: pointer;
-    color: white;
-    background-color: black;
+    color: var(--blanco);
+    background-color: var(--negro);
 }
 .flex-radios{
     display: flex;
@@ -191,19 +202,19 @@ li{
      background-color: rgb(185,0,0);
      text-align: center;
      padding: 1rem;
-     color: white;
+     color: var(--blanco);
      text-transform: uppercase;
  }
  .alerta{
     background-color: rgb(50,185,0);
     text-align: center;
     padding: 1rem;
-    color: white;
+    color: var(--blanco);
     text-transform: uppercase;
 }
 
 .tarjetaDepto{
-    background-color: white;
+    background-color: var(--blanco);
     width: 30rem;
     display: inline-block;
     margin: 1rem;
@@ -228,10 +239,10 @@ li{
     margin: 1rem;
     padding: 1rem;
     border-radius: 1rem;
-    color: black;
+    color: var(--negro);
 }
 .textoResultados{
-    color: black;
+    color: var(--negro);
 }
 .imgResultados{
     width: 100%;
@@ -538,3 +549,37 @@ section{
   a{
       text-decoration: none;
   }
+.contenedor {
+    width: min(90%, 120rem);
+    margin: 0 auto;
+    
+}
+.footer {
+    background-color: var(--negro);
+    padding-bottom: 3rem;
+    margin-top: 4rem;
+}
+.barra {
+    padding-top: 4rem;
+}
+.logo {
+    color: var(--blanco);
+    
+}
+.logo__nombre {
+    font-weight: 400;
+}
+.logo__bold {
+    font-weight: 700;
+}
+.firma{
+    color: var(--blanco);
+    text-align: center;
+    padding-top: 1rem;
+}
+.no-margin {
+    margin: 0;
+}
+.centrar-texto {
+    text-align: center;
+}

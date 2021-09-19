@@ -17,6 +17,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <!--BODY-->
+
 <body class="bg-dark">
     <div class="carga">
         <h1 style="color:black; text-align: center;">Esperá como el carpincho que ya carga....</h1>
@@ -29,9 +30,7 @@
                     alt="hornerito"> </a>
             <!--TITULO NAVBAR-->
             <div id="tituloNavbar" class="ocultar">
-                <h2 style="color: black; font-weight: bold;">
-                    El Hornerito
-                </h2>
+                <h1 class="logo__nombre no-margin centrar-texto"  style="color:black">El<span class="logo__bold">Hornerito</span></h1>
             </div>
             <!--AVATAR NAVBAR-->
             <div class="userbox">
@@ -44,8 +43,12 @@
                     <p id="username" class="username">Usuario</p>
                     <div id="colapsarAvatar" class="menuUser ocultar">
                         <ul>
-                            <a href="#tituloBusqueda"><li id="misPublicados" class="menu">Publicados</li></a>
-                            <a href="#tituloBusqueda"><li id="misFavoritos" class="menu">Favoritos</li></a>
+                            <a href="#tituloBusqueda">
+                                <li id="misPublicados" class="menu">Publicados</li>
+                            </a>
+                            <a href="#tituloBusqueda">
+                                <li id="misFavoritos" class="menu">Favoritos</li>
+                            </a>
                             <li id="logout" class="menu">Salir</li>
                         </ul>
                     </div>
@@ -55,7 +58,7 @@
     </nav>
 
     <header>
-        <h1 class="titulo">El Hornerito</h1>
+        <h1 class="logo__nombre no-margin centrar-texto titulo">El<span class="logo__bold">Hornerito</span></h1>
         <div class="wrapper">
             <h2 class="subtitulo typing-demo">Encontra o Publicá tu alquiler</h2>
         </div>
@@ -66,8 +69,8 @@
             </button>
         </div>
     </header>
-    <!--Login & Registro-->
-    <section>
+    <!--Login & Registro-->  
+    <section>  
         <div id="contenedorLogin" class="contenedorTodo ocultar">
             <div class="cajaTrasera">
                 <div class="cajaTrasera-login">
@@ -79,7 +82,7 @@
                     <h3>¿No tenés cuenta?</h3>
                     <p>Regístrate para iniciar sesión</p>
                     <button class="botonVolver2" id="botonIrRegistrarse">Registrate</button>
-                </div>                
+                </div>
             </div>
 
             <div id="buscarPublicar" class="contenedorBuscarPublicar ocultar">
@@ -111,8 +114,8 @@
                 </form>
             </div>
         </div>
-
     </section>
+
     <!--Fin login & Registro-->
     <!--Formulario de Publicacion -->
     <form id="formPublicar" action="submit" class="formulario ocultar " style="background-color: white;">
@@ -293,7 +296,7 @@
         </fieldset>
     </form>
     <!--Fin formulario Busqueda-->
-    <!--Contenedor de Resultados de Busquedas-->
+    <!--Contenedor de Resultados de Busquedas, Publicaciones y Favoritos-->
     <section class="contenedorbusqueda">
         <h2 id="tituloBusqueda" class="tituloSeccion ocultar">Resultados de Búsqueda</h2>
         <div id="busqueda" class="contenedorResultados">
@@ -301,35 +304,34 @@
         </div>
     </section>
     <!--Fin contenedor Busquedas-->
-<!--
-    <section id="inmueblePublicado" class="publicacion ocultar">
-        <h2 class="tituloSeccion">Acabas de Publicar</h2>
-        <div id="publicacion">
-            <!--Aca manipulo el DOM y HTML desde js para mostrar la publicacion hecha-->
- <!--       </div>
-    </section>-->
 
     <!--Seccion de muestra estandar de inmuebles cargados-->
     <section>
         <h2 class="tituloSeccion">Últimos Inmuebles Publicados</h2>
-        <div id="contenedorMuestras" class="contenedorMuestras">
-
-        </div>
-
+        <div id="contenedorMuestras" class="contenedorMuestras"></div>
     </section>
-    <footer>
 
+    <footer class="footer">
+        <div class="contenedor">
+            <div class="barra">
+                <a class="logo" href="index.html">
+                    <h1 class="logo__nombre no-margin centrar-texto">El<span class="logo__bold">Hornerito</span></h1>
+                </a>
+
+           </div>
+            <div class="firma">
+                <p>Creado por <strong><a href="https://leoschmal.com.ar" target="_blank" rel="noopener noreferrer"
+                            style="color: white;">
+                            < Leonardo Schmal /> </a></strong> | Todos los derechos reservados 2021</p>
+            </div>
+        </div>
     </footer>
     <!--Scripts-->
-
     <!--Booststrap5-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
     <!--Main Js-->
-    <script src="js/main.js"></script>
-    <!--<script src="js/script.js"></script>-->
-
+    <script src="js/main.js"></script> 
 </body>
-
 </html>

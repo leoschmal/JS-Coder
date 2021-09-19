@@ -4,7 +4,7 @@
 function cargoPagina() {
     //Mientras se carga la pagina muestro una imagen
     $(window).on("load", function () {
-        $(".carga").fadeOut(1000);
+        $(".carga").fadeOut(5000);
     });
 };
 //============================CLASES========================================//
@@ -269,7 +269,10 @@ function loginUsuario(e) {
     //tomo los datos ingresados en el formulario
     let email = document.getElementById("correoLogin").value;
     let pass = document.getElementById("passLogin").value;
-
+    if (email === '' || pass === '') {
+        mostrarError('Todos los campos son obligatorios');
+        return;
+    }
     //verifico si coinciden con algun usuario registrado
     for (let i = 0; i < arrayUsuarios.length; i++) {
         if (arrayUsuarios[i].email.includes(email) && arrayUsuarios[i].pass.includes(pass)) {
@@ -451,10 +454,8 @@ function validarFormBusca(e) {
         mostrarErrorBusqueda('Todos los campos son obligatorios');
         return;
     }
-    //let id = 0;
-    //let img = ' ';
-    //let busqueda = new Inmueble(id, tipoInmueble, localidad, tipoUsos, habs, banios, cochera, alq, exp, img);
-    muestroDeptos(localidad, tipoInmueble);
+
+    muestroDeptos(localidad, tipoInmueble, tipoUsos, habs, banios, cochera, alq, exp);
     $("#formBuscar")[0].reset();
 };
 function mostrarErrorBusqueda(mensaje) {
@@ -470,7 +471,7 @@ function random(min, max) {
     return Math.floor((Math.random() * (max - min + 1)) + min);
 };
 //----------------------------Resultados Busqueda---------------------------//
-function muestroDeptos(localidad, tipoInmueble) {
+function muestroDeptos(localidad, tipoInmueble, tipoUsos, habs, banios, cochera, alq, exp) {
     //traigo el id del titulo de la seccion y lo muestro
     var titulo = document.getElementById("tituloBusqueda");
     titulo.classList.remove("ocultar");
@@ -479,16 +480,13 @@ function muestroDeptos(localidad, tipoInmueble) {
     //hago esto para resetear la seccion por si tenia busquedas anteriores
     resultBusq.innerHTML = ` `;
 
-
     //array para guardar lo filtrado    
     let resultadoBusqueda = [];
-    //Filtro de búsqueda (por ahora dejo solo por localidad por razones de prueba, tengo pocos inmuebles cargados)
-    resultadoBusqueda = arrayDeptos.filter(busqueda => busqueda.localidad == localidad /*&& busqueda.tipo === tipoInmueble*/ );
-    //resultadoBusqueda = filtroBusqueda;
-    //console.log('filtroBusqueda', filtroBusqueda);
+    let alquiler = formato.format(alq);
+    let expensas = formato.format(exp);
+    //Filtro de búsqueda
+    resultadoBusqueda = arrayDeptos.filter(busqueda => busqueda.localidad == localidad && busqueda.tipo === tipoInmueble && busqueda.uso === tipoUsos && busqueda.habitaciones <= habs && busqueda.banios <= banios && busqueda.cochera == cochera && busqueda.monto <= alquiler && busqueda.expensas <= expensas);
     console.log('resultadoBusqueda', resultadoBusqueda);
-    //busqueda es el id de <section> dentro del cual quiero insertar las tarjetas  
-
     for (elemento of resultadoBusqueda) {
         let ran1 = random(1, 54);
         let ran2 = random(1, 54);
@@ -552,10 +550,10 @@ function cargoDeptos() {
 
         //creo una variable para obtener el id de cada boton
         let identificador = "btnVer" + inmueble.id;
-        //console.log(identificador);
+        
         //obtengo el elemento(un boton) por si id
         let detalles = document.getElementById(identificador);
-        //console.log("detalles", detalles);
+        
         //lo dejo a la escucha de un click y que ejecute la funcion mostrarDetalles
         detalles.addEventListener('click', mostrarDetalles);
     }
@@ -570,8 +568,9 @@ function mostrarDetallesBusqueda(e) {
     //al id le dejo solo los nros con la regex
     let nro = parseInt(id.match(regex));
     console.log('id despues de regex', nro);
-    //mis id de inmueble arrancan en 1, por eso el -1
-    let propiedad = arrayDeptos[nro - 1];
+    
+    let aux = arrayDeptos.filter(ee => ee.id == nro);   
+    let propiedad = aux[0];
     console.log(propiedad);
     //paso el booleano a Si o No para mostrarlo
     let cochera = propiedad['cochera'];
@@ -656,8 +655,7 @@ function mostrarDetallesFavorito(e) {
     //al id le dejo solo los nros con la regex
     let nro = parseInt(id.match(regex));
     console.log('id despues de regex', nro);
-    //mis id de inmueble arrancan en 1, por eso el -1
-    //let propiedad = arrayDeptos[nro - 1];
+    
     let aux = arrayDeptos.filter(ee => ee.id == nro);   
     let propiedad = aux[0];
     console.log(propiedad);
@@ -749,9 +747,7 @@ function mostrarDetallesPublicado(e) {
     //busco y defino la propiedad segun el id
     let aux = arrayDeptos.filter(ee => ee.id == nro);   
     let propiedad = aux[0];
-    console.log('propiedad', propiedad);
-    console.log('propiedad id', propiedad.id);
-    
+        
     //paso el booleano a Si o No para mostrarlo
     let cochera = propiedad['cochera'];
     if (cochera) {
@@ -857,8 +853,9 @@ function mostrarDetalles(e) {
     var regex = /(\d+)/g;
     //al id le dejo solo los nros con la regex
     let nro = parseInt(id.match(regex));
-    //mis id de inmueble arrancan en 1, por eso el -1
-    let propiedad = arrayDeptos[nro - 1];
+    //busco y defino la propiedad segun el id
+    let aux = arrayDeptos.filter(ee => ee.id == nro);   
+    let propiedad = aux[0];
     //paso el booleano a Si o No para mostrarlo
     let cochera = propiedad['cochera'];
     if (cochera) {
