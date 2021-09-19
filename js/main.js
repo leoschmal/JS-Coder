@@ -84,6 +84,7 @@ formBuscador.on('submit', validarFormBusca);
 $("#contenedorbusqueda").hide();
 $("#misPublicados").on('click', misPublicados);
 $("#misFavoritos").on('click', misFavoritos);
+$("#logout").on('click',salir);
 
 //muestra el valor del range en el form buscar
 $("#alqBuscar").change(function (e) {
@@ -104,7 +105,7 @@ $("#avatar").click((e) => {
 $(document).on('click', function () {
     $("#colapsarAvatar").hide();
 })
-
+$("#LogReg").hide();
 //===========================FUNCIONES======================================//
 //vuelvo atras formulario buscar -> form identificacion
 function funcionVolverDeBusqueda() {
@@ -171,6 +172,7 @@ function comenzar() {
         $("header").slideToggle("slow", "linear")
         $("#tituloNavbar").show();
         $("#contenedorbusqueda").hide();
+        $("#LogReg").show();
     });
 };
 //Leo el Json online de Usuarios (API)--------------------------------------//
@@ -235,8 +237,16 @@ function registroUsuario(e) {
         mostrarError('Todos los campos son obligatorios');
         return;
     }
+    if (pass1.length < 6) {
+        mostrarError('La contraseña es corta (min. 6 caract)');
+        return;
+    }
     if (pass1 !== pass2) {
         mostrarError('Las contraseñas son distintas');
+        return;
+    }
+    if (!email.includes('@')) {
+        mostrarError('Verifique email');
         return;
     }
     for (let i = 0; i < arrayUsuarios.length; i++) {
@@ -1074,6 +1084,10 @@ function misFavoritos() {
         } //cierra if
     } //cierra for
 };
+//---------------------------Salir------------------------------------------//
+function salir(){
+    location.reload();
+}
 function numeros(){
     $("#contenedorbusqueda").show();
     let resultBusq = document.getElementById("busqueda");
