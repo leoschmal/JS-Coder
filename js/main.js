@@ -4,7 +4,7 @@
 function cargoPagina() {
     //Mientras se carga la pagina muestro una imagen
     $(window).on("load", function () {
-        $(".carga").fadeOut(5000);
+        $(".carga").fadeOut(5000);        
     });
 };
 //============================CLASES========================================//
@@ -81,7 +81,7 @@ botonPublicar.on('click', mostrarFormPublicar);
 
 formPublicador.on('submit', validarFormPubli);
 formBuscador.on('submit', validarFormBusca);
-
+$("#contenedorbusqueda").hide();
 $("#misPublicados").on('click', misPublicados);
 $("#misFavoritos").on('click', misFavoritos);
 
@@ -166,6 +166,7 @@ function comenzar() {
         $("#contenedorLogin").fadeIn();
         $("header").slideToggle("slow", "linear")
         $("#tituloNavbar").show();
+        $("#contenedorbusqueda").hide();
     });
 };
 //Leo el Json online de Usuarios (API)--------------------------------------//
@@ -841,10 +842,7 @@ function mostrarDetallesPublicado(e) {
         $("#misPublicados").text('Publicados [' + Usuario1.publicaciones.length + ']');
         misPublicados();
     })
-
-
 };
-
 //--------------modal para mostrar el detalle de los deptos-----------------//
 function mostrarDetalles(e) {
     //guardo el id del boton
@@ -937,6 +935,7 @@ function mostrarPublicado(inmueble) {
 };
 //----------------------------mis Publicados--------------------------------//
 function misPublicados() {
+    $("#contenedorbusqueda").show();
     //traigo el id del titulo de la seccion y lo muestro
     var titulo = document.getElementById("tituloBusqueda");
     titulo.classList.remove("ocultar");
@@ -1003,6 +1002,7 @@ function misPublicados() {
 };
 //----------------------------mis Favoritos---------------------------------//
 function misFavoritos() {
+    $("#contenedorbusqueda").show();
     //traigo el id del titulo de la seccion y lo muestro
     var titulo = document.getElementById("tituloBusqueda");
     titulo.classList.remove("ocultar");
@@ -1067,9 +1067,47 @@ function misFavoritos() {
         } //cierra if
     } //cierra for
 };
+function numeros(){
+    $("#contenedorbusqueda").show();
+    let resultBusq = document.getElementById("busqueda");
+    let contenedor = document.createElement("div");
+    contenedor.innerHTML = `<div class="contenidoEst">
+                            <div class="contenedorNro">
+                            <h2 id="numeroUsuarios" class="contador">00</h2>
+                            <p class="parrafoNro">Usuarios Registrados</p>
+                            </div>
+                            <div class="contenedorNro">
+                            <h2 id="numeroInmuebles" class="contador">00</h2>
+                            <p class="parrafoNro">Inmuebles Publicados</p>
+                            </div>
+                            </div>`;
+    resultBusq.appendChild(contenedor);
+    let numero = document.getElementById("numeroUsuarios");
+    let cant1=0;
+    let cant2 =0;
+    let tiempo = setInterval(()=>{
+        cant1 +=1;
+        cant2 +=4;        
+        $("#numeroInmuebles").text(cant2);
+        if(cant1 < arrayUsuarios.length){
+            $("#numeroUsuarios").text(cant1);
+        }else{
+            $("#numeroUsuarios").text(arrayUsuarios.length);
+        }
+        if(cant2 < arrayDeptos.length){
+            $("#numeroInmuebles").text(cant2);
+        }else{
+            $("#numeroInmuebles").text(arrayDeptos.length);
+        }
+        if(cant2==arrayDeptos.length || cant1==arrayUsuarios.lenght){
+            clearInterval(tiempo);
+        }
+    },160)
+}
 //===========================IMPLEMENTO FUNCIONES===========================//
 cargoPagina();
 anchoPage();
 leoJsonUsuarios();
 leerJSonPublicaciones();
+numeros();
 comenzar();

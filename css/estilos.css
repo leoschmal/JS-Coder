@@ -171,7 +171,7 @@ li{
     background-color: var(--negro);
 }
 .botonVolver2{
-    background-color: teal;
+    background-color: var(--primario);
     color: var(--negro);
     padding: 1rem 2rem;
     margin-top: 3rem;
@@ -582,4 +582,29 @@ section{
 }
 .centrar-texto {
     text-align: center;
+}
+
+.contenidoEst{
+    width:100%;
+    display:flex;
+    align-items: center;
+    align-content: space-between;
+    gap: 5rem;
+}
+.contenedorNro{
+    width: 20rem;
+    height: 20rem;
+    
+    border: 1px solid cadetblue;
+    display:inline-flex;
+    flex-direction:column;
+    align-items: center;
+    justify-content: space-around;
+}
+.contador{
+    font-size: 10rem;
+    font-weight: bold;
+}
+.parrafoNro{
+    color: var(--blanco);
 }
