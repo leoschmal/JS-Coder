@@ -45,7 +45,7 @@ li{
 }
 .titulo{
     text-align:center;
-    font-size: 8rem;
+    font-size: 6rem;
     color: var(--blanco);
 }
 .subtitulo{
@@ -445,7 +445,7 @@ section{
 
 .contenedor__login-register form{
     width: 100%;
-    padding: 80px 20px;
+    padding: 20px 20px;
     background: white;
     position: absolute;
     border-radius: 20px;
@@ -587,9 +587,11 @@ section{
 .contenidoEst{
     width:100%;
     display:flex;
+    flex-wrap: wrap;
     align-items: center;
     align-content: space-between;
-    gap: 5rem;
+    row-gap: 1rem;
+    column-gap: 10rem;
 }
 .contenedorNro{
     width: 20rem;

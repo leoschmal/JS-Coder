@@ -116,6 +116,7 @@ function funcionVolverDePublicar() {
     $("#contenedorLogin").show();
     formPublicador.addClass("ocultar");
 };
+//responsive gral para los form de login-register
 function anchoPage() {
 
     if (window.innerWidth > 850) {
@@ -130,6 +131,7 @@ function anchoPage() {
         formularioRegistro.style.display = "none";
     }
 };
+//responsive para el login
 function iniciarSesion() {
     if (window.innerWidth > 850) {
         formularioLogin.style.display = "block";
@@ -145,6 +147,7 @@ function iniciarSesion() {
         cajaTrasera_login.style.display = "none";
     }
 };
+//responsive para el registro
 function register() {
     if (window.innerWidth > 850) {
         formularioRegistro.style.display = "block";
@@ -161,6 +164,7 @@ function register() {
         cajaTrasera_login.style.opacity = "1";
     }
 };
+//Eventos para comenzar la interaccion de usuario
 function comenzar() {
     $("#botonComenzar").click(() => {
         $("#contenedorLogin").fadeIn();
@@ -455,7 +459,6 @@ function validarFormBusca(e) {
         mostrarErrorBusqueda('Todos los campos son obligatorios');
         return;
     }
-
     muestroDeptos(localidad, tipoInmueble, tipoUsos, habs, banios, cochera, alq, exp);
     $("#formBuscar")[0].reset();
 };
@@ -473,6 +476,7 @@ function random(min, max) {
 };
 //----------------------------Resultados Busqueda---------------------------//
 function muestroDeptos(localidad, tipoInmueble, tipoUsos, habs, banios, cochera, alq, exp) {
+    $("#contenedorbusqueda").show();
     //traigo el id del titulo de la seccion y lo muestro
     var titulo = document.getElementById("tituloBusqueda");
     titulo.classList.remove("ocultar");
@@ -488,6 +492,13 @@ function muestroDeptos(localidad, tipoInmueble, tipoUsos, habs, banios, cochera,
     //Filtro de búsqueda
     resultadoBusqueda = arrayDeptos.filter(busqueda => busqueda.localidad == localidad && busqueda.tipo === tipoInmueble && busqueda.uso === tipoUsos && busqueda.habitaciones <= habs && busqueda.banios <= banios && busqueda.cochera == cochera && busqueda.monto <= alquiler && busqueda.expensas <= expensas);
     console.log('resultadoBusqueda', resultadoBusqueda);
+    if(resultadoBusqueda.length == 0){
+        let contenedor = document.createElement("div");
+        //contenedor.classList.add('tarjetaDeptoBusqueda');
+        contenedor.innerHTML =`<div class="contenedorBuscarPublicar"><h2 class="parrafoDetalle centrar-texto">No se han encontrado resultados</h2>
+        <p class="parrafoDetalle centrar-texto"> Intentá modificando la búsqueda</p></div>`;
+        resultBusq.appendChild(contenedor);
+    }
     for (elemento of resultadoBusqueda) {
         let ran1 = random(1, 54);
         let ran2 = random(1, 54);
@@ -523,18 +534,14 @@ function muestroDeptos(localidad, tipoInmueble, tipoUsos, habs, banios, cochera,
         //console.log(identificador);
         //obtengo el elemento(un boton) por si id
         let detalles = document.getElementById(identificador);
-        //console.log("detalles", detalles);
         //lo dejo a la escucha de un click y que ejecute la funcion mostrarDetallesBusqueda
         detalles.addEventListener('click', mostrarDetallesBusqueda);
-
-
     }
-
 };
 //----------Muestra 10 deptos al final del body-----------------------------//
 function cargoDeptos() {
-    //saco los primeros 10 deptos cargados del total de publicaciones
-    let aux = arrayDeptos.slice(0, 10);
+    //saco los primeros 8 deptos cargados del total de publicaciones
+    let aux = arrayDeptos.slice(0, 8);
     let muestras = document.getElementById("contenedorMuestras");
     muestras.innerHTML = ` `;
     for (const inmueble of aux) {
