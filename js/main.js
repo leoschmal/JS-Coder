@@ -305,7 +305,7 @@ function loginUsuario(e) {
             let avatar = document.getElementById("avatar");
             avatar.src = 'media/img/carpincho.svg';
 
-            mostrarMensaje("Datos ingresados correctamente");
+            mostrarMensaje("Datos ingresados correctamente");            
             return;
         } else if (i == arrayUsuarios.length - 1) {
             mostrarError('El Usuario no existe');
@@ -332,6 +332,7 @@ function mostrarMensaje(mensaje) {
     setTimeout(() => {
         msj = $("#ok");
         msj.remove();
+        $("#formularioLogin").hide();
         if (Usuario1 != undefined) {
             $(".cajaTrasera").hide();
             $(".contenedorRegistroLogin").hide();
@@ -953,6 +954,7 @@ function mostrarPublicado(inmueble) {
 //----------------------------mis Publicados--------------------------------//
 function misPublicados() {
     $("#contenedorbusqueda").show();
+    $("#formularioLogin").hide();
     //traigo el id del titulo de la seccion y lo muestro
     var titulo = document.getElementById("tituloBusqueda");
     titulo.classList.remove("ocultar");
@@ -1020,6 +1022,7 @@ function misPublicados() {
 //----------------------------mis Favoritos---------------------------------//
 function misFavoritos() {
     $("#contenedorbusqueda").show();
+    $("#formularioLogin").hide();
     //traigo el id del titulo de la seccion y lo muestro
     var titulo = document.getElementById("tituloBusqueda");
     titulo.classList.remove("ocultar");
