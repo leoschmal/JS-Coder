@@ -120,7 +120,7 @@ function funcionVolverDePublicar() {
 //responsive gral para los form de login-register
 function anchoPage() {
 
-    if (window.innerWidth > 850) {
+    if (window.innerWidth > 768) {
         cajaTrasera_register.style.display = "block";
         cajaTrasera_login.style.display = "block";
     } else {
@@ -134,7 +134,7 @@ function anchoPage() {
 };
 //responsive para el login
 function iniciarSesion() {
-    if (window.innerWidth > 850) {
+    if (window.innerWidth > 768) {
         formularioLogin.style.display = "block";
         contenedor_login_register.style.left = "10px";
         formularioRegistro.style.display = "none";
@@ -150,7 +150,7 @@ function iniciarSesion() {
 };
 //responsive para el registro
 function register() {
-    if (window.innerWidth > 850) {
+    if (window.innerWidth > 768) {
         formularioRegistro.style.display = "block";
         contenedor_login_register.style.left = "410px";
         formularioLogin.style.display = "none";
@@ -1089,6 +1089,7 @@ function misFavoritos() {
 function salir(){
     location.reload();
 }
+//muestra en el body estadisticas del sitio
 function numeros(){
     $("#contenedorbusqueda").show();
     let resultBusq = document.getElementById("busqueda");
