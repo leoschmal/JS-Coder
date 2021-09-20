@@ -497,11 +497,9 @@ function muestroDeptos(localidad, tipoInmueble, tipoUsos, habs, banios, cochera,
     resultBusq.innerHTML = ` `;
 
     //array para guardar lo filtrado    
-    let resultadoBusqueda = [];
-    let alquiler = formato.format(alq);
-    let expensas = formato.format(exp);
+    let resultadoBusqueda = [];    
     //Filtro de búsqueda
-    resultadoBusqueda = arrayDeptos.filter(busqueda => busqueda.localidad == localidad && busqueda.tipo === tipoInmueble && busqueda.uso === tipoUsos && busqueda.habitaciones <= habs && busqueda.banios <= banios && busqueda.cochera == cochera && busqueda.monto <= alquiler && busqueda.expensas <= expensas);
+    resultadoBusqueda = arrayDeptos.filter(busqueda => busqueda.localidad == localidad && busqueda.tipo === tipoInmueble && busqueda.uso === tipoUsos && busqueda.habitaciones <= habs && busqueda.banios <= banios && busqueda.cochera == cochera && parseInt(busqueda.monto.slice(4).replace('.','')) <= parseInt(alq) && parseInt(busqueda.expensas.slice(4).replace('.','')) <= parseInt(exp));
     console.log('resultadoBusqueda', resultadoBusqueda);
     if(resultadoBusqueda.length == 0){
         let contenedor = document.createElement("div");
