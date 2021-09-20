@@ -1104,14 +1104,20 @@ function numeros(){
                             <h2 id="numeroInmuebles" class="contador">00</h2>
                             <p class="parrafoNro">Inmuebles Publicados</p>
                             </div>
+                            <div class="contenedorNro">
+                            <h2 id="numeroLocalidades" class="contador">00</h2>
+                            <p class="parrafoNro">Localidades</p>
+                            </div>
                             </div>`;
     resultBusq.appendChild(contenedor);
     let numero = document.getElementById("numeroUsuarios");
     let cant1=0;
     let cant2 =0;
+    let cant3=0
     let tiempo = setInterval(()=>{
         cant1 +=1;
-        cant2 +=4;        
+        cant2 +=4;
+        cant3 +=1;        
         $("#numeroInmuebles").text(cant2);
         if(cant1 < arrayUsuarios.length){
             $("#numeroUsuarios").text(cant1);
@@ -1122,6 +1128,11 @@ function numeros(){
             $("#numeroInmuebles").text(cant2);
         }else{
             $("#numeroInmuebles").text(arrayDeptos.length);
+        }
+        if(cant3 < localidadesDisponibles.length){
+            $("#numeroLocalidades").text(cant3);
+        }else{
+            $("#numeroLocalidades").text(localidadesDisponibles.length);
         }
         if(cant2==arrayDeptos.length || cant1==arrayUsuarios.lenght){
             clearInterval(tiempo);
