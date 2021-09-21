@@ -586,16 +586,12 @@ section {
         width: 100%;
         margin:0 auto;
     }
-
-
     /*Formularios*/
-
     .contenedor__login-register {
         top: -1rem;
         left: -0.5rem;
         margin: auto;
     }
-
     .contenedor__login-register form {
         position: relative;
     }
