@@ -1,12 +1,6 @@
 /* Proyecto final JavaScript
    Buscador de Alquileres "El Hornerito" */
 
-function cargoPagina() {
-    //Mientras se carga la pagina muestro una imagen
-    $(window).on("load", function () {
-        $(".carga").fadeOut(5000);        
-    });
-};
 //============================CLASES========================================//
 //Defino las clases USUARIO e INMUEBLE
 class Usuario {
@@ -84,7 +78,7 @@ formBuscador.on('submit', validarFormBusca);
 $("#contenedorbusqueda").hide();
 $("#misPublicados").on('click', misPublicados);
 $("#misFavoritos").on('click', misFavoritos);
-$("#logout").on('click',salir);
+$("#logout").on('click', salir);
 
 //muestra el valor del range en el form buscar
 $("#alqBuscar").change(function (e) {
@@ -111,6 +105,13 @@ $("#LogReg").hide();
 function funcionVolverDeBusqueda() {
     $("#contenedorLogin").show();
     formBuscador.addClass("ocultar");
+};
+
+function cargoPagina() {
+    //Mientras se carga la pagina muestro una imagen
+    $(window).on("load", function () {
+        $(".carga").fadeOut(5000);
+    });
 };
 //vuelvo atras formulario publicar -> form identificacion
 function funcionVolverDePublicar() {
@@ -186,7 +187,7 @@ function leoJsonUsuarios() {
         for (let j = 0; j < misUsuarios.length; j++) {
             let nn = new Usuario(misUsuarios[j].id, misUsuarios[j].nombre, misUsuarios[j].apellido, misUsuarios[j].email, misUsuarios[j].pass, misUsuarios[j].publicaciones, misUsuarios[j].favoritos);
             arrayUsuarios.push(nn);
-        }        
+        }
     });
 };
 //Leo el json desde la API--------------------------------------------------//
@@ -258,13 +259,10 @@ function registroUsuario(e) {
     let idUsuario = arrayUsuarios.length + 1;
     let Usuario1 = new Usuario(idUsuario, nombre, apellido, email, pass1, publicaciones, favoritos);
     mostrarMensaje("Datos ingresados correctamente\nRecargando sitio");
-    console.log('usuario registrado', Usuario1);
-
-
     //meto el usuario identificado en el array de usuarios
     arrayUsuarios.push(Usuario1);
     let jj = JSON.stringify(arrayUsuarios);
-    //console.log('arrayUsuariosString', jj);
+
     $.ajax({
         url: 'https://api.jsonbin.io/b/6134015a470d3325940285b2',
         contentType: 'application/json',
@@ -279,6 +277,7 @@ function registroUsuario(e) {
         console.log('ALWAYS');
     });
 };
+
 function loginUsuario(e) {
     e.preventDefault();
     //tomo los datos ingresados en el formulario
@@ -305,7 +304,7 @@ function loginUsuario(e) {
             let avatar = document.getElementById("avatar");
             avatar.src = 'media/img/carpincho.svg';
 
-            mostrarMensaje("Datos ingresados correctamente");            
+            mostrarMensaje("Datos ingresados correctamente");
             return;
         } else if (i == arrayUsuarios.length - 1) {
             mostrarError('El Usuario no existe');
@@ -325,6 +324,7 @@ function mostrarError(mensaje) {
         error.remove();
     }, 3000);
 };
+
 function mostrarMensaje(mensaje) {
     $('#formularioRegistro').append(`<p id="ok" class='alerta'> ${mensaje} </p>`);
     $('#formularioLogin').append(`<p id="ok" class='alerta'> ${mensaje} </p>`);
@@ -349,6 +349,7 @@ function mostrarFormPublicar() {
     $("#contenedorLogin").hide();
     formPublicador.removeClass("ocultar");
 };
+
 function validarFormPubli(e) {
     e.preventDefault();
     //tomo los datos ingresados en el formulario
@@ -428,6 +429,7 @@ function validarFormPubli(e) {
     });
     $("#formPublicar")[0].reset();
 };
+
 function mostrarErrorPubli(mensaje) {
     $('#formPublicar').append(`<p id="error" class='error'> ${mensaje} </p>`);
     //mensaje dura 3 seg
@@ -436,6 +438,7 @@ function mostrarErrorPubli(mensaje) {
         error.remove();
     }, 3000);
 };
+
 function mostrarMensajePubli(mensaje, inmueble) {
     const alerta = document.createElement('P');
     alerta.textContent = mensaje;
@@ -454,6 +457,7 @@ function mostrarFormBusqueda() {
     $("#contenedorLogin").hide();
     formBuscador.removeClass("ocultar");
 };
+
 function validarFormBusca(e) {
     e.preventDefault();
     //tomo los datos ingresados en el formulario
@@ -473,6 +477,7 @@ function validarFormBusca(e) {
     muestroDeptos(localidad, tipoInmueble, tipoUsos, habs, banios, cochera, alq, exp);
     $("#formBuscar")[0].reset();
 };
+
 function mostrarErrorBusqueda(mensaje) {
     $('#formBuscar').append(`<p id="error" class='error'> ${mensaje} </p>`);
     //mensaje dura 3 seg
@@ -497,14 +502,14 @@ function muestroDeptos(localidad, tipoInmueble, tipoUsos, habs, banios, cochera,
     resultBusq.innerHTML = ` `;
 
     //array para guardar lo filtrado    
-    let resultadoBusqueda = [];    
+    let resultadoBusqueda = [];
     //Filtro de búsqueda
-    resultadoBusqueda = arrayDeptos.filter(busqueda => busqueda.localidad == localidad && busqueda.tipo === tipoInmueble && busqueda.uso === tipoUsos && busqueda.habitaciones <= habs && busqueda.banios <= banios && busqueda.cochera == cochera && parseInt(busqueda.monto.slice(4).replace('.','')) <= parseInt(alq) && parseInt(busqueda.expensas.slice(4).replace('.','')) <= parseInt(exp));
-    console.log('resultadoBusqueda', resultadoBusqueda);
-    if(resultadoBusqueda.length == 0){
+    resultadoBusqueda = arrayDeptos.filter(busqueda => busqueda.localidad == localidad && busqueda.tipo === tipoInmueble && busqueda.uso === tipoUsos && busqueda.habitaciones <= habs && busqueda.banios <= banios && busqueda.cochera == cochera && parseInt(busqueda.monto.slice(4).replace('.', '')) <= parseInt(alq) && parseInt(busqueda.expensas.slice(4).replace('.', '')) <= parseInt(exp));
+
+    if (resultadoBusqueda.length == 0) {
         let contenedor = document.createElement("div");
         //contenedor.classList.add('tarjetaDeptoBusqueda');
-        contenedor.innerHTML =`<div class="contenedorBuscarPublicar"><h2 class="parrafoDetalle centrar-texto">No se han encontrado resultados</h2>
+        contenedor.innerHTML = `<div class="contenedorBuscarPublicar"><h2 class="parrafoDetalle centrar-texto">No se han encontrado resultados</h2>
         <p class="parrafoDetalle centrar-texto"> Intentá modificando la búsqueda</p></div>`;
         resultBusq.appendChild(contenedor);
     }
@@ -540,7 +545,6 @@ function muestroDeptos(localidad, tipoInmueble, tipoUsos, habs, banios, cochera,
         resultBusq.appendChild(contenedor);
         //creo una variable para obtener el id de cada boton
         let identificador = "btnResultado" + elemento.id;
-        //console.log(identificador);
         //obtengo el elemento(un boton) por si id
         let detalles = document.getElementById(identificador);
         //lo dejo a la escucha de un click y que ejecute la funcion mostrarDetallesBusqueda
@@ -568,10 +572,10 @@ function cargoDeptos() {
 
         //creo una variable para obtener el id de cada boton
         let identificador = "btnVer" + inmueble.id;
-        
+
         //obtengo el elemento(un boton) por si id
         let detalles = document.getElementById(identificador);
-        
+
         //lo dejo a la escucha de un click y que ejecute la funcion mostrarDetalles
         detalles.addEventListener('click', mostrarDetalles);
     }
@@ -580,16 +584,13 @@ function cargoDeptos() {
 function mostrarDetallesBusqueda(e) {
     //guardo el id del boton
     let id = e.target.id;
-    console.log('id cliqueado', id);
     //expresion regular
     var regex = /(\d+)/g;
     //al id le dejo solo los nros con la regex
     let nro = parseInt(id.match(regex));
-    console.log('id despues de regex', nro);
-    
-    let aux = arrayDeptos.filter(ee => ee.id == nro);   
+
+    let aux = arrayDeptos.filter(ee => ee.id == nro);
     let propiedad = aux[0];
-    console.log(propiedad);
     //paso el booleano a Si o No para mostrarlo
     let cochera = propiedad['cochera'];
     if (cochera) {
@@ -667,16 +668,12 @@ function mostrarDetallesBusqueda(e) {
 function mostrarDetallesFavorito(e) {
     //guardo el id del boton
     let id = e.target.id;
-    console.log('id cliqueado', id);
     //expresion regular
     var regex = /(\d+)/g;
     //al id le dejo solo los nros con la regex
     let nro = parseInt(id.match(regex));
-    console.log('id despues de regex', nro);
-    
-    let aux = arrayDeptos.filter(ee => ee.id == nro);   
+    let aux = arrayDeptos.filter(ee => ee.id == nro);
     let propiedad = aux[0];
-    console.log(propiedad);
     //paso el booleano a Si o No para mostrarlo
     let cochera = propiedad['cochera'];
     if (cochera) {
@@ -755,17 +752,15 @@ function mostrarDetallesFavorito(e) {
 function mostrarDetallesPublicado(e) {
     //guardo el id del boton
     let id = e.target.id;
-    console.log('id cliqueado', id);
     //expresion regular
     var regex = /(\d+)/g;
     //al id le dejo solo los nros con la regex
     let nro = parseInt(id.match(regex));
-    console.log('id despues de regex', nro);
 
     //busco y defino la propiedad segun el id
-    let aux = arrayDeptos.filter(ee => ee.id == nro);   
+    let aux = arrayDeptos.filter(ee => ee.id == nro);
     let propiedad = aux[0];
-        
+
     //paso el booleano a Si o No para mostrarlo
     let cochera = propiedad['cochera'];
     if (cochera) {
@@ -807,20 +802,18 @@ function mostrarDetallesPublicado(e) {
     });
     //para eliminar el depto Publicado
     let eliminoDepto = document.getElementById("btnPub");
-    if (Usuario1.publicaciones.includes(propiedad.id)) {        
+    if (Usuario1.publicaciones.includes(propiedad.id)) {
         $("#btnPub").text('Eliminar');
     };
 
     eliminoDepto.addEventListener('click', function () {
         if (Usuario1.publicaciones.includes(propiedad.id)) {
-            console.log('hice click en id(propiedad.id): ',propiedad.id );
             Usuario1.publicaciones.splice(propiedad.id, 1);
-            console.log('eliminando del usuario el id del publicado, no deberia estar en el array el nro: ', propiedad.id);
-            
-            let aux2 = arrayDeptos.filter(ee => ee.id != nro);   
-            arrayDeptos = aux2;                     
+
+            let aux2 = arrayDeptos.filter(ee => ee.id != nro);
+            arrayDeptos = aux2;
             //y en el array de Usuarios para actualizar el json
-            arrayUsuarios[Usuario1.id].publicaciones = arrayUsuarios[Usuario1.id].publicaciones.filter(publicaciones => publicaciones != propiedad.id);            
+            arrayUsuarios[Usuario1.id].publicaciones = arrayUsuarios[Usuario1.id].publicaciones.filter(publicaciones => publicaciones != propiedad.id);
             $("#btnFav").text('Eliminado');
 
             //actualizo el array de publicados del usuario
@@ -869,7 +862,7 @@ function mostrarDetalles(e) {
     //al id le dejo solo los nros con la regex
     let nro = parseInt(id.match(regex));
     //busco y defino la propiedad segun el id
-    let aux = arrayDeptos.filter(ee => ee.id == nro);   
+    let aux = arrayDeptos.filter(ee => ee.id == nro);
     let propiedad = aux[0];
     //paso el booleano a Si o No para mostrarlo
     let cochera = propiedad['cochera'];
@@ -965,7 +958,7 @@ function misPublicados() {
 
     //array para guardar lo filtrado    
     let misDeptosId = Usuario1.publicaciones;
-    
+
     if (misDeptosId.length == 0) {
         resultBusq.innerHTML = `<div class="contenedorBuscarPublicar"><p class="parrafoDetalle">No tenes Inmuebles Publicados</p>
         </div>`;
@@ -1087,11 +1080,11 @@ function misFavoritos() {
     } //cierra for
 };
 //---------------------------Salir------------------------------------------//
-function salir(){
+function salir() {
     location.reload();
 }
 //muestra en el body estadisticas del sitio
-function numeros(){
+function numeros() {
     $("#contenedorbusqueda").show();
     let resultBusq = document.getElementById("busqueda");
     let contenedor = document.createElement("div");
@@ -1111,33 +1104,33 @@ function numeros(){
                             </div>`;
     resultBusq.appendChild(contenedor);
     let numero = document.getElementById("numeroUsuarios");
-    let cant1=0;
-    let cant2 =0;
-    let cant3=0
-    let tiempo = setInterval(()=>{
-        cant1 +=1;
-        cant2 +=4;
-        cant3 +=1;        
+    let cant1 = 0;
+    let cant2 = 0;
+    let cant3 = 0
+    let tiempo = setInterval(() => {
+        cant1 += 1;
+        cant2 += 4;
+        cant3 += 1;
         $("#numeroInmuebles").text(cant2);
-        if(cant1 < arrayUsuarios.length){
+        if (cant1 < arrayUsuarios.length) {
             $("#numeroUsuarios").text(cant1);
-        }else{
+        } else {
             $("#numeroUsuarios").text(arrayUsuarios.length);
         }
-        if(cant2 < arrayDeptos.length){
+        if (cant2 < arrayDeptos.length) {
             $("#numeroInmuebles").text(cant2);
-        }else{
+        } else {
             $("#numeroInmuebles").text(arrayDeptos.length);
         }
-        if(cant3 < localidadesDisponibles.length){
+        if (cant3 < localidadesDisponibles.length) {
             $("#numeroLocalidades").text(cant3);
-        }else{
+        } else {
             $("#numeroLocalidades").text(localidadesDisponibles.length);
         }
-        if(cant2==arrayDeptos.length || cant1==arrayUsuarios.lenght){
+        if (cant2 == arrayDeptos.length || cant1 == arrayUsuarios.lenght) {
             clearInterval(tiempo);
         }
-    },160)
+    }, 160)
 }
 //===========================IMPLEMENTO FUNCIONES===========================//
 cargoPagina();
