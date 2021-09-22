@@ -550,7 +550,8 @@ function muestroDeptos(localidad, tipoInmueble, tipoUsos, habs, banios, cochera,
 //----------Muestra 10 deptos al final del body-----------------------------//
 function cargoDeptos() {
     //saco los primeros 8 deptos cargados del total de publicaciones
-    let aux = arrayDeptos.slice(0, 8);
+    let aux = arrayDeptos.slice(-8);
+    aux.reverse();
     let muestras = document.getElementById("contenedorMuestras");
     muestras.innerHTML = ` `;
     for (const inmueble of aux) {
