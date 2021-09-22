@@ -582,16 +582,19 @@ section {
         margin: 0px;
         position: absolute;
     }
-    .botonVolver2{
+
+    .botonVolver2 {
         width: 100%;
-        margin:0 auto;
+        margin: 0 auto;
     }
+
     /*Formularios*/
     .contenedor__login-register {
         top: -1rem;
         left: -0.5rem;
         margin: auto;
     }
+
     .contenedor__login-register form {
         position: relative;
     }
@@ -722,7 +725,8 @@ a {
     font-size: 4rem;
     font-weight: bold;
 }
-input{
+
+input {
     width: 100%;
     margin-top: 20px;
     padding: 10px;
@@ -731,13 +735,15 @@ input{
     font-size: 16px;
     outline: none;
 }
-form{
+
+form {
     width: 100%;
     padding: 2rem 2rem;
     background: var(--blanco);
     border-radius: 2rem;
 }
-input:placeholder-shown{
+
+input:placeholder-shown {
     border: 2px solid #f03f3f;
     background: #fff1f1;
     outline: 0;
